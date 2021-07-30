@@ -30,7 +30,7 @@ $CGenConfig = @{}
 
 # CGen Script Configuration
 $CGenConfig.ScriptName = "My PowerShell Form Code Generator"
-$CGenConfig.ScriptVersion = "4.8.00.00"
+$CGenConfig.ScriptVersion = "4.9.0.0"
 $CGenConfig.ScriptAuthor = "Ken Sweet"
 
 # CGen Form Control Space
@@ -859,6 +859,10 @@ function New-MyWindowsFormControl()
 
         #region ********* Show / Hide PowerShell Window *********
         [Void]$Code.AppendLine("#region >>>>>>>>>>>>>>>> Show / Hide PowerShell Window <<<<<<<<<<<<<<<<")
+        [Void]$Code.AppendLine("")
+        [Void]$Code.AppendLine("#[Void][Window.Display]::Hide()")
+        [Void]$Code.AppendLine("#[Void][Window.Display]::Show()")
+        [Void]$Code.AppendLine("")
         [Void]$Code.AppendLine("`$WindowDisplay = @`"")
         [Void]$Code.AppendLine("using System;")
         [Void]$Code.AppendLine("using System.Runtime.InteropServices;")
@@ -892,6 +896,9 @@ function New-MyWindowsFormControl()
 
         #region ********* Disable Control Close Menu / [X] *********
         [Void]$Code.AppendLine("#region >>>>>>>>>>>>>>>> Disable Control Close Menu / [X] <<<<<<<<<<<<<<<<")
+        [Void]$Code.AppendLine("")
+        [Void]$Code.AppendLine("#[ControlBox.Menu]::DisableFormClose(`$Form.Handle)")
+        [Void]$Code.AppendLine("")
         [Void]$Code.AppendLine("`$ControlBoxMenu = @`"")
         [Void]$Code.AppendLine("using System;")
         [Void]$Code.AppendLine("using System.Runtime.InteropServices;")
@@ -927,6 +934,9 @@ function New-MyWindowsFormControl()
         
         #region  ********* User Desktop Refresh *********
         [Void]$Code.AppendLine("#region >>>>>>>>>>>>>>>> User Desktop Refresh <<<<<<<<<<<<<<<<")
+        [Void]$Code.AppendLine("")
+        [Void]$Code.AppendLine("#[User.Desktop]::Refresh()")
+        [Void]$Code.AppendLine("")
         [Void]$Code.AppendLine("`$MyCode = @`"")
         [Void]$Code.AppendLine("using System;")
         [Void]$Code.AppendLine("using System.Runtime.InteropServices;")
@@ -953,7 +963,6 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("}")
         [Void]$Code.AppendLine("`"@")
         [Void]$Code.AppendLine("Add-Type -TypeDefinition `$MyCode -Debug:`$False")
-        [Void]$Code.AppendLine("#[User.Desktop]::Refresh()")
         [Void]$Code.AppendLine("#endregion ================ User Desktop Refresh ================")
         [Void]$Code.AppendLine("")
         #endregion ********* User Desktop Refresh *********
@@ -987,7 +996,9 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("        IntPtr[] SIcons = new IntPtr[1] { IntPtr.Zero };")
         [Void]$Code.AppendLine("        return (int)ExtractIconEx(FileName, -1, LIcons, SIcons, 1);")
         [Void]$Code.AppendLine("      }")
-        [Void]$Code.AppendLine("      catch { }")
+        [Void]$Code.AppendLine("      catch")
+        [Void]$Code.AppendLine("      {")
+        [Void]$Code.AppendLine("      }")
         [Void]$Code.AppendLine("      return 0;")
         [Void]$Code.AppendLine("    }")
         [Void]$Code.AppendLine("")
@@ -1014,7 +1025,9 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("          }")
         [Void]$Code.AppendLine("        }")
         [Void]$Code.AppendLine("      }")
-        [Void]$Code.AppendLine("      catch { }")
+        [Void]$Code.AppendLine("      catch")
+        [Void]$Code.AppendLine("      {")
+        [Void]$Code.AppendLine("      }")
         [Void]$Code.AppendLine("      finally")
         [Void]$Code.AppendLine("      {")
         [Void]$Code.AppendLine("        foreach (IntPtr ptr in LIcons)")
@@ -1049,6 +1062,10 @@ function New-MyWindowsFormControl()
         
         #region ********* [Login.Sessions] ********
         [Void]$Code.AppendLine("#region >>>>>>>>>>>>>>>> [Login.Sessions] <<<<<<<<<<<<<<<<")
+        [Void]$Code.AppendLine("")
+        [Void]$Code.AppendLine("#`$Sessions = [Login.Sessions]::EnumSessions()")
+        [Void]$Code.AppendLine("#`$Sessions = [Login.Sessions]::EnumSessions(`"ComputerName`")")
+        [Void]$Code.AppendLine("")
         [Void]$Code.AppendLine("`$MyCode = @`"")
         [Void]$Code.AppendLine("namespace Login")
         [Void]$Code.AppendLine("{")
@@ -1140,8 +1157,6 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("}")
         [Void]$Code.AppendLine("`"@")
         [Void]$Code.AppendLine("Add-Type -TypeDefinition `$MyCode -Debug:`$False")
-        [Void]$Code.AppendLine("#`$Sessions = [Login.Sessions]::EnumSessions()")
-        [Void]$Code.AppendLine("#`$Sessions = [Login.Sessions]::EnumSessions(`"ComputerName`")")
         [Void]$Code.AppendLine("#endregion ================ [Login.Sessions] ================")
         [Void]$Code.AppendLine("")
         #endregion ********* [Login.Sessions] ********
@@ -1271,6 +1286,58 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("  Write-Verbose -Message `"Exit Function New-MyListItem`"")
         [Void]$Code.AppendLine("}")
         [Void]$Code.AppendLine("#endregion function New-MyListItem")
+        [Void]$Code.AppendLine("")
+        #endregion
+        
+        #region ******** function ConvertTo-MyImage *********
+        [Void]$Code.AppendLine("#region function ConvertTo-MyImage")
+        [Void]$Code.AppendLine("function ConvertTo-MyImage()")
+        [Void]$Code.AppendLine("{")
+        [Void]$Code.AppendLine("  <#")
+        [Void]$Code.AppendLine("    .SYNOPSIS")
+        [Void]$Code.AppendLine("      Convert Base 64 Encoded Imagesback to Images")
+        [Void]$Code.AppendLine("    .DESCRIPTION")
+        [Void]$Code.AppendLine("      Convert Base 64 Encoded Imagesback to Images")
+        [Void]$Code.AppendLine("    .PARAMETER EncodedImage")
+        [Void]$Code.AppendLine("    .PARAMETER Image")
+        [Void]$Code.AppendLine("    .EXAMPLE")
+        [Void]$Code.AppendLine("      `$NewItem = ConvertTo-MyImage -EncodedImage `$EncodedImage")
+        [Void]$Code.AppendLine("    .EXAMPLE")
+        [Void]$Code.AppendLine("      `$NewItem = ConvertTo-MyImage -EncodedImage `$EncodedImage -Image")
+        [Void]$Code.AppendLine("    .NOTES")
+        [Void]$Code.AppendLine("      Original Function By Ken Sweet")
+        [Void]$Code.AppendLine("    .LINK")
+        [Void]$Code.AppendLine("  #>")
+        [Void]$Code.AppendLine("  [CmdletBinding()]")
+        [Void]$Code.AppendLine("  param (")
+        [Void]$Code.AppendLine("    [parameter(Mandatory = `$True)]")
+        [Void]$Code.AppendLine("    [String]`$EncodedImage,")
+        [Void]$Code.AppendLine("    [Switch]`$Image")
+        [Void]$Code.AppendLine("  )")
+        [Void]$Code.AppendLine("  Write-Verbose -Message `"Enter Function ConvertTo-MyImage`"")
+        [Void]$Code.AppendLine("  Try")
+        [Void]$Code.AppendLine("  {")
+        [Void]$Code.AppendLine("    if (`$Image.IsPresent)")
+        [Void]$Code.AppendLine("    {")
+        [Void]$Code.AppendLine("      [System.Drawing.Image]::FromStream([System.IO.MemoryStream]::New([System.Convert]::FromBase64String(`$EncodedImage)))")
+        [Void]$Code.AppendLine("    }")
+        [Void]$Code.AppendLine("    else")
+        [Void]$Code.AppendLine("    {")
+        [Void]$Code.AppendLine("      [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String(`$EncodedImage)))")
+        [Void]$Code.AppendLine("    }")
+        [Void]$Code.AppendLine("")
+        [Void]$Code.AppendLine("    [System.GC]::Collect()")
+        [Void]$Code.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
+        [Void]$Code.AppendLine("  }")
+        [Void]$Code.AppendLine("  Catch")
+        [Void]$Code.AppendLine("  {")
+        [Void]$Code.AppendLine("    Write-Debug -Message `"ErrMsg: `$(`$Error[0].Exception.Message)`"")
+        [Void]$Code.AppendLine("    Write-Debug -Message `"Line: `$(`$Error[0].InvocationInfo.ScriptLineNumber)`"")
+        [Void]$Code.AppendLine("    Write-Debug -Message `"Code:`$(`$Error[0].InvocationInfo.Line)`"")
+        [Void]$Code.AppendLine("  }")
+        [Void]$Code.AppendLine("  Write-Verbose -Message `"Exit Function ConvertTo-MyImage`"")
+        [Void]$Code.AppendLine("}")
+        [Void]$Code.AppendLine("#endregion function ConvertTo-MyImage")
         [Void]$Code.AppendLine("")
         #endregion
         
@@ -1484,8 +1551,8 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("    [System.Drawing.FontFamily]`$FontFamily = `$PUCConfig.FontFamily,")
         [Void]$Code.AppendLine("    [Int]`$FontSize = `$PUCConfig.FontSize,")
         [Void]$Code.AppendLine("    [System.Drawing.FontStyle]`$FontStyle = `"Regular`",")
-        [Void]$Code.AppendLine("    [System.Drawing.Color]`$BackColor = `$PUCColor.BackColor,")
-        [Void]$Code.AppendLine("    [System.Drawing.Color]`$ForeColor = `$PUCColor.ForeColor,")
+        [Void]$Code.AppendLine("    [System.Drawing.Color]`$BackColor = $($CGenConfig.ToolName)Color.BackColor,")
+        [Void]$Code.AppendLine("    [System.Drawing.Color]`$ForeColor = $($CGenConfig.ToolName)Color.ForeColor,")
         [Void]$Code.AppendLine("    [switch]`$PassThru")
         [Void]$Code.AppendLine("  )")
         [Void]$Code.AppendLine("  Write-Verbose -Message `"Enter Function New-MenuItem`"")
@@ -1503,13 +1570,19 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("      [Void]`$Menu.Items.Add(`$TempMenuItem)")
         [Void]$Code.AppendLine("    }")
         [Void]$Code.AppendLine("    `$TempMenuItem.TextAlign = `$Alignment")
-        [Void]$Code.AppendLine("    `$TempMenuItem.BackColor = `$BackColor")
+        [Void]$Code.AppendLine("    if (`$PSBoundParameters.ContainsKey(`"BackColor`"))")
+        [Void]$Code.AppendLine("    {")
+        [Void]$Code.AppendLine("      `$TempMenuItem.BackColor = `$BackColor")
+        [Void]$Code.AppendLine("    }")
+        [Void]$Code.AppendLine("    if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
+        [Void]$Code.AppendLine("    {")
+        [Void]$Code.AppendLine("      `$TempMenuItem.BackColor = `$ForeColor")
+        [Void]$Code.AppendLine("    }")
         [Void]$Code.AppendLine("    `$TempMenuItem.Checked = `$Check")
         [Void]$Code.AppendLine("    `$TempMenuItem.CheckOnClick = `$ClickOnCheck")
         [Void]$Code.AppendLine("    `$TempMenuItem.DisplayStyle = `$DisplayStyle")
         [Void]$Code.AppendLine("    `$TempMenuItem.Enabled = (-not `$Disable)")
         [Void]$Code.AppendLine("    `$TempMenuItem.Font = New-Object -TypeName System.Drawing.Font(`$FontFamily, `$FontSize, `$FontStyle, [System.Drawing.GraphicsUnit]::Point)")
-        [Void]$Code.AppendLine("    `$TempMenuItem.ForeColor = `$ForeColor")
         [Void]$Code.AppendLine("    If (`$PSCmdlet.ParameterSetName -eq `"Default`")")
         [Void]$Code.AppendLine("    {")
         [Void]$Code.AppendLine("      `$TempMenuItem.TextImageRelation = [System.Windows.Forms.TextImageRelation]::TextBeforeImage")
@@ -1634,11 +1707,17 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("      [Void]`$Menu.Items.Add(`$TempMenuLabel)")
         [Void]$Code.AppendLine("    }")
         [Void]$Code.AppendLine("    `$TempMenuLabel.TextAlign = `$Alignment")
-        [Void]$Code.AppendLine("    `$TempMenuLabel.BackColor = `$BackColor")
+        [Void]$Code.AppendLine("    if (`$PSBoundParameters.ContainsKey(`"BackColor`"))")
+        [Void]$Code.AppendLine("    {")
+        [Void]$Code.AppendLine("      `$TempMenuLabel.BackColor = `$BackColor")
+        [Void]$Code.AppendLine("    }")
+        [Void]$Code.AppendLine("    if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
+        [Void]$Code.AppendLine("    {")
+        [Void]$Code.AppendLine("      `$TempMenuLabel.BackColor = `$ForeColor")
+        [Void]$Code.AppendLine("    }")
         [Void]$Code.AppendLine("    `$TempMenuLabel.DisplayStyle = `$DisplayStyle")
         [Void]$Code.AppendLine("    `$TempMenuLabel.Enabled = (-not `$Disable)")
         [Void]$Code.AppendLine("    `$TempMenuLabel.Font = New-Object -TypeName System.Drawing.Font(`$FontFamily, `$FontSize, `$FontStyle, [System.Drawing.GraphicsUnit]::Point)")
-        [Void]$Code.AppendLine("    `$TempMenuLabel.ForeColor = `$ForeColor")
         [Void]$Code.AppendLine("    if (`$PSBoundParameters.ContainsKey(`"Icon`"))")
         [Void]$Code.AppendLine("    {")
         [Void]$Code.AppendLine("      `$TempMenuLabel.Image = `$Icon")
@@ -1719,8 +1798,14 @@ function New-MyWindowsFormControl()
         [Void]$Code.AppendLine("    {")
         [Void]$Code.AppendLine("      [Void]`$Menu.Items.Add(`$TempSeparator)")
         [Void]$Code.AppendLine("    }")
-        [Void]$Code.AppendLine("    `$TempSeparator.BackColor = `$BackColor")
-        [Void]$Code.AppendLine("    `$TempSeparator.ForeColor = `$ForeColor")
+        [Void]$Code.AppendLine("    if (`$PSBoundParameters.ContainsKey(`"BackColor`"))")
+        [Void]$Code.AppendLine("    {")
+        [Void]$Code.AppendLine("      `$TempSeparator.BackColor = `$BackColor")
+        [Void]$Code.AppendLine("    }")
+        [Void]$Code.AppendLine("    if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
+        [Void]$Code.AppendLine("    {")
+        [Void]$Code.AppendLine("      `$TempSeparator.BackColor = `$ForeColor")
+        [Void]$Code.AppendLine("    }")
         [Void]$Code.AppendLine("    `$TempSeparator.Name = `"TempSeparator`"")
         [Void]$Code.AppendLine("    `$TempSeparator.Text = `"TempSeparator`"")
         [Void]$Code.AppendLine("    #endregion")
@@ -5455,7 +5540,7 @@ function New-MyWindowsFormControl()
 	      [Void]$Code.AppendLine("")
 	      [Void]$Code.AppendLine("    public ListViewSort(int Column)")
 	      [Void]$Code.AppendLine("    {")
-	      [Void]$Code.AppendLine("      _olumn = Column;")
+	      [Void]$Code.AppendLine("      _Column = Column;")
 	      [Void]$Code.AppendLine("      _Ascending = true;")
 	      [Void]$Code.AppendLine("    }")
 	      [Void]$Code.AppendLine("")
@@ -5716,7 +5801,7 @@ function New-MyWindowsFormControl()
           {
             Switch ($Control)
             {
-              {@("Form", "Panel", "TabControl", "TabPage", "ContextMenuStrip", "MenuStrip", "StatusBar", "StatusStrip", "ToolBar", "ToolStrip", "ToolStripContainer", "ToolStripButton", "ToolStripDropDownButton", "ToolStripDropDown", "ToolStripMenuItem", "ToolStripPanel", "ToolStripProgressBar", "ToolStripSeparator", "ToolStripSplitButton", " SplitContainer", "Panel") -contains $PSItem}
+              { @("Form", "ContextMenuStrip", "MenuStrip", "StatusStrip", "ToolStrip", "ToolStripContainer") -contains $PSItem }
               {
                 Switch ($MyProp.Name)
                 {
@@ -5733,18 +5818,35 @@ function New-MyWindowsFormControl()
                 }
                 Break
               }
+              {@("Panel", "TabControl", "TabPage", "StatusBar", "ToolBar", "ToolStripButton", "ToolStripDropDownButton", "ToolStripDropDown", "ToolStripMenuItem", "ToolStripPanel", "ToolStripProgressBar", "ToolStripSeparator", "ToolStripSplitButton", " SplitContainer", "Panel") -contains $PSItem}
+              {
+                Switch ($MyProp.Name)
+                {
+                  "BackColor"
+                  {
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.BackColor")
+                    Break
+                  }
+                  "ForeColor"
+                  {
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.ForeColor")
+                    Break
+                  }
+                }
+                Break
+              }
               "Button"
               {
                 Switch ($MyProp.Name)
                 {
                   "BackColor"
                   {
-                    [Void]$Code.AppendLine("`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.ButtonBackColor")
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.ButtonBackColor")
                     Break
                   }
                   "ForeColor"
                   {
-                    [Void]$Code.AppendLine("`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.ButtonForeColor")
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.ButtonForeColor")
                     Break
                   }
                 }
@@ -5764,7 +5866,7 @@ function New-MyWindowsFormControl()
                   {
                     [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.ForeColor")
                     [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.TitleForeColor")
-                    [Void]$Code.AppendLine("`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.LabelForeColor")
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.LabelForeColor")
                     Break
                   }
                 }
@@ -5782,7 +5884,7 @@ function New-MyWindowsFormControl()
                   "ForeColor"
                   {
                     [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.ForeColor")
-                    [Void]$Code.AppendLine("`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.LabelForeColor")
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.LabelForeColor")
                     Break
                   }
                 }
@@ -5799,7 +5901,7 @@ function New-MyWindowsFormControl()
                   }
                   "ForeColor"
                   {
-                    [Void]$Code.AppendLine("`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.GroupForeColor")
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.GroupForeColor")
                     Break
                   }
                 }
@@ -5811,12 +5913,12 @@ function New-MyWindowsFormControl()
                 {
                   "BackColor"
                   {
-                    [Void]$Code.AppendLine("`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.TextBackColor")
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.TextBackColor")
                     Break
                   }
                   "ForeColor"
                   {
-                    [Void]$Code.AppendLine("`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.TextForeColor")
+                    [Void]$Code.AppendLine("#`$$($Name)$($Control)`.$($MyProp.Name) = $($CGenConfig.ToolName)Color.TextForeColor")
                     Break
                   }
                 }
@@ -7605,19 +7707,17 @@ function Convert-MyFormImageToBase64()
         [Void]$Code.AppendLine($Line)
       }
       $MemoryStream.Close()
-#      ForEach ($Line in @([Convert]::ToBase64String($([System.IO.File]::ReadAllBytes($Path))) -split "(?<=\G.{$LineSize})(?=.)"))
-#      {
-#        [Void]$Code.AppendLine($Line)
-#      }
       [Void]$Code.AppendLine("`"@")
       [Void]$Code.AppendLine("#endregion")
       if ([System.IO.Path]::GetExtension($path) -eq ".ico")
       {
-        [Void]$Code.AppendLine("#`$Form.Icon = [System.Drawing.Icon]([System.Convert]::FromBase64String(`$$ImageName))")
+        #[Void]$Code.AppendLine("#`$Form.Icon = [System.Drawing.Icon]([System.Convert]::FromBase64String(`$$ImageName))")
+        [Void]$Code.AppendLine("#`$Form.Icon = [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String(`$$ImageName)))")
       }
       else
       {
-        [Void]$Code.AppendLine("#`$PictureBox.Image = [System.Drawing.Image]([System.Convert]::FromBase64String(`$$ImageName))")
+        #[Void]$Code.AppendLine("#`$PictureBox.Image = [System.Drawing.Image]([System.Convert]::FromBase64String(`$$ImageName))")
+        [Void]$Code.AppendLine("#`$PictureBox.Image = [System.Drawing.Image]::FromStream([System.IO.MemoryStream]::New([System.Convert]::FromBase64String(`$$ImageName)))")
       }
     }
     Catch

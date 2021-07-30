@@ -5,6 +5,14 @@ $L1 = [System.Collections.ArrayList]::New()
 $L2 = [System.Collections.ArrayList]::New()
 
 Clear-Host
+
+
+[void][reflection.assembly]::Load('System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
+[void][reflection.assembly]::Load('System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
+
+
+Add-Type -AssemblyName System.Windows.Forms
+
 $Assembly = [System.Reflection.Assembly]::GetAssembly("System.Windows.Forms.Form")
 $ExportedTypes = $Assembly.ExportedTypes | Where-Object -FilterScript { $PSitem.IsPublic -and $PSItem.IsClass -and (-not $PSItem.IsAbstract) -and ($PSItem.FullName -like "System.Windows.Forms*") } | Sort-Object -Property FullName
 ForEach ($ExportedType in $ExportedTypes)
@@ -15,22 +23,26 @@ ForEach ($ExportedType in $ExportedTypes)
     Write-Host -Object $ExportedType.FullName -ForegroundColor Yellow
     ForEach ($Constructor in @($ExportedType.GetConstructors(("Instance", "Public"))))
     {
+      # Create
       #Write-Host -ForegroundColor Cyan -Object "`t[$($ExportedType.FullName)]::New($($Constructor | ForEach-Object -Process { @($PSItem.GetParameters() | ForEach-Object -Process { "[$($PSItem.ParameterType.FullName)]`$$($PSItem.Name.SubString(0, 1).ToUpper())$($PSItem.Name.SubString(1))"  }) -join ", " }))" 
     }
     ForEach($Property in @($ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.CanWrite } | Sort-Object -Property Name))
     {
-      #Write-Host -ForegroundColor Green -Object "`t$($Property.Name) = $($Property.PropertyType.FullName)"
+      # Properties
+      Write-Host -ForegroundColor Green -Object "`t$($Property.Name) = $($Property.PropertyType.FullName)"
     }
     ForEach($Property in @($ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.Name -notin @("Controls", "DataBindings") -and -not $PSItem.CanWrite -and $PSItem.PropertyType.GetInterface("ICollection").IsPublic } | Sort-Object -Property Name))
     {
       #Write-Host -Object "`t$($Property.Name) = $($Property.PropertyType.FullName)"
       ForEach ($Add in $Property.PropertyType.GetDeclaredMethods("Add"))
       {
+        # Add Item
         $AddText = @($Add.GetParameters() | ForEach-Object -Process { "[$($PSItem.ParameterType.FullName)]`$$($PSItem.Name.SubString(0, 1).ToUpper())$($PSItem.Name.SubString(1))" }) -join ", "
         #Write-Host -ForegroundColor Blue -Object "`t`t$($Property.Name).Add($AddText)"
       }
       ForEach ($Add in $Property.PropertyType.GetDeclaredMethods("AddRange"))
       {
+        # Add Items
         $AddText = @($Add.GetParameters() | ForEach-Object -Process { "[$($PSItem.ParameterType.FullName)]`$$($PSItem.Name.SubString(0, 1).ToUpper())$($PSItem.Name.SubString(1))" }) -join ", "
         #Write-Host -ForegroundColor Magenta -Object "`t`t$($Property.Name).AddRange($AddText)"
       }
@@ -42,14 +54,20 @@ ForEach ($ExportedType in $ExportedTypes)
     Write-Host -Object $ExportedType.FullName -ForegroundColor Yellow
     ForEach ($Constructor in @($ExportedType.GetConstructors(("Instance", "Public"))))
     {
+      # Create
       #Write-Host -ForegroundColor Cyan -Object "`t[$($ExportedType.FullName)]::New($($Constructor | ForEach-Object -Process { @($PSItem.GetParameters() | ForEach-Object -Process { "[$($PSItem.ParameterType.FullName)]`$$($PSItem.Name.SubString(0, 1).ToUpper())$($PSItem.Name.SubString(1))"  }) -join ", " }))" 
     }
     ForEach($Property in @($ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.CanWrite } | Sort-Object -Property Name))
     {
+      # Properties
       #Write-Host -ForegroundColor Green -Object "`t$($Property.Name) = $($Property.PropertyType.FullName)"
     }
   }
 }
+
+$Host.EnterNestedPrompt()
+
+
 
 
 if ($Property.Name -eq "Items")
