@@ -22,6 +22,7 @@ using namespace System.Collections
 
 # Comment Out $VerbosePreference Line for Production Deployment
 $VerbosePreference = "SilentlyContinue"
+$VerbosePreference = "Continue"
 
 # Comment Out $DebugPreference Line for Production Deployment
 $DebugPreference = "SilentlyContinue"
@@ -38,13 +39,13 @@ $Error.Clear()
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 #region >>>>>>>>>>>>>>>> MyFCG Configuration <<<<<<<<<<<<<<<<
-Class MyFCGConfig
+Class MyConfig
 {
   # Default Form Run Mode
   static [bool]$Production = $True
   
   static [String]$ScriptName = "My PS5 Form Code Generator"
-  static [Version]$ScriptVersion = [Version]::New("6.1.0.9")
+  static [Version]$ScriptVersion = [Version]::New("6.1.1.4")
   static [String]$ScriptAuthor = "Ken Sweet"
   
   # Default Form Settings
@@ -84,48 +85,48 @@ Class MyFCGConfig
 # [System.Drawing.Color]::LightCoral
 # [System.Drawing.Color]::DodgerBlue
 
-if ([MyFCGConfig]::DarkMode)
+if ([MyConfig]::DarkMode)
 {
-  [MyFCGConfig]::Colors.Add("Back", ([System.Drawing.Color]::FromArgb(16, 16, 16)))
-  [MyFCGConfig]::Colors.Add("Fore", ([System.Drawing.Color]::DodgerBlue))
-  [MyFCGConfig]::Colors.Add("LabelFore", ([System.Drawing.Color]::DodgerBlue))
-  [MyFCGConfig]::Colors.Add("ErrorFore", ([System.Drawing.Color]::Red))
-  [MyFCGConfig]::Colors.Add("TitleBack", ([System.Drawing.Color]::DarkGray))
-  [MyFCGConfig]::Colors.Add("TitleFore", ([System.Drawing.Color]::Black))
-  [MyFCGConfig]::Colors.Add("GroupFore", ([System.Drawing.Color]::DodgerBlue))
-  [MyFCGConfig]::Colors.Add("TextBack", ([System.Drawing.Color]::Gainsboro))
-  [MyFCGConfig]::Colors.Add("TextFore", ([System.Drawing.Color]::Black))
-  [MyFCGConfig]::Colors.Add("ButtonBack", ([System.Drawing.Color]::DarkGray))
-  [MyFCGConfig]::Colors.Add("ButtonFore", ([System.Drawing.Color]::Black))
+  [MyConfig]::Colors.Add("Back", ([System.Drawing.Color]::FromArgb(16, 16, 16)))
+  [MyConfig]::Colors.Add("Fore", ([System.Drawing.Color]::DodgerBlue))
+  [MyConfig]::Colors.Add("LabelFore", ([System.Drawing.Color]::DodgerBlue))
+  [MyConfig]::Colors.Add("ErrorFore", ([System.Drawing.Color]::Red))
+  [MyConfig]::Colors.Add("TitleBack", ([System.Drawing.Color]::DarkGray))
+  [MyConfig]::Colors.Add("TitleFore", ([System.Drawing.Color]::Black))
+  [MyConfig]::Colors.Add("GroupFore", ([System.Drawing.Color]::DodgerBlue))
+  [MyConfig]::Colors.Add("TextBack", ([System.Drawing.Color]::Gainsboro))
+  [MyConfig]::Colors.Add("TextFore", ([System.Drawing.Color]::Black))
+  [MyConfig]::Colors.Add("ButtonBack", ([System.Drawing.Color]::DarkGray))
+  [MyConfig]::Colors.Add("ButtonFore", ([System.Drawing.Color]::Black))
 }
 else
 {
-  [MyFCGConfig]::Colors.Add("Back", ([System.Drawing.Color]::WhiteSmoke))
-  [MyFCGConfig]::Colors.Add("Fore", ([System.Drawing.Color]::Navy))
-  [MyFCGConfig]::Colors.Add("LabelFore", ([System.Drawing.Color]::Navy))
-  [MyFCGConfig]::Colors.Add("ErrorFore", ([System.Drawing.Color]::Red))
-  [MyFCGConfig]::Colors.Add("TitleBack", ([System.Drawing.Color]::LightBlue))
-  [MyFCGConfig]::Colors.Add("TitleFore", ([System.Drawing.Color]::Navy))
-  [MyFCGConfig]::Colors.Add("GroupFore", ([System.Drawing.Color]::Navy))
-  [MyFCGConfig]::Colors.Add("TextBack", ([System.Drawing.Color]::White))
-  [MyFCGConfig]::Colors.Add("TextFore", ([System.Drawing.Color]::Black))
-  [MyFCGConfig]::Colors.Add("ButtonBack", ([System.Drawing.Color]::Gainsboro))
-  [MyFCGConfig]::Colors.Add("ButtonFore", ([System.Drawing.Color]::Navy))
+  [MyConfig]::Colors.Add("Back", ([System.Drawing.Color]::WhiteSmoke))
+  [MyConfig]::Colors.Add("Fore", ([System.Drawing.Color]::Navy))
+  [MyConfig]::Colors.Add("LabelFore", ([System.Drawing.Color]::Navy))
+  [MyConfig]::Colors.Add("ErrorFore", ([System.Drawing.Color]::Red))
+  [MyConfig]::Colors.Add("TitleBack", ([System.Drawing.Color]::LightBlue))
+  [MyConfig]::Colors.Add("TitleFore", ([System.Drawing.Color]::Navy))
+  [MyConfig]::Colors.Add("GroupFore", ([System.Drawing.Color]::Navy))
+  [MyConfig]::Colors.Add("TextBack", ([System.Drawing.Color]::White))
+  [MyConfig]::Colors.Add("TextFore", ([System.Drawing.Color]::Black))
+  [MyConfig]::Colors.Add("ButtonBack", ([System.Drawing.Color]::Gainsboro))
+  [MyConfig]::Colors.Add("ButtonFore", ([System.Drawing.Color]::Navy))
 }
 
 #endregion ================ Set MyFCG Default Colors ================
 
 #region >>>>>>>>>>>>>>>> Set MyFCG Default Font Data <<<<<<<<<<<<<<<<
 
-$TempBoldFont = [System.Drawing.Font]::New([MyFCGConfig]::FontFamily, [MyFCGConfig]::FontSize, [System.Drawing.FontStyle]::Bold)
+$TempBoldFont = [System.Drawing.Font]::New([MyConfig]::FontFamily, [MyConfig]::FontSize, [System.Drawing.FontStyle]::Bold)
 $TempGraphics = [System.Drawing.Graphics]::FromHwnd([System.IntPtr]::Zero)
 $TempMeasureString = $TempGraphics.MeasureString("X", $TempBoldFont)
-[MyFCGConfig]::Font.Add("Regular", ([System.Drawing.Font]::New([MyFCGConfig]::FontFamily, [MyFCGConfig]::FontSize, [System.Drawing.FontStyle]::Regular)))
-[MyFCGConfig]::Font.Add("Bold", ($TempBoldFont))
-[MyFCGConfig]::Font.Add("Title", ([System.Drawing.Font]::New([MyFCGConfig]::FontFamily, ([MyFCGConfig]::FontSize * [MyFCGConfig]::FontTitle), [System.Drawing.FontStyle]::Bold)))
-[MyFCGConfig]::Font.Add("Ratio", ($TempGraphics.DpiX / 96))
-[MyFCGConfig]::Font.Add("Width", ([Math]::Floor($TempMeasureString.Width)))
-[MyFCGConfig]::Font.Add("Height", ([Math]::Ceiling($TempMeasureString.Height)))
+[MyConfig]::Font.Add("Regular", ([System.Drawing.Font]::New([MyConfig]::FontFamily, [MyConfig]::FontSize, [System.Drawing.FontStyle]::Regular)))
+[MyConfig]::Font.Add("Bold", ($TempBoldFont))
+[MyConfig]::Font.Add("Title", ([System.Drawing.Font]::New([MyConfig]::FontFamily, ([MyConfig]::FontSize * [MyConfig]::FontTitle), [System.Drawing.FontStyle]::Bold)))
+[MyConfig]::Font.Add("Ratio", ($TempGraphics.DpiX / 96))
+[MyConfig]::Font.Add("Width", ([Math]::Floor($TempMeasureString.Width)))
+[MyConfig]::Font.Add("Height", ([Math]::Ceiling($TempMeasureString.Height)))
 $TempBoldFont = $Null
 $TempMeasureString = $Null
 $TempGraphics.Dispose()
@@ -282,7 +283,7 @@ Add-Type -TypeDefinition $MyCode -Debug:$False
 #endregion ******** [Console.Window] ********
 
 [System.Console]::Title = "RUNNING: $($SUMConfig.ScriptName) - $($SUMConfig.ScriptVersion)"
-if ([MyFCGConfig]::Production)
+if ([MyConfig]::Production)
 {
   [Void][Console.Window]::Hide()
 }
@@ -438,9 +439,9 @@ function New-MenuItem()
     [Switch]$Check,
     [Switch]$ClickOnCheck,
     [System.Windows.Forms.Keys]$ShortcutKeys = "None",
-    [System.Drawing.Font]$Font = [MyFCGConfig]::Font.Regular,
-    [System.Drawing.Color]$BackColor = [MyFCGConfig]::Colors.Back,
-    [System.Drawing.Color]$ForeColor = [MyFCGConfig]::Colors.Fore,
+    [System.Drawing.Font]$Font = [MyConfig]::Font.Regular,
+    [System.Drawing.Color]$BackColor = [MyConfig]::Colors.Back,
+    [System.Drawing.Color]$ForeColor = [MyConfig]::Colors.Fore,
     [switch]$PassThru
   )
   Write-Verbose -Message "Enter Function New-MenuItem"
@@ -576,9 +577,9 @@ function New-MenuLabel()
     [System.Drawing.ContentAlignment]$Alignment = "MiddleCenter",
     [Object]$Tag,
     [Switch]$Disable,
-    [System.Drawing.Font]$Font = [MyFCGConfig]::Font.Regular,
-    [System.Drawing.Color]$BackColor = [MyFCGConfig]::Colors.Back,
-    [System.Drawing.Color]$ForeColor = [MyFCGConfig]::Colors.Fore,
+    [System.Drawing.Font]$Font = [MyConfig]::Font.Regular,
+    [System.Drawing.Color]$BackColor = [MyConfig]::Colors.Back,
+    [System.Drawing.Color]$ForeColor = [MyConfig]::Colors.Fore,
     [switch]$PassThru
   )
   Write-Verbose -Message "Enter Function New-MenuLabel"
@@ -669,8 +670,8 @@ function New-MenuSeparator()
   param (
     [parameter(Mandatory = $True)]
     [Object]$Menu,
-    [System.Drawing.Color]$BackColor = [MyFCGConfig]::Colors.Back,
-    [System.Drawing.Color]$ForeColor = [MyFCGConfig]::Colors.Fore
+    [System.Drawing.Color]$BackColor = [MyConfig]::Colors.Back,
+    [System.Drawing.Color]$ForeColor = [MyConfig]::Colors.Fore
   )
   Write-Verbose -Message "Enter Function New-MenuSeparator"
   
@@ -969,6 +970,54 @@ AAAAAAAA+D+sQeAfrEEAD6xBAAesQYABrEEAAaxBAAGsQYAArEEAAKxBAACsQQAArEEAAKxBwACsQfAA
 "@
 #endregion ******** $LibraryIcon ********
 #$Form.Icon = [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($LibraryIcon)))
+
+#region ******** $CheckAllIcon ********
+$CheckAllIcon = @"
+AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADKyN4A5tT7vP7hF30K6SDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAACasKp9Eu0r/qe6y/5Dimf8+uETPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABqmHJ84tT3/oOip/6DurP+19b//ctN6/z24Q4AAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2gDp9Gu0v/oOap/47lmv+E5pH/ne+p/6/zuf9KvlD/O7dBMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKaAp87tT//mOCh/4Tdj/963of/qOyy/5nspf+s87f/l+af/zi1
+Pc8AAAAAAAAAAAAAAAAAAAAAAAAAAACYAI80sTj/kNuZ/3nWhf9/2ov/n+ao/3nUgP+p7bP/keue/7LzvP9s0HT/N7U8gAAAAAAAAAAAAAAAAAAAAAAAlwD/idaS/3DPe/9104D/l+Cg/0K5R/8ToxX/gtiJ/53q
+qP+S6p//p+2x/0O7SP81tDowAAAAAAAAAAAAAAAAAJYA/37Qhv+F1Y//htaO/y+vMv8HnAefEKESQCWrKP+j6Kz/h+SU/6HrrP+M35T/MrI33zSzORAAAAAAAAAAAACVAI8hpST/RLZJ/xGgE/8AmQCPAAAAAAAA
+AAAPoBCfWMRe/5zlpv963oj/pequ/2LJaf8xsjaPAAAAAAAAAAAAAAAAAJUAMACXAGAAmAAwAAAAAAAAAAAAAAAADJ8NEA6gD++J2pL/h96T/4DdjP+Y4qH/O7ZA/zCxNEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAJngpgL68y/5fgoP9r1Hj/jN2W/33Uhf8srzDfLrAyEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAidCb9nyW7/idqT/1rLaP+U3p3/V8Jd/yuuL48AAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmwUwD6AQ/4XVjf9mzHL/Zsxy/4fXkP8mrCr/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOaA4A/tUP/iNWR/2/Nef+J1pH/JKwq/wAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAmQAQApoC30y6Uv9mxW3/TLpR/xqmHL8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZACACmgKfCJ0Ivw6g
+D58ToxUQ+H+sQfB/rEHgP6xBwB+sQYAfrEEAD6xBAAesQQADrEEGA6xBjgGsQf8ArEH/gKxB/4CsQf/ArEH/wKxB/+CsQQ==
+"@
+#endregion ******** $CheckAllIcon ********
+#$Form.Icon = [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($CheckAllIcon)))
+
+#region ******** $UnCheckAllIcon ********
+$UnCheckAllIcon = @"
+AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8Ps48SErOvGhqtEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4eqRAqKsmvLy/TjwAA
+AAAAAAAAAAAAAA0Nsp8GBrf/CQm6/xQUtM8bG60QAAAAAAAAAAAAAAAAAAAAAB0dqhAnJ8bPODju/0BA9/81NdqfAAAAADc3v48HB7X/Bga3/wkJuv8MDL3/FRW1zxsbrBAAAAAAAAAAAB0dqhAjI8LPLy/k/zY2
+7P87O/L/PT30/y4u0I9ERMSvVFTO/wkJt/8ICLn/Cwu8/w4OwP8WFrfPHBysEBwcqxAfH77PJiba/yws4P8xMeb/NTXr/zY27P8pKcevGRmvEEVFxM9VVc//Cwu5/woKu/8NDb//ERHD/xgYuM8bG7vPHh7R/yMj
+1v8nJ9v/Kyvg/y4u4/8mJsXPHh6pEAAAAAAZGa8QRUXEz1VV0P8MDLv/DAy+/w8Pwf8TE8X/FxfJ/xsbzv8fH9L/IiLW/yUl2f8iIsHPHR2qEAAAAAAAAAAAAAAAABkZrhBGRsTPVlbQ/w4OvP8ODr//ERHD/xQU
+xv8XF8r/GhrN/x4e0f8eHr7PHR2qEAAAAAAAAAAAAAAAAAAAAAAAAAAAGhquEEZGxc9NTc//DAy9/w4OwP8REcP/FBTG/xYWyf8bG7rPHByrEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABkZrhAlJbjPLi7E/x0d
+wf8ODr7/Dg7A/xAQwv8TE8X/GBi4zxwcrBAAAAAAAAAAAAAAAAAAAAAAAAAAABkZrxAmJrnPNDTE/zIyxf8wMMX/Ly/G/ygoxf8gIMT/Hx/F/x8fxv8jI7rPGxusEAAAAAAAAAAAAAAAABgYsBAoKLnPOTnE/zY2
+xP80NMT/MjLF/zAwxf9oaNf/MTHH/y4ux/8uLsj/LS3J/yMjuc8bG60QAAAAABcXsRArK7rPPj7F/zs7xf85OcT/NjbE/zQ0xP8lJbjPT0/Hz3Bw2f8yMsb/Ly/G/y4uxv8uLsf/JCS5zxoarRBTU8qvVFTM/0FB
+xv8+PsX/OzvF/zk5xP8mJrnPGRmuEBoarhBQUMfPcXHY/zMzxf8wMMX/MDDF/zAwxf8kJLivY2PQj5iY5v9TU8z/QUHG/z4+xf8oKLnPGRmvEAAAAAAAAAAAGhquEFBQx89yctj/NTXF/zIyxP8yMsT/Jye6jwAA
+AABpadOfmJjm/1RUzP8rK7rPGBiwEAAAAAAAAAAAAAAAAAAAAAAZGa8QUFDIz3R02P84OMT/KSm7nwAAAAAAAAAAAAAAAGNj0I9TU8qvFxewEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABkZrxBQUMivSkrFjwAA
+AAAAAAAAx+OsQYPBrEEBgKxBAACsQQAArEGAAaxBwAOsQeAHrEHgB6xBwAOsQYABrEEAAKxBAACsQQGArEGDwaxBx+OsQQ==
+"@
+#endregion ******** $UnCheckAllIcon ********
+#$Form.Icon = [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($UnCheckAllIcon)))
+
+#region ******** $FavoritesIcon ********
+$FavoritesIcon = @"
+AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAmk9lALofTfDp3xcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZ52WApdde/LHHTcAAA
+AAAAAAAAAAAAAAAAAAAJpfeAHLb6/xSn9P8RmO6vFJTrEAAAAAAAAAAAIILfECJ/3a8ukuP/PK7t/yxx058AAAAAAAAAAAAAAAAAAAAACaT2QBWu+P8lxv//F673/xWT6t8YjudAHYfiMB+E4N8npe7/PNL//zKT
+4/8rctRQAAAAAAAAAAAAAAAAAAAAAAAAAAALofTvKMf//x3B//8UtPv/F5Pq/xiO5/8Wrvj/IcT//yzJ//8qe9n/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC6D0ryG7+/8ixP//GL7//w+2/f8Gsf3/B7X//xK7
+//8drvX/KHbXrwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAyf82Aisfb/NMz//x7C//8Vvf//DLj//wW0//8Es///GZPp/yd32GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALoPSfLbT1/2zi//9E0v//HcH//xW9
+//8Puf//Crb//x2M5f8odtefK3LUEAAAAAAAAAAAAAAAAAWp+jAIpvfPO8H5/2/j/v905f//cuP//2be//9Bz///I8P//xS8//8Ru///H5To/yxx088ubdEwAAAAAAGv/nANr/vvWdj9/3vs//956f//d+f//3Xm
+//905P//cuP//3Li//9i2///UdT//0XQ//87tvT/NHPS/zJnzXAavf//fu3//4Pw//9/7v//fOv//3rq//956P//d+b//3bl//915P//deT//3Xj//904///dOP//3Dc/P8/ftb/Aa/+3wSr+/8Ipvj/C6H0/yOr
+9P8srPL/aNr7/3vp//966P//btr7/zeZ5v81juD/KXXX/yxx0/8wbND/MmfN7wAAAAAAAAAAAAAAAAAAAAAAAAAAE5bscEO69P9+7P//fer//0iw7f8hgd5wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAABOW7BAinu3/g+7//4Ht//8rkeT/IYHeIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFZLqr2TS+P9y3Pr/HoThzwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAABaR6WBDtPD/Tbfv/x2F4mAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWkekQIJTo7yOQ5e8dhuIQAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAx+OsQcGDrEHAA6xB4AesQeAHrEHgB6xB4AOsQYABrEEAAKxBAACsQQAArEH4H6xB+B+sQfw/rEH8P6xB/D+sQQ==
+"@
+#endregion ******** $FavoritesIcon ********
+#$Form.Icon = [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($FavoritesIcon)))
 
 #endregion ================ MyFCG Custom Code ================
 
@@ -1302,14 +1351,14 @@ function Build-MyScriptHeader ()
   $StringBuilder = [System.Text.StringBuilder]::New()
   
   #region ******** My Code ********
-  [Void]$StringBuilder.AppendLine("#requires -version 5.0")
-  [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("########################################################################################################################")
+  [Void]$StringBuilder.AppendLine("# ----------------------------------------------------------------------------------------------------------------------")
   [Void]$StringBuilder.AppendLine("#")
   [Void]$StringBuilder.AppendLine("#  Script: $($MyScriptName)")
   [Void]$StringBuilder.AppendLine("# Version: 0.0.0.0 Initial Release")
   [Void]$StringBuilder.AppendLine("#")
-  [Void]$StringBuilder.AppendLine("########################################################################################################################")
+  [Void]$StringBuilder.AppendLine("# ----------------------------------------------------------------------------------------------------------------------")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("#requires -version 5.0")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("using namespace System.Windows.Forms")
   [Void]$StringBuilder.AppendLine("using namespace System.Drawing")
@@ -1322,7 +1371,7 @@ function Build-MyScriptHeader ()
   [Void]$StringBuilder.AppendLine("  .EXAMPLE")
   [Void]$StringBuilder.AppendLine("  .NOTES")
   [Void]$StringBuilder.AppendLine("    My Script $($MyScriptName) Version 1.0 by $([System.Environment]::UserName) on $(([DateTime]::Now).ToString("MM/dd/yyyy"))")
-  [Void]$StringBuilder.AppendLine("    Created with `"$([MyFCGConfig]::ScriptName)`" Version $([MyFCGConfig]::ScriptVersion)")
+  [Void]$StringBuilder.AppendLine("    Created with `"$([MyConfig]::ScriptName)`" Version $([MyConfig]::ScriptVersion)")
   [Void]$StringBuilder.AppendLine("#>")
   [Void]$StringBuilder.AppendLine("#[CmdletBinding()]")
   [Void]$StringBuilder.AppendLine("#param (")
@@ -1549,7 +1598,7 @@ function Build-MyScriptColors ()
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextTitle`", ([System.Drawing.Color]::Navy))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextHint`", ([System.Drawing.Color]::Gray))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextBad`", ([System.Drawing.Color]::FireBrick))")
-  [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextWarn`", ([System.Drawing.Color]::Peru))")
+  [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextWarn`", ([System.Drawing.Color]::Sienna))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextGood`", ([System.Drawing.Color]::ForestGreen))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextInfo`", ([System.Drawing.Color]::CornflowerBlue))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"ButtonBack`", ([System.Drawing.Color]::DarkGray))")
@@ -1570,7 +1619,7 @@ function Build-MyScriptColors ()
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextTitle`", ([System.Drawing.Color]::Navy))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextHint`", ([System.Drawing.Color]::Gray))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextBad`", ([System.Drawing.Color]::FireBrick))")
-  [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextWarn`", ([System.Drawing.Color]::Peru))")
+  [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextWarn`", ([System.Drawing.Color]::Sienna))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextGood`", ([System.Drawing.Color]::ForestGreen))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"TextInfo`", ([System.Drawing.Color]::CornflowerBlue))")
   [Void]$StringBuilder.AppendLine("  [MyConfig]::Colors.Add(`"ButtonBack`", ([System.Drawing.Color]::Gainsboro))")
@@ -2023,6 +2072,67 @@ function Build-MyScriptWindowsAPIs ()
   [Void]$StringBuilder.AppendLine("#endregion ******** [ControlBox.Menu] ********")
   [Void]$StringBuilder.AppendLine("")
   #endregion ******** Win API - [ControlBox.Menu] ********
+  
+  #region ******** Win API - [My.Screen] ********
+  [Void]$StringBuilder.AppendLine("#region ******** [My.Screen] ********")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("# `$Info = [My.Screen]::Info()")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("# `$Info.PWidth = Physical Width")
+  [Void]$StringBuilder.AppendLine("# `$Info.PHeight = Physical Height")
+  [Void]$StringBuilder.AppendLine("# `$Info.LWidth = Logical Width")
+  [Void]$StringBuilder.AppendLine("# `$Info.LHeight = Logical Height")
+  [Void]$StringBuilder.AppendLine("# `$Info.Scale = Scale")
+  [Void]$StringBuilder.AppendLine("# `$Info.BitsPixel = Bits Per Pixel")
+  [Void]$StringBuilder.AppendLine("# `$Info.Referesh = Refresh Rate")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("`$MyCode = @`"")
+  [Void]$StringBuilder.AppendLine("namespace My")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  using System;")
+  [Void]$StringBuilder.AppendLine("  using System.Runtime.InteropServices;")
+  [Void]$StringBuilder.AppendLine("  using System.Drawing;")
+  [Void]$StringBuilder.AppendLine("  using System.Collections.Specialized;")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("  public static class Screen")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    [DllImport(`"gdi32.dll`", SetLastError=true)]")
+  [Void]$StringBuilder.AppendLine("    internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("    public static OrderedDictionary Info()")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      /// Get Primary Desktop")
+  [Void]$StringBuilder.AppendLine("      IntPtr Desktop = (Graphics.FromHwnd(IntPtr.Zero)).GetHdc();")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("      OrderedDictionary MyScreen = new OrderedDictionary();")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("      /// Physical Screen Size")
+  [Void]$StringBuilder.AppendLine("      int TempPW = GetDeviceCaps(Desktop, 118);")
+  [Void]$StringBuilder.AppendLine("      MyScreen.Add(`"PWidth`", TempPW);")
+  [Void]$StringBuilder.AppendLine("      MyScreen.Add(`"PHeight`", GetDeviceCaps(Desktop, 117));")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("      /// Logical Screen Size")
+  [Void]$StringBuilder.AppendLine("      int TempLW = GetDeviceCaps(Desktop, 8);")
+  [Void]$StringBuilder.AppendLine("      MyScreen.Add(`"LWidth`", TempLW);")
+  [Void]$StringBuilder.AppendLine("      MyScreen.Add(`"LHeight`", GetDeviceCaps(Desktop, 10));")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("      /// Screen Scale")
+  [Void]$StringBuilder.AppendLine("      MyScreen.Add(`"Scale`", ((float)TempPW / (float)TempLW));")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("      /// Other Screen Info")
+  [Void]$StringBuilder.AppendLine("      MyScreen.Add(`"BitsPixel`", GetDeviceCaps(Desktop, 12));")
+  [Void]$StringBuilder.AppendLine("      MyScreen.Add(`"Referesh`", GetDeviceCaps(Desktop, 116));")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("      return MyScreen.AsReadOnly();")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("`"@")
+  [Void]$StringBuilder.AppendLine("Add-Type -TypeDefinition `$MyCode -ReferencedAssemblies `"System.Drawing.dll`" -Debug:`$False")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("#endregion ******** [My.Screen] ********")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion ******** Win API - [My.Screen] ********
   
   #region ******** Win API - [User.Desktop] ********
   [Void]$StringBuilder.AppendLine("#region ******** [User.Desktop] ********")
@@ -2883,6 +2993,25 @@ function Build-MyScriptWindowsAPIs ()
   [Void]$StringBuilder.AppendLine("#endregion ******** [MyAD.Stuff] ********")
   [Void]$StringBuilder.AppendLine("")
   #endregion ******** Win API - [MyAD.Stuff] ********
+  
+  #region ******** Trust All Certs ********
+  [Void]$StringBuilder.AppendLine("#region ******** Trust All Certs ********")
+  [Void]$StringBuilder.AppendLine("`$MyCode = @`"")
+  [Void]$StringBuilder.AppendLine("  using System.Net;")
+  [Void]$StringBuilder.AppendLine("  using System.Security.Cryptography.X509Certificates;")
+  [Void]$StringBuilder.AppendLine("  public class TrustAllCertsPolicy : ICertificatePolicy ")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    public bool CheckValidationResult(ServicePoint srvPoint, X509Certificate certificate, WebRequest request, int certificateProblem)")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      return true;")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("`"@")
+  [Void]$StringBuilder.AppendLine("Add-Type -TypeDefinition `$MyCode -Debug:`$False")
+  [Void]$StringBuilder.AppendLine("[Net.ServicePointManager]::CertificatePolicy = [TrustAllCertsPolicy]::New()")
+  [Void]$StringBuilder.AppendLine("#endregion ******** Trust All Certs ********")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion ******** Trust All Certs ********
   
   [Void]$StringBuilder.AppendLine("#endregion ================ Windows APIs ================")
   [Void]$StringBuilder.AppendLine("")
@@ -4700,6 +4829,59 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("")
   #endregion function Validate-MyADAccount
   
+  #region function Confirm-MyGroupMemberShip
+  [Void]$StringBuilder.AppendLine("#region function Confirm-MyGroupMemberShip")
+  [Void]$StringBuilder.AppendLine("Function Confirm-MyGroupMemberShip ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Confirms if user is Member of a Group")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Confirms if user is Member of a Group")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER UserName")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER GroupName")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER SearchRoot")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER SearchScope")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("      Confirm-MyGroupMemberShip -UserName `$UserName -GroupName `$GroupName")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By Ken Sweet")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("  Param (")
+  [Void]$StringBuilder.AppendLine("    [String[]]`$UserName = [Environment]::UserName,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$GroupName,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$SearchRoot = `"LDAP://MyDomain.Local/dc=MyDomain,dc=Local`",")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(`"SubTree`", `"OneLevel`")]")
+  [Void]$StringBuilder.AppendLine("    [String]`$SearchScope = `"SubTree`"")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Confirm-MyGroupMemberShip`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Loop and Proccess all Values")
+  [Void]$StringBuilder.AppendLine("  ForEach (`$User In `$UserName)")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$ChkADUser = ([adsisearcher]::New(`$SearchRoot, `"(&(objectClass=user)(objectCategory=person)(samAccountName=`$(`$User)))`", @(`"DistinguishedName`"), `$SearchScope)).FindOne()")
+  [Void]$StringBuilder.AppendLine("    If ([String]::IsNullOrEmpty(`$ChkADUser.Path))")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      `$IsMember = `$False")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    Else")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      `$Group = ([adsisearcher]::New(`$SearchRoot, `"(&(objectClass=group)(objectCategory=group)(name=`$(`$GroupName))(member:1.2.840.113556.1.4.1941:=`$(`$ChkADUser.Properties[`"distinguishedname`"][0])))`", @(`"adspath`"), `$SearchScope)).FindOne()")
+  [Void]$StringBuilder.AppendLine("      `$IsMember = (-not [String]::IsNullOrEmpty(`$Group.Path))")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    [PSCustomObject]@{ `"UserName`" = `$User; `"GroupName`" = `$GroupName; `"IsMember`" = `$IsMember }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Confirm-MyGroupMemberShip`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Confirm-MyGroupMemberShip")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Confirm-MyGroupMemberShip
+  
   #region function Open-MySQLConnection
   [Void]$StringBuilder.AppendLine("#region function Open-MySQLConnection")
   [Void]$StringBuilder.AppendLine("function Open-MySQLConnection()")
@@ -4715,6 +4897,8 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("      `$DBCon = Open-MySQLConnection -ConnectionString `"Data Source=Server\Instance;Initial Catalog=Database;Trusted_Connection=yes`"")
   [Void]$StringBuilder.AppendLine("    .EXAMPLE")
   [Void]$StringBuilder.AppendLine("      `$DBCon = Open-MySQLConnection -ConnectionString `"Data Source=Server\Instance;Initial Catalog=Database;User Id=UserName;Password=Password;`"")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("      `$DBCon = Open-MySQLConnection -ConnectionString `"Server=tcp:{0}.database.windows.net,1433;Initial Catalog={1};Persist Security Info=False;User ID={2};Password={3};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Authentication='Active Directory Password';`"")
   [Void]$StringBuilder.AppendLine("    .EXAMPLE")
   [Void]$StringBuilder.AppendLine("      Import-Module -Name Az.Accounts")
   [Void]$StringBuilder.AppendLine("      `$ConnectInfo = Connect-AzAccount")
@@ -5609,7 +5793,6 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("        {")
   [Void]$StringBuilder.AppendLine("          # Workstation Not in DNS")
   [Void]$StringBuilder.AppendLine("          `$VerifyObject.UpdateStatus(`"Workstation Not in DNS`")")
-  [Void]$StringBuilder.AppendLine("          `$Host.EnterNestedPrompt()")
   [Void]$StringBuilder.AppendLine("        }")
   [Void]$StringBuilder.AppendLine("      }")
   [Void]$StringBuilder.AppendLine("      else")
@@ -7457,7 +7640,7 @@ function Build-MyScriptFunctions ()
   
   #region function Send-MyGraphMail
   [Void]$StringBuilder.AppendLine("#region function Send-MyGraphMail")
-  [Void]$StringBuilder.AppendLine("function Send-MyGraphMail")
+  [Void]$StringBuilder.AppendLine("Function Send-MyGraphMail")
   [Void]$StringBuilder.AppendLine("{")
   [Void]$StringBuilder.AppendLine("  <#")
   [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
@@ -7471,10 +7654,10 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    .PARAMETER Body")
   [Void]$StringBuilder.AppendLine("    .PARAMETER AsText")
   [Void]$StringBuilder.AppendLine("    .PARAMETER To")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Mention")
   [Void]$StringBuilder.AppendLine("    .PARAMETER CC")
   [Void]$StringBuilder.AppendLine("    .PARAMETER BCC")
   [Void]$StringBuilder.AppendLine("    .PARAMETER ReplyTo")
-  [Void]$StringBuilder.AppendLine("    .PARAMETER From")
   [Void]$StringBuilder.AppendLine("    .PARAMETER Importance")
   [Void]$StringBuilder.AppendLine("    .PARAMETER Flagged")
   [Void]$StringBuilder.AppendLine("    .PARAMETER DeliveryReceipt")
@@ -7485,9 +7668,10 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("      Send-MyGraphMail -Subject `$Subject -Body `$Body -To `$To -AuthToken `$AuthToken")
   [Void]$StringBuilder.AppendLine("    .NOTES")
   [Void]$StringBuilder.AppendLine("      Original Function By Ken Sweet")
+  [Void]$StringBuilder.AppendLine("      23/06/08 Add Mention Option")
   [Void]$StringBuilder.AppendLine("  #>")
   [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"Me`")]")
-  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("  Param (")
   [Void]$StringBuilder.AppendLine("    [ValidateSet(`"v1.0`", `"Beta`")]")
   [Void]$StringBuilder.AppendLine("    [String]`$Version = `"Beta`",")
   [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
@@ -7501,6 +7685,7 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    [Switch]`$AsText,")
   [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
   [Void]$StringBuilder.AppendLine("    [System.Net.Mail.MailAddress[]]`$To,")
+  [Void]$StringBuilder.AppendLine("    [System.Net.Mail.MailAddress[]]`$Mention,")
   [Void]$StringBuilder.AppendLine("    [System.Net.Mail.MailAddress[]]`$CC,")
   [Void]$StringBuilder.AppendLine("    [System.Net.Mail.MailAddress[]]`$BCC,")
   [Void]$StringBuilder.AppendLine("    [System.Net.Mail.MailAddress[]]`$ReplyTo,")
@@ -7517,61 +7702,65 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  ")
   [Void]$StringBuilder.AppendLine("  `$Message = [Ordered]@{ `"Message`" = [Ordered]@{ `"Subject`" = `$Subject } }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  if (`$AsText.IsPresent)")
+  [Void]$StringBuilder.AppendLine("  If (`$AsText.IsPresent)")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Add(`"Body`", [Ordered]@{ `"ContentType`" = `"TEXT`" })")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"Body`", [Ordered]@{ `"ContentType`" = `"TEXT`" })")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  Else")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Add(`"Body`", [Ordered]@{ `"ContentType`" = `"HTML`" })")
-  [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  `$Message.Message.Body.Add(`"Content`", `$Body)")
-  [Void]$StringBuilder.AppendLine("  `$Message.Message.Add(`"Importance`", `$Importance)")
-  [Void]$StringBuilder.AppendLine("  `$Message.Message.Add(`"isDeliveryReceiptRequested`", (`$DeliveryReceipt.IsPresent.ToString()))")
-  [Void]$StringBuilder.AppendLine("  `$Message.Message.Add(`"isReadReceiptRequested`", (`$ReadReceipt.IsPresent.ToString()))")
-  [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  if (`$Flagged.IsPresent)")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Add(`"flag`", [Ordered]@{ `"flagStatus`" = `"flagged`" })")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Flag.Add(`"dueDateTime`", [Ordered]@{ `"dateTime`" = ([DateTime]::Now.ToString(`"yyyy-MM-ddT23:59:59`")); `"timeZone`" = ([TimeZone]::CurrentTimeZone.StandardName) })")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Flag.Add(`"startDateTime`", [Ordered]@{ `"dateTime`" = ([DateTime]::Now.ToString(`"yyyy-MM-ddT23:59:59`")); `"timeZone`" = ([TimeZone]::CurrentTimeZone.StandardName) })")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"Body`", [Ordered]@{ `"ContentType`" = `"HTML`" })")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"From`"))")
+  [Void]$StringBuilder.AppendLine("  [Void]`$Message.Message.Body.Add(`"Content`", `$Body)")
+  [Void]$StringBuilder.AppendLine("  [Void]`$Message.Message.Add(`"Importance`", `$Importance)")
+  [Void]$StringBuilder.AppendLine("  [Void]`$Message.Message.Add(`"isDeliveryReceiptRequested`", (`$DeliveryReceipt.IsPresent.ToString()))")
+  [Void]$StringBuilder.AppendLine("  [Void]`$Message.Message.Add(`"isReadReceiptRequested`", (`$ReadReceipt.IsPresent.ToString()))")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  If (`$Flagged.IsPresent)")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Add(`"from`", [Ordered]@{ `"emailAddress`" = @{ `"address`" = (`$From.Address) } })")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"flag`", [Ordered]@{ `"flagStatus`" = `"flagged`" })")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Flag.Add(`"dueDateTime`", [Ordered]@{ `"dateTime`" = ([DateTime]::Now.ToString(`"yyyy-MM-ddT23:59:59`")); `"timeZone`" = ([TimeZone]::CurrentTimeZone.StandardName) })")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Flag.Add(`"startDateTime`", [Ordered]@{ `"dateTime`" = ([DateTime]::Now.ToString(`"yyyy-MM-ddT23:59:59`")); `"timeZone`" = ([TimeZone]::CurrentTimeZone.StandardName) })")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  `$Message.Message.Add(`"toRecipients`", ([System.Collections.ArrayList]::New()))")
-  [Void]$StringBuilder.AppendLine("  `$TO | ForEach-Object -Process {")
-  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.toRecipients.Add(@{ `"emailAddress`" = @{ `"address`" = (`$PSItem.Address) } })")
+  [Void]$StringBuilder.AppendLine("  If (`$PSBoundParameters.ContainsKey(`"From`"))")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"from`", [Ordered]@{ `"emailAddress`" = @{ `"address`" = (`$From.Address) } })")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"CC`"))")
+  [Void]$StringBuilder.AppendLine("  [Void]`$Message.Message.Add(`"toRecipients`", ([System.Collections.ArrayList]::New()))")
+  [Void]$StringBuilder.AppendLine("  `$TO | ForEach-Object -Process { [Void]`$Message.Message.toRecipients.Add(@{ `"emailAddress`" = @{ `"address`" = (`$PSItem.Address) } }) }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  If (`$PSBoundParameters.ContainsKey(`"`$Mention`"))")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Add(`"ccRecipients`", ([System.Collections.ArrayList]::New()))")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"Mentions`", ([System.Collections.ArrayList]::New()))")
+  [Void]$StringBuilder.AppendLine("    `$Mention | ForEach-Object -Process { [Void]`$Message.Message.Mentions.Add(@{ `"Mentioned`" = @{ `"name`" = (`$PSItem.Address); `"address`" = (`$PSItem.Address) } }) }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  If (`$PSBoundParameters.ContainsKey(`"CC`"))")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"ccRecipients`", ([System.Collections.ArrayList]::New()))")
   [Void]$StringBuilder.AppendLine("    `$CC | ForEach-Object -Process { [Void]`$Message.Message.ccRecipients.Add(@{ `"emailAddress`" = @{ `"address`" = (`$PSItem.Address) } }) }")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"BCC`"))")
+  [Void]$StringBuilder.AppendLine("  If (`$PSBoundParameters.ContainsKey(`"BCC`"))")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Add(`"bccRecipients`", ([System.Collections.ArrayList]::New()))")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"bccRecipients`", ([System.Collections.ArrayList]::New()))")
   [Void]$StringBuilder.AppendLine("    `$BCC | ForEach-Object -Process { [Void]`$Message.Message.bccRecipients.Add(@{ `"emailAddress`" = @{ `"address`" = (`$PSItem.Address) } }) }")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"ReplyTo`"))")
+  [Void]$StringBuilder.AppendLine("  If (`$PSBoundParameters.ContainsKey(`"ReplyTo`"))")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Add(`"replyTo`", ([System.Collections.ArrayList]::New()))")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"replyTo`", ([System.Collections.ArrayList]::New()))")
   [Void]$StringBuilder.AppendLine("    `$ReplyTo | ForEach-Object -Process { [Void]`$Message.Message.replyTo.Add(@{ `"emailAddress`" = @{ `"address`" = (`$PSItem.Address) } }) }")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Attachments`"))")
+  [Void]$StringBuilder.AppendLine("  If (`$PSBoundParameters.ContainsKey(`"Attachments`"))")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$Message.Message.Add(`"Attachments`", ([System.Collections.ArrayList]::New()))")
-  [Void]$StringBuilder.AppendLine("    foreach (`$File in `$Attachments)")
+  [Void]$StringBuilder.AppendLine("    [Void]`$Message.Message.Add(`"Attachments`", ([System.Collections.ArrayList]::New()))")
+  [Void]$StringBuilder.AppendLine("    ForEach (`$File In `$Attachments)")
   [Void]$StringBuilder.AppendLine("    {")
-  [Void]$StringBuilder.AppendLine("      if ([System.IO.File]::Exists(`$File))")
+  [Void]$StringBuilder.AppendLine("      If ([System.IO.File]::Exists(`$File))")
   [Void]$StringBuilder.AppendLine("      {")
   [Void]$StringBuilder.AppendLine("        `$Base64Encode = [Convert]::ToBase64String(([System.IO.File]::ReadAllBytes(`$File)))")
   [Void]$StringBuilder.AppendLine("        [Void]`$Message.Message.attachments.Add([Ordered]@{ `"@odata.type`" = `"#microsoft.graph.fileAttachment`"; `"Name`" = ([System.IO.Path]::GetFileName(`$File)); `"contentType`" = `"MIME types`"; `"contentBytes`" = `"`$(`$Base64Encode)`" })")
@@ -7579,18 +7768,20 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    }")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  `$Message.Add(`"saveToSentItems`", (`$SaveToSent.IsPresent.ToString()))")
+  [Void]$StringBuilder.AppendLine("  [Void]`$Message.Add(`"saveToSentItems`", (`$SaveToSent.IsPresent.ToString()))")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"Me`")")
+  [Void]$StringBuilder.AppendLine("  If (`$PSCmdlet.ParameterSetName -eq `"Me`")")
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$Uri = `"https://graph.microsoft.com/`$(`$Version)/me/sendmail`"")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  Else")
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$Uri = `"https://graph.microsoft.com/`$(`$Version)/users/`$(`$UserID)/sendmail`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  Invoke-RestMethod -Uri `$Uri -Headers `$AuthToken -Method Post -Body (`$Message | ConvertTo-Json -Depth 99)")
+  [Void]$StringBuilder.AppendLine("  `$Result = Invoke-WebRequest -UseBasicParsing -Uri `$Uri -Headers `$AuthToken -Method Post -Body (`$Message | ConvertTo-Json -Depth 99)")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  [PSCustomObject]@{ `"Success`" = (`$Result.StatusCode -eq 202) }")
   [Void]$StringBuilder.AppendLine("  ")
   [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Send-MyGraphMail`"")
   [Void]$StringBuilder.AppendLine("}")
@@ -10019,6 +10210,7 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  [String]`$AssetID")
   [Void]$StringBuilder.AppendLine("  [String]`$CMDBID")
   [Void]$StringBuilder.AppendLine("  [String]`$ComputerName")
+  [Void]$StringBuilder.AppendLine("  [String]`$DomainName")
   [Void]$StringBuilder.AppendLine("  [String]`$AssetTag")
   [Void]$StringBuilder.AppendLine("  [String]`$SerialNumber")
   [Void]$StringBuilder.AppendLine("  [String]`$DeviceRole")
@@ -10048,11 +10240,12 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  [String]`$SGroup")
   [Void]$StringBuilder.AppendLine("  [String]`$SGroupID")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  SNAsset ([String]`$AssetID, [String]`$CMDBID, [String]`$ComputerName, [String]`$AssetTag, [String]`$SerialNumber, [String]`$DeviceRole, [String]`$Manufacturer, [String]`$Model, [String]`$Department, [String]`$CostCenter, [String]`$Location, [String]`$LocationID, [String]`$State, [String]`$Region, [String]`$Room, [String]`$Floor, [String]`$SGroup, [String]`$SGroupID)")
+  [Void]$StringBuilder.AppendLine("  SNAsset ([String]`$AssetID, [String]`$CMDBID, [String]`$ComputerName, [String]`$DomainName, [String]`$AssetTag, [String]`$SerialNumber, [String]`$DeviceRole, [String]`$Manufacturer, [String]`$Model, [String]`$Department, [String]`$CostCenter, [String]`$Location, [String]`$LocationID, [String]`$State, [String]`$Region, [String]`$Room, [String]`$Floor, [String]`$SGroup, [String]`$SGroupID)")
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$This.AssetID = `$AssetID")
   [Void]$StringBuilder.AppendLine("    `$This.CMDBID = `$CMDBID")
   [Void]$StringBuilder.AppendLine("    `$This.ComputerName = `$ComputerName")
+  [Void]$StringBuilder.AppendLine("    `$This.DomainName = `$DomainName")
   [Void]$StringBuilder.AppendLine("    `$This.AssetTag = `$AssetTag")
   [Void]$StringBuilder.AppendLine("    `$This.SerialNumber = `$SerialNumber")
   [Void]$StringBuilder.AppendLine("    `$This.DeviceRole = `$DeviceRole")
@@ -10201,21 +10394,21 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    ForEach (`$Item in `$Data)")
   [Void]$StringBuilder.AppendLine("    {")
   [Void]$StringBuilder.AppendLine("      `$Body = @{")
-  [Void]$StringBuilder.AppendLine("        `"sysparm_query`"  = `"`$(`$PropertyName)=`$(`$Item)`"")
-  [Void]$StringBuilder.AppendLine("        `"sysparm_limit`"  = `"1`"")
-  [Void]$StringBuilder.AppendLine("        `"sysparm_fields`" = `"sys_id, asset_tag, serial_number, u_device_role, u_room, u_floor, StockRoom, substatus, reserved_for, assigned_to, ci.name, ci.sys_id, department.name, department.id, location.name, location.sys_id, location.state, location.u_region.u_description, support_group.name, model.name, model.manufacturer.name, support_group.sys_id, support_group.name, stockroom`"")
+  [Void]$StringBuilder.AppendLine("        `"sysparm_query`" = `"`$(`$PropertyName)=`$(`$Item)`"")
+  [Void]$StringBuilder.AppendLine("        `"sysparm_limit`" = `"1`"")
+  [Void]$StringBuilder.AppendLine("        `"sysparm_fields`" = `"sys_id, asset_tag, serial_number, u_device_role, u_room, u_floor, StockRoom, substatus, reserved_for, assigned_to, ci.name, ci.dns_domain, ci.sys_id, department.name, department.id, location.name, location.sys_id, location.state, location.u_region.u_description, support_group.name, model.name, model.manufacturer.name, support_group.sys_id, support_group.name, stockroom`"")
   [Void]$StringBuilder.AppendLine("      }")
   [Void]$StringBuilder.AppendLine("      ")
-  [Void]$StringBuilder.AppendLine("      `$CompResult = Invoke-WebRequest -ContentType `"application/json`" -uri `"https://`$(`$Instance).service-now.com/api/now/table/alm_hardware`" -Credential `$Credential -Body `$Body")
-  [Void]$StringBuilder.AppendLine("      if ((`$CompResult.StatusCode -eq 200) -and (`$CompResult.Headers.`"X-Total-Count`"))")
+  [Void]$StringBuilder.AppendLine("      `$CompResult = Invoke-WebRequest -UseBasicParsing -ContentType `"application/json`" -uri `"https://`$(`$Instance).service-now.com/api/now/table/alm_hardware`" -Credential `$Credential -Body `$Body")
+  [Void]$StringBuilder.AppendLine("      if ((`$CompResult.StatusCode -eq 200) -and (`$CompResult.Headers.`"X-Total-Count`" -ne `"0`"))")
   [Void]$StringBuilder.AppendLine("      {")
   [Void]$StringBuilder.AppendLine("        `$Comp = (`$CompResult.Content | ConvertFrom-Json).Result")
-  [Void]$StringBuilder.AppendLine("        `$ReturnData = [SNAsset]::New(`$Comp.sys_id, `$Comp.`"ci.sys_id`", `$Comp.`"ci.name`", `$Comp.asset_tag, `$Comp.serial_number, `$Comp.u_device_role, `$Comp.`"model.manufacturer.name`", `$Comp.`"model.name`", `$Comp.`"department.name`", `$Comp.`"department.id`", `$Comp.`"location.name`", `$Comp.`"location.sys_id`", `$Comp.`"location.state`", `$Comp.`"location.u_region.u_description`", `$Comp.u_room, `$Comp.u_floor, `$Comp.`"support_group.name`", `$Comp.`"support_group.sys_id`")")
+  [Void]$StringBuilder.AppendLine("        `$ReturnData = [SNAsset]::New(`$Comp.sys_id, `$Comp.`"ci.sys_id`", `$Comp.`"ci.name`", `$Comp.`"ci.dns_domain`", `$Comp.asset_tag, `$Comp.serial_number, `$Comp.u_device_role, `$Comp.`"model.manufacturer.name`", `$Comp.`"model.name`", `$Comp.`"department.name`", `$Comp.`"department.id`", `$Comp.`"location.name`", `$Comp.`"location.sys_id`", `$Comp.`"location.state`", `$Comp.`"location.u_region.u_description`", `$Comp.u_room, `$Comp.u_floor, `$Comp.`"support_group.name`", `$Comp.`"support_group.sys_id`")")
   [Void]$StringBuilder.AppendLine("        if ((-not [String]::IsNullOrEmpty(`$Comp.StockRoom)) -and (`$Comp.substatus -in @(`"reserved`", `"pending_install`")))")
   [Void]$StringBuilder.AppendLine("        {")
   [Void]$StringBuilder.AppendLine("          if (-not [String]::IsNullOrEmpty(`$Comp.reserved_for))")
   [Void]$StringBuilder.AppendLine("          {")
-  [Void]$StringBuilder.AppendLine("            `$UserResult = Invoke-WebRequest -ContentType `"application/json`" -uri `$Comp.reserved_for.link -Credential `$Credential -Body @{ `"sysparm_fields`" = `"sys_id, name, first_name, last_name, u_samaccountname, user_name, email, employee_number, manager.sys_id, manager.name, manager.first_name, manager.last_name, manager.email`" }")
+  [Void]$StringBuilder.AppendLine("            `$UserResult = Invoke-WebRequest -UseBasicParsing -ContentType `"application/json`" -uri `$Comp.reserved_for.link -Credential `$Credential -Body @{ `"sysparm_fields`" = `"sys_id, name, first_name, last_name, u_samaccountname, user_name, email, employee_number, manager.sys_id, manager.name, manager.first_name, manager.last_name, manager.email`" }")
   [Void]$StringBuilder.AppendLine("            if (`$UserResult.StatusCode -eq 200)")
   [Void]$StringBuilder.AppendLine("            {")
   [Void]$StringBuilder.AppendLine("              `$User = (`$UserResult.Content | ConvertFrom-Json).Result")
@@ -10227,7 +10420,7 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("        {")
   [Void]$StringBuilder.AppendLine("          if (-not [String]::IsNullOrEmpty(`$Comp.assigned_to))")
   [Void]$StringBuilder.AppendLine("          {")
-  [Void]$StringBuilder.AppendLine("            `$UserResult = Invoke-WebRequest -ContentType `"application/json`" -uri `$Comp.assigned_to.link -Credential `$Credential -Body @{ `"sysparm_fields`" = `"sys_id, name, first_name, last_name, u_samaccountname, user_name, email, employee_number, manager.sys_id, manager.name, manager.first_name, manager.last_name, manager.email`" }")
+  [Void]$StringBuilder.AppendLine("            `$UserResult = Invoke-WebRequest -UseBasicParsing -ContentType `"application/json`" -uri `$Comp.assigned_to.link -Credential `$Credential -Body @{ `"sysparm_fields`" = `"sys_id, name, first_name, last_name, u_samaccountname, user_name, email, employee_number, manager.sys_id, manager.name, manager.first_name, manager.last_name, manager.email`" }")
   [Void]$StringBuilder.AppendLine("            if (`$UserResult.StatusCode -eq 200)")
   [Void]$StringBuilder.AppendLine("            {")
   [Void]$StringBuilder.AppendLine("              `$User = (`$UserResult.Content | ConvertFrom-Json).Result")
@@ -10503,6 +10696,1093 @@ function Build-MyScriptFunctions ()
   
   #endregion ******** Service Now Functions ********
   
+  #region ******** UMS Rest API Functions ********
+  
+  #region function Connect-UMSRestAPI
+  [Void]$StringBuilder.AppendLine("#region function Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("function Connect-UMSRestAPI ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Connect to UMS Rest API and Returns a Web Session Object")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Connect to UMS Rest API and Returns a Web Session Object")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Credential")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Username and Password")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("      `$WebSession = Connect-UMSRestAPI -ComputerName `$ComputerName -Credential `$Credential")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [PSCredential]`$Credential")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Connect-UMSRestAPI`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Logon Uri")
+  [Void]$StringBuilder.AppendLine("  `$Uri = (`"https://{0}:{1}/umsapi/v{2}/login`" -f `$ComputerName, `$Port, `$Version)")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Logon / Authorization Header")
+  [Void]$StringBuilder.AppendLine("  `$Headers = @{")
+  [Void]$StringBuilder.AppendLine("    `"Authorization`" = `"Basic `" + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(`"`$(`$Credential.Username):`$(`$Credential.GetNetworkCredential().Password)`"))")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Request WebSession Cookie")
+  [Void]$StringBuilder.AppendLine("  Try")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$Response = Invoke-RestMethod -UseBasicParsing -Method Post -Uri `$Uri -ContentType `"application/json`" -Headers `$Headers")
+  [Void]$StringBuilder.AppendLine("    if (-not [String]::IsNullOrEmpty(`$Response.Message))")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      # Return WebSession")
+  [Void]$StringBuilder.AppendLine("      `$TmpName, `$TmpValue = @(`$Response.Message -split `"=`")")
+  [Void]$StringBuilder.AppendLine("      `$TmpCookie = [System.Net.Cookie]::New(`$TmpName, `$TmpValue, `"/`", `$ComputerName)")
+  [Void]$StringBuilder.AppendLine("      `$WebSession = [Microsoft.Powershell.Commands.Webrequestsession]::New()")
+  [Void]$StringBuilder.AppendLine("      `$WebSession.Cookies.Add(`$TmpCookie) ")
+  [Void]$StringBuilder.AppendLine("      `$WebSession")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Catch")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Throw Error, Unable to Login")
+  [Void]$StringBuilder.AppendLine("    throw `"ERROR: Unable to Login to UMS Rest API`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Connect-UMSRestAPI`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Connect-UMSRestAPI
+  
+  #region function Invoke-UMSRestMethod
+  [Void]$StringBuilder.AppendLine("#region function Invoke-UMSRestMethod")
+  [Void]$StringBuilder.AppendLine("function Invoke-UMSRestMethod ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Invokes a UMS Rest API Function from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Invokes a UMS Rest API Function from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Uri")
+  [Void]$StringBuilder.AppendLine("      Uri for Rest API Call")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Method")
+  [Void]$StringBuilder.AppendLine("      Web Request Method")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ContentType")
+  [Void]$StringBuilder.AppendLine("      Content Type")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Body")
+  [Void]$StringBuilder.AppendLine("      Optional UMS Rest API POST / PUT Data")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Header")
+  [Void]$StringBuilder.AppendLine("      Optional Web Request Headers")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("      Invoke-UMSRestMethod -WebSession `$WebSession -Url `$Url -Method `"Get`"")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("      Invoke-UMSRestMethod -WebSession `$WebSession -Url `$Url -Method `"Post`" -Body `$Body")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Uri,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(`"Get`", `"Post`", `"Put`", `"Delete`")]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Method,")
+  [Void]$StringBuilder.AppendLine("    [String]`$Body,")
+  [Void]$StringBuilder.AppendLine("    [HashTable]`$Headers = @{ }")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Invoke-UMSRestMethod`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Try")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Invoke UMS Rest API Method")
+  [Void]$StringBuilder.AppendLine("    Invoke-RestMethod @PSBoundParameters -ContentType `"application/json`" -ErrorAction Stop")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Catch")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Throw Error, Rest API Error")
+  [Void]$StringBuilder.AppendLine("    throw `"ERROR: Unable to `$(`$Method) UMS Rest API Query`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Invoke-UMSRestMethod`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Invoke-UMSRestMethod")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Invoke-UMSRestMethod
+  
+  #region function Get-UMSDevice
+  [Void]$StringBuilder.AppendLine("#region function Get-UMSDevice")
+  [Void]$StringBuilder.AppendLine("function Get-UMSDevice ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Facets")
+  [Void]$StringBuilder.AppendLine("      Specify what information the Rest API Call wil Return")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      Short: Name, MAC, IP, Parent Folder")
+  [Void]$StringBuilder.AppendLine("      OnLine: Short Info, OnLine Status")
+  [Void]$StringBuilder.AppendLine("      Details: Short Info, OEM, Model, Serial, Hardware Info, IGEL OS Info")
+  [Void]$StringBuilder.AppendLine("      Shadow: Short Info, VNC Password and Cert")
+  [Void]$StringBuilder.AppendLine("      Children: Short Info")
+  [Void]$StringBuilder.AppendLine("      Deviceattributes: Short Info")
+  [Void]$StringBuilder.AppendLine("      Networkadapters: Short Info, NIC Info")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DeviceID")
+  [Void]$StringBuilder.AppendLine("      ID of th UMS Device")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      # Get All Devices")
+  [Void]$StringBuilder.AppendLine("      `$DeviceList = Get-UMSDevice -WebSession `$WebSession -ComputerName `$ComputerName")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      # Get Specific Device")
+  [Void]$StringBuilder.AppendLine("      `$DeviceList = Get-UMSDevice -WebSession `$WebSession -ComputerName `$ComputerName -DeviceID `$DeviceID")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"All`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(`"short`", `"details`", `"online`", `"shadow`", `"children`", `"deviceattributes`", `"networkadapters`")]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Facets = `"short`",")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"DeviceID`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DeviceID")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Get-UMSDevice`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Specify Specific Device to Return")
+  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"DeviceID`")")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpDevice = `"/{0}`" -f `$DeviceID")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpDevice = `$Null")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Set what information to return from Rest API Call")
+  [Void]$StringBuilder.AppendLine("  `$TmpFacets = `"?facets={0}`" -f `$Facets")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Make Rest API Call and Return the Information")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}{4}{5}`" -f `$ComputerName, `$Port, `$Version, `"thinclients`", `$TmpDevice, `$TmpFacets)")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Get`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Get-UMSDevice`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Get-UMSDevice")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Get-UMSDevice
+  
+  #region function Get-UMSDirectories
+  [Void]$StringBuilder.AppendLine("#region function Get-UMSDirectories")
+  [Void]$StringBuilder.AppendLine("function Get-UMSDirectories ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Device Directories from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Device Directories from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Facets")
+  [Void]$StringBuilder.AppendLine("      Specify what information the Rest API Call wil Return")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      Children: Directory IDs")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DirectoryID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Directory")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      # Get All Folders")
+  [Void]$StringBuilder.AppendLine("      `$DirList = Get-UMSDirectories -WebSession `$WebSession -ComputerName `$ComputerName")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      # Get Specific Folder with list of Child Folder ID's")
+  [Void]$StringBuilder.AppendLine("      `$DirList = Get-UMSDirectories -WebSession `$WebSession -ComputerName `$ComputerName -DirectoryID `$DirectoryID -Facets children")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"All`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(`"children`")]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Facets,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"DirectoryID`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DirectoryID")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Get-UMSDirectories`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Specify Specific Directory to Return")
+  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"DirectoryID`")")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpDirectory = `"/{0}`" -f `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpDirectory = `$Null")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Set what information to return from Rest API Call")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Facets`"))")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpFacets = `"?facets={0}`" -f `$Facets")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpFacets = `$Null")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Make Rest API Call and Return the Information")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}{4}{5}`" -f `$ComputerName, `$Port, `$Version, `"directories/tcdirectories`", `$TmpDirectory, `$TmpFacets)")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Get`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Get-UMSDirectories`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Get-UMSDirectories")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Get-UMSDirectories
+  
+  #region function Update-UMSDevice
+  [Void]$StringBuilder.AppendLine("#region function Update-UMSDevice")
+  [Void]$StringBuilder.AppendLine("function Update-UMSDevice ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Name")
+  [Void]$StringBuilder.AppendLine("      New UMS Device Name")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Site")
+  [Void]$StringBuilder.AppendLine("      New UMS Device Site")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Department")
+  [Void]$StringBuilder.AppendLine("      New UMS Device Department")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER CostCenter")
+  [Void]$StringBuilder.AppendLine("      New UMS Device CostCenter")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER LastIP")
+  [Void]$StringBuilder.AppendLine("      New UMS Device LastIP")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Comment")
+  [Void]$StringBuilder.AppendLine("      New UMS Device Comment")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER AssetID")
+  [Void]$StringBuilder.AppendLine("      New UMS Device AssetID")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER InserviceDate")
+  [Void]$StringBuilder.AppendLine("      New UMS Device InserviceDate")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER SerialNumber")
+  [Void]$StringBuilder.AppendLine("      New UMS Device SerialNumber")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DeviceAttributes")
+  [Void]$StringBuilder.AppendLine("      New UMS Device DeviceAttributes")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      `$Success = Update-UMSDevice -WebSession `$WebSession -ComputerName `$ComputerName -DeviceID `$DeviceID -Name `$NewName")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"Default`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DeviceID,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Name,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Site,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Department,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$CostCenter,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$LastIP,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Comment,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$AssetID,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$InserviceDate,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [String]`$SerialNumber,")
+  [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName = `"Update`")]")
+  [Void]$StringBuilder.AppendLine("    [ValidateNotNullOrEmpty()]")
+  [Void]$StringBuilder.AppendLine("    [HashTable]`$DeviceAttributes")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Update-UMSDevice`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Create Update Request Data Payload")
+  [Void]$StringBuilder.AppendLine("  `$Body = @{ }")
+  [Void]$StringBuilder.AppendLine("  foreach (`$Key in `$PSBoundParameters.Keys | Where-Object -FilterScript { `$PSItem -in @(`"Name`", `"Site`", `"Department`", `"CostCenter`", `"LastIP`", `"Comment`", `"AssetID`", `"InserviceDate`", `"SerialNumber`", `"_Floor`", `"_Room`") })")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$Body.Add(`$Key.ToLower(), `$PSBoundParameters[`$Key])")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Add Custom Device Attributes")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"DeviceAttributes`"))")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$Body.Add(`"deviceAttributes`", [System.Collections.ArrayList]::New())")
+  [Void]$StringBuilder.AppendLine("    foreach (`$Key in `$DeviceAttributes.Keys)")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      `$Body.deviceAttributes.Add(@{ `"identifier`" = `$Key.ToLower(); `"value`" = `$DeviceAttributes[`$Key] }) | Out-Null")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Verify New Update Values were Passed")
+  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"Update`")")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Set Rest API Method Values")
+  [Void]$StringBuilder.AppendLine("    `$Params = @{")
+  [Void]$StringBuilder.AppendLine("      `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("      `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}/{4}`" -f `$ComputerName, `$Port, `$Version, `"thinclients`", `$DeviceID)")
+  [Void]$StringBuilder.AppendLine("      `"Method`"     = `"Put`"")
+  [Void]$StringBuilder.AppendLine("      `"Body`"       = (`$Body | ConvertTo-Json)")
+  [Void]$StringBuilder.AppendLine("      `"Headers`"    = @{ }")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    Try")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      # Make Rest API Call and Return Success Status")
+  [Void]$StringBuilder.AppendLine("      `$Response = Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("      # Return Success Status")
+  [Void]$StringBuilder.AppendLine("      @{ `"Success`" = (`$Response.Message -eq `"Update successful`") }")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    Catch")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      throw `"Error: Updatating Device: `$(`$DeviceID)`"")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      # Return Failed Status")
+  [Void]$StringBuilder.AppendLine("      [PSCustomObject]@{ `"Success`" = `$False }")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Return Failed Status")
+  [Void]$StringBuilder.AppendLine("    [PSCustomObject]@{ `"Success`" = `$False }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Update-UMSDevice`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Update-UMSDevice")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Update-UMSDevice
+  
+  #region function Move-UMSDevice
+  [Void]$StringBuilder.AppendLine("#region function Move-UMSDevice")
+  [Void]$StringBuilder.AppendLine("function Move-UMSDevice ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DeviceID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Device")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DirectoryID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Directory")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      `$Success = Move-UMSDevice -WebSession `$WebSession -ComputerName `$ComputerName -DeviceID `$DeviceID -DirectoryID `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"Default`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Int[]]`$DeviceID,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DirectoryID")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Move-UMSDevice`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Create Update Request Data Payload")
+  [Void]$StringBuilder.AppendLine("  `$Body = [System.Collections.ArrayList]::New()")
+  [Void]$StringBuilder.AppendLine("  foreach (`$TmpID in `$DeviceID)")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$Body.Add(@{ `"id`" = `$TmpID; `"type`" = `"tc`" }) | Out-Null")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Set Rest API Method Values")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}/{4}?operation=move`" -f `$ComputerName, `$Port, `$Version, `"directories/tcdirectories`", `$DirectoryID)")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Put`"")
+  [Void]$StringBuilder.AppendLine("    `"Body`"       = (,`$Body | ConvertTo-Json)")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Try")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Make Rest API Call and Return Success Status")
+  [Void]$StringBuilder.AppendLine("    `$Response = Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("    foreach (`$TmpResponse in `$Response)")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      [PSCustomObject]@{")
+  [Void]$StringBuilder.AppendLine("        `"DeviceID`" = `$TmpResponse.id")
+  [Void]$StringBuilder.AppendLine("        `"Success`"  = (`$TmpResponse.results -eq `"successful`")")
+  [Void]$StringBuilder.AppendLine("        `"Message`" = `$TmpResponse.results")
+  [Void]$StringBuilder.AppendLine("      }")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Catch")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    throw `"Error: Moving `$(`$DeviceID.Count) Devices to new Directory`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Move-UMSDevice`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Move-UMSDevice")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Move-UMSDevice
+  
+  #region function Send-UMSDeviceComand
+  [Void]$StringBuilder.AppendLine("#region function Send-UMSDeviceComand")
+  [Void]$StringBuilder.AppendLine("function Send-UMSDeviceComand ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DeviceID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Device")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Command")
+  [Void]$StringBuilder.AppendLine("      Command to send to the UMS Device")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      `$Success = Send-UMSDeviceComand -WebSession `$WebSession -ComputerName `$ComputerName -DeviceID `$DeviceID -Command `$Command")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"Default`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Int[]]`$DeviceID,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(`"reboot`", `"shutdown`", `"wakeup`", `"settings2tc`", `"tcreset2facdefs`")]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Command")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Send-UMSDeviceComand`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Create Update Request Data Payload")
+  [Void]$StringBuilder.AppendLine("  `$Body = [System.Collections.ArrayList]::New()")
+  [Void]$StringBuilder.AppendLine("  foreach (`$TmpID in `$DeviceID)")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$Body.Add(@{ `"id`" = `$TmpID; `"type`" = `"tc`" }) | Out-Null")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Set Rest API Method Values")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}?command={4}`" -f `$ComputerName, `$Port, `$Version, `"thinclients`", (`$Command.ToLower()))")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Post`"")
+  [Void]$StringBuilder.AppendLine("    `"Body`"       = (,`$Body | ConvertTo-Json)")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Try")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Make Rest API Call and Return Success Status")
+  [Void]$StringBuilder.AppendLine("    `$Response = Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("    # Return Success Status")
+  [Void]$StringBuilder.AppendLine("    `$Response.CommandExecList")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Catch")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    throw `"Error: Sending `$(`$Command) to UMS Devices`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Send-UMSDeviceComand`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Send-UMSDeviceComand")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Send-UMSDeviceComand
+  
+  #region function Get-UMSProfile
+  [Void]$StringBuilder.AppendLine("#region function Get-UMSProfile")
+  [Void]$StringBuilder.AppendLine("function Get-UMSProfile ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Profiles from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Profiles from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ProfileID")
+  [Void]$StringBuilder.AppendLine("      ID of th UMS Profile")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      # Get All Profiles")
+  [Void]$StringBuilder.AppendLine("      `$ProfileList = Get-UMSProfile -WebSession `$WebSession -ComputerName `$ComputerName")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      # Get Specific Profile")
+  [Void]$StringBuilder.AppendLine("      `$ProfileList = Get-UMSProfile -WebSession `$WebSession -ComputerName `$ComputerName -ProfileID `$ProfileID")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"All`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"ProfileID`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$ProfileID")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Get-UMSProfile`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Specify Specific Profile to Return")
+  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"ProfileID`")")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpProfile = `"/{0}`" -f `$ProfileID")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpProfile = `$Null")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Make Rest API Call and Return the Information")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}{4}`" -f `$ComputerName, `$Port, `$Version, `"profiles`", `$TmpProfile)")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Get`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Get-UMSProfile`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Get-UMSProfile")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Get-UMSProfile
+  
+  #region function Get-UMSProfileDirectories
+  [Void]$StringBuilder.AppendLine("#region function Get-UMSProfileDirectories")
+  [Void]$StringBuilder.AppendLine("function Get-UMSProfileDirectories ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Profile Directories from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Profile Directories from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Facets")
+  [Void]$StringBuilder.AppendLine("      Specify what information the Rest API Call wil Return")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      Children: Directory IDs")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DirectoryID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Directory")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      # Get All Folders")
+  [Void]$StringBuilder.AppendLine("      `$DirList = Get-UMSProfileDirectories -WebSession `$WebSession -ComputerName `$ComputerName")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      # Get Specific Folder with list of Child Folder ID's")
+  [Void]$StringBuilder.AppendLine("      `$DirList = Get-UMSProfileDirectories -WebSession `$WebSession -ComputerName `$ComputerName -DirectoryID `$DirectoryID -Facets children")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"All`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(`"children`")]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Facets,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"DirectoryID`")]")
+  [Void]$StringBuilder.AppendLine("    [String]`$DirectoryID")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Get-UMSProfileDirectories`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Specify Specific Directory to Return")
+  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"DirectoryID`")")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpDirectory = `"/{0}`" -f `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpDirectory = `$Null")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Set what information to return from Rest API Call")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Facets`"))")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpFacets = `"?facets={0}`" -f `$Facets")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpFacets = `$Null")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Make Rest API Call and Return the Information")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}{4}{5}`" -f `$ComputerName, `$Port, `$Version, `"directories/profiledirectories`", `$TmpDirectory, `$TmpFacets)")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Get`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Get-UMSProfileDirectories`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Get-UMSProfileDirectories")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Get-UMSProfileDirectories
+  
+  #region function Get-UMSProfileAssignment
+  [Void]$StringBuilder.AppendLine("#region function Get-UMSProfileAssignment")
+  [Void]$StringBuilder.AppendLine("function Get-UMSProfileAssignment ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get list of Profile Assignments for a Device or a Diirectory")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get list of Profile Assignments for a Device or a Diirectory")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DeviceID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Device to Get Profile Assignments for")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DirectoryID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Device Directory to Get Profile Assignments for")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      # Get Profiles Assignments for Device")
+  [Void]$StringBuilder.AppendLine("      Get-UMSProfileAssignment -WebSession `$WebSession -ComputerName `$ComputerName -DeviceID `$DeviceID")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      # Get Profiles Assignments for Directory")
+  [Void]$StringBuilder.AppendLine("      Get-UMSProfileAssignment -WebSession `$WebSession -ComputerName `$ComputerName -DirectoryID `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"Device`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Device`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DeviceID,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Directory`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DirectoryID")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Get-UMSProfileAssignment`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Get Assignments for a Device or a Directory")
+  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"Device`")")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpID = `$DeviceID")
+  [Void]$StringBuilder.AppendLine("    `$TmpType = `"thinclients`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpID = `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("    `$TmpType = `"directories/tcdirectories`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Make Rest API Call and Return the Information")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}/{4}/assignments/profiles`" -f `$ComputerName, `$Port, `$Version, `$TmpType, `$TmpID)")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Get`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Get-UMSProfileAssignment`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Get-UMSProfileAssignment")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Get-UMSProfileAssignment
+  
+  #region function New-UMSProfileAssignment
+  [Void]$StringBuilder.AppendLine("#region function New-UMSProfileAssignment")
+  [Void]$StringBuilder.AppendLine("function New-UMSProfileAssignment ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Profiles from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Profiles from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ProfileID")
+  [Void]$StringBuilder.AppendLine("      ID of th UMS Profile")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DeviceID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Device to Assign the Profile To")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DirectoryID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Device Directory to Assign the Profile To")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      # Assign Profile to a Device")
+  [Void]$StringBuilder.AppendLine("      `$ProfileList = New-UMSProfileAssignment -WebSession `$WebSession -ComputerName `$ComputerName -ProfileID `$ProfileID -DeviceID `$DeviceID")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      # Assign Profile to a Device Directory")
+  [Void]$StringBuilder.AppendLine("      `$ProfileList = New-UMSProfileAssignment -WebSession `$WebSession -ComputerName `$ComputerName -ProfileID `$ProfileID -DirectoryID `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"Device`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$ProfileID,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Device`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DeviceID,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Directory`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DirectoryID")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function New-UMSProfileAssignment`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # New Assignments for a Device or a Directory")
+  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"Device`")")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpID = `$DeviceID")
+  [Void]$StringBuilder.AppendLine("    `$TmpType = `"tc`"")
+  [Void]$StringBuilder.AppendLine("    `$TmpPath = `"assignments/thinclients`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpID = `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("    `$TmpType = `"tcdirectory`"")
+  [Void]$StringBuilder.AppendLine("    `$TmpPath = `"assignments/tcdirectories`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Create Update Request Data Payload")
+  [Void]$StringBuilder.AppendLine("  `$Body = [System.Collections.ArrayList]::New(@(@{ `"assignee`" = @{ `"id`" = `$ProfileID; `"type`" = `"profile`" }; `"receiver`" = @{ `"id`" = `$TmpID; `"type`" = `$TmpType } }))")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Make Rest API Call and Return the Information")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}/{4}/{5}`" -f `$ComputerName, `$Port, `$Version, `"profiles`", `$ProfileID, `$TmpPath)")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Put`"")
+  [Void]$StringBuilder.AppendLine("    `"Body`"       = (,`$Body | ConvertTo-Json)")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Try")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Make Rest API Call and Return Success Status")
+  [Void]$StringBuilder.AppendLine("    `$Response = Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("    # Return Success Status")
+  [Void]$StringBuilder.AppendLine("    @{ `"Success`" = (`$Result.Message -match `"successfully`") }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Catch")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    throw `"Error Removing Profile Assignment`"")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    # Return Failed Status")
+  [Void]$StringBuilder.AppendLine("    [PSCustomObject]@{ `"Success`" = `$False }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function New-UMSProfileAssignment`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function New-UMSProfileAssignment")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function New-UMSProfileAssignment
+  
+  #region function Remove-UMSProfileAssignment
+  [Void]$StringBuilder.AppendLine("#region function Remove-UMSProfileAssignment")
+  [Void]$StringBuilder.AppendLine("function Remove-UMSProfileAssignment ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Removed an Assigned profile from a Device or a Device Directory")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Removed an Assigned profile from a Device or a Device Directory")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ProfileID")
+  [Void]$StringBuilder.AppendLine("      ID of th UMS Profile")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DeviceID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Device to remove the Profile from")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DirectoryID")
+  [Void]$StringBuilder.AppendLine("      ID of the UMS Device Directory to remove the Profile from")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      # Remove Profile from a Device")
+  [Void]$StringBuilder.AppendLine("      `$ProfileList = Remove-UMSProfileAssignment -WebSession `$WebSession -ComputerName `$ComputerName -ProfileID `$ProfileID -DeviceID `$DeviceID")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("      # Remove Profile from a Device Directory")
+  [Void]$StringBuilder.AppendLine("      `$ProfileList = Remove-UMSProfileAssignment -WebSession `$WebSession -ComputerName `$ComputerName -ProfileID `$ProfileID -DirectoryID `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"Device`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Microsoft.Powershell.Commands.Webrequestsession]`$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$ProfileID,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Device`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DeviceID,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Directory`")]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$DirectoryID")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Remove-UMSProfileAssignment`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # New Assignments for a Device or a Directory")
+  [Void]$StringBuilder.AppendLine("  if (`$PSCmdlet.ParameterSetName -eq `"Device`")")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpID = `$DeviceID")
+  [Void]$StringBuilder.AppendLine("    `$TmpPath = `"assignments/thinclients`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpID = `$DirectoryID")
+  [Void]$StringBuilder.AppendLine("    `$TmpPath = `"assignments/tcdirectories`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Make Rest API Call and Return the Information")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}/{4}/{5}/{6}`" -f `$ComputerName, `$Port, `$Version, `"profiles`", `$ProfileID, `$TmpPath, `$TmpID)")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Delete`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Try")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    # Make Rest API Call and Return Success Status")
+  [Void]$StringBuilder.AppendLine("    `$Response = Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("    # Return Success Status")
+  [Void]$StringBuilder.AppendLine("    @{ `"Success`" = (`$Result.Message -match `"deleted profile assignment`") }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Catch")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    throw `"Error Removing Profile Assignment`"")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    # Return Failed Status")
+  [Void]$StringBuilder.AppendLine("    [PSCustomObject]@{ `"Success`" = `$False }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Remove-UMSProfileAssignment`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Remove-UMSProfileAssignment")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Remove-UMSProfileAssignment
+  
+  #region function Get-UMSStatus
+  [Void]$StringBuilder.AppendLine("#region function Get-UMSStatus")
+  [Void]$StringBuilder.AppendLine("function Get-UMSStatus ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Get List of Devices from UMS Rest API Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER WebSession")
+  [Void]$StringBuilder.AppendLine("      Web Session with Auth Cookie Returned from Connect-UMSRestAPI")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ComputerName")
+  [Void]$StringBuilder.AppendLine("      Name of UMS Rest API Web Server")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Port")
+  [Void]$StringBuilder.AppendLine("      UMS Web Server Port")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Version")
+  [Void]$StringBuilder.AppendLine("      UMS Rest API Version")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLEs")
+  [Void]$StringBuilder.AppendLine("      Get-UMSStatus")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By %YourName%")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      %Date% - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"All`")]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    `$WebSession,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$ComputerName,")
+  [Void]$StringBuilder.AppendLine("    [ValidateRange(0, 65535)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Port = 8443,")
+  [Void]$StringBuilder.AppendLine("    [ValidateSet(3)]")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Version = 3")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Get-UMSStatus`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$Params = @{")
+  [Void]$StringBuilder.AppendLine("    `"WebSession`" = `$WebSession")
+  [Void]$StringBuilder.AppendLine("    `"Uri`"        = (`"https://{0}:{1}/umsapi/v{2}/{3}`" -f `$ComputerName, `$Port, `$Version, `"serverstatus`")")
+  [Void]$StringBuilder.AppendLine("    `"Method`"     = `"Get`"")
+  [Void]$StringBuilder.AppendLine("    `"Headers`"    = @{ }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  `$ReturnData = Invoke-UMSRestMethod @Params")
+  [Void]$StringBuilder.AppendLine("  `$ReturnData")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Get-UMSStatus`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Get-UMSStatus")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Get-UMSStatus
+  
+  #endregion ******** UMS Rest API Functions ********
+  
   #region function Scale-MyForm
   [Void]$StringBuilder.AppendLine("#region function Scale-MyForm")
   [Void]$StringBuilder.AppendLine("function Scale-MyForm()")
@@ -10600,6 +11880,78 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Show-MyWebReport")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Show-MyWebReport
+  
+  #region function Invoke-MyConCommand
+  [Void]$StringBuilder.AppendLine("#region class MyConCommand")
+  [Void]$StringBuilder.AppendLine("class MyConCommand")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  [Int]`$ExitCode")
+  [Void]$StringBuilder.AppendLine("  [String]`$OutputTxt")
+  [Void]$StringBuilder.AppendLine("  [String]`$ErrorMsg")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  MyConCommand ([Int]`$ExitCode, [String]`$OutputTxt, [String]`$ErrorMsg)")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$This.ExitCode = `$ExitCode")
+  [Void]$StringBuilder.AppendLine("    `$This.OutputTxt = `$OutputTxt")
+  [Void]$StringBuilder.AppendLine("    `$This.ErrorMsg = `$ErrorMsg")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion class MyConCommand")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("#region function Invoke-MyConCommand")
+  [Void]$StringBuilder.AppendLine("function Invoke-MyConCommand ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Invokes a Console Command and Returns the Exit Code")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Invokes a Console Command and Returns the Exit Code")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Command")
+  [Void]$StringBuilder.AppendLine("      Command to be Executed")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Parameters")
+  [Void]$StringBuilder.AppendLine("      Command line Parameters")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("      Invoke-MyConCommand -Command `"C:\Windows\System32\cmd.exe`" -Parameters `"/c Exit 1`"")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By Ken Sweet")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      09/19/2023 - Initial Release")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("  param (")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [String]`$Command,")
+  [Void]$StringBuilder.AppendLine("    [String]`$Parameters = `$Null")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Invoke-MyConCommand`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  if ([System.IO.File]::Exists(`$Command))")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$PSI = [System.Diagnostics.ProcessStartInfo]::New(`$Command, `$Parameters)")
+  [Void]$StringBuilder.AppendLine("    `$PSI.UseShellExecute = `$False")
+  [Void]$StringBuilder.AppendLine("    `$PSI.RedirectStandardError = `$True")
+  [Void]$StringBuilder.AppendLine("    `$PSI.RedirectStandardOutput = `$True")
+  [Void]$StringBuilder.AppendLine("    Try")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      `$Out = [System.Diagnostics.Process]::Start(`$PSI)")
+  [Void]$StringBuilder.AppendLine("      `$Out.WaitForExit()")
+  [Void]$StringBuilder.AppendLine("      [MyConCommand]::New(`$Out.ExitCode, `$Out.StandardOutput.ReadToEnd(), `$Out.StandardError.ReadToEnd())")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    Catch")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      [MyConCommand]::New(-2, `$Null, `$Error[0].Message)")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    [MyConCommand]::New(-1, `$Null, `"Command was not Found`")")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Invoke-MyConCommand`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Invoke-MyConCommand")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Invoke-MyConCommand
   
   #region Create KPI Event Log
   [Void]$StringBuilder.AppendLine("#region Create KPI Event Log")
@@ -14802,6 +16154,568 @@ function Build-MyScriptUserInputDialog ()
 }
 #endregion function Build-MyScriptUserInputDialog
 
+#region function Build-MyScriptNamedListDialog
+Function Build-MyScriptNamedListDialog ()
+{
+  <#
+    .SYNOPSIS
+      Gererates Script Dialog
+    .DESCRIPTION
+      Gererates Script Dialog
+    .PARAMETER MyScriptName
+    .EXAMPLE
+      Build-MyScriptNamedListDialog -MyScriptName $MyScriptName -MyControlName $MyControlName -MyControlType $MyControlType
+    .NOTES
+      Original Function By Ken Sweet
+  #>
+  [CmdletBinding()]
+  Param (
+    [parameter(Mandatory = $True)]
+    [String]$MyScriptName,
+    [parameter(Mandatory = $True)]
+    [String]$MyControlName
+  )
+  Write-Verbose -Message "Enter Function Build-MyScriptNamedListDialog"
+  
+  $StringBuilder = [System.Text.StringBuilder]::New()
+  
+  #region ********* My Code ********
+  
+  #region MyControlName Dialog Result Class
+  [Void]$StringBuilder.AppendLine("#region $($MyControlName)Dialog Result Class")
+  [Void]$StringBuilder.AppendLine("Class $($MyControlName)Dialog")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  [Bool]`$Success")
+  [Void]$StringBuilder.AppendLine("  [Object]`$DialogResult")
+  [Void]$StringBuilder.AppendLine("  [System.Collections.Specialized.OrderedDictionary]`$Items")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  $($MyControlName)Dialog ([Bool]`$Success, [Object]`$DialogResult, [System.Collections.Specialized.OrderedDictionary]`$Items)")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$This.Success = `$Success")
+  [Void]$StringBuilder.AppendLine("    `$This.DialogResult = `$DialogResult")
+  [Void]$StringBuilder.AppendLine("    `$This.Items = `$Items")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion $($MyControlName)Dialog Result Class")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion MyControlName Dialog Result Class
+  
+  #region function Show-MyControlNameDialog
+  [Void]$StringBuilder.AppendLine("#region function Show-$($MyControlName)Dialog")
+  [Void]$StringBuilder.AppendLine("Function Show-$($MyControlName)Dialog ()")
+  [Void]$StringBuilder.AppendLine("{")
+  [Void]$StringBuilder.AppendLine("  <#")
+  [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("      Shows Show-$($MyControlName)Dialog")
+  [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("      Shows Show-$($MyControlName)Dialog")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER DialogTitle")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER MessageText")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Items")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER MaxLength")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Width")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Multi")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Height")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ButtonLeft")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ButtonMid")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER ButtonRight")
+  [Void]$StringBuilder.AppendLine("    .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("      `$Return = Show-$($MyControlName)Dialog -DialogTitle `$DialogTitle")
+  [Void]$StringBuilder.AppendLine("    .NOTES")
+  [Void]$StringBuilder.AppendLine("      Original Function By Ken Sweet")
+  [Void]$StringBuilder.AppendLine("  #>")
+  [Void]$StringBuilder.AppendLine("  [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("  Param (")
+  [Void]$StringBuilder.AppendLine("    [String]`$DialogTitle = `"`$([MyConfig]::ScriptName)`",")
+  [Void]$StringBuilder.AppendLine("    [String]`$MessageText,")
+  [Void]$StringBuilder.AppendLine("    [String]`$ReturnTitle,")
+  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("    [System.Collections.Specialized.OrderedDictionary]`$NamedItems,")
+  [Void]$StringBuilder.AppendLine("    [String]`$ValidCharacters = `"[\w\d\.\-_]`",")
+  [Void]$StringBuilder.AppendLine("    [Int]`$Width = 35,")
+  [Void]$StringBuilder.AppendLine("    [String]`$ButtonLeft = `"&OK`",")
+  [Void]$StringBuilder.AppendLine("    [String]`$ButtonMid = `"&Reset`",")
+  [Void]$StringBuilder.AppendLine("    [String]`$ButtonRight = `"&Cancel`"")
+  [Void]$StringBuilder.AppendLine("  )")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function Show-$($MyControlName)Dialog`"")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region >>>>>>>>>>>>>>>> Begin **** $($MyControlName)Dialog **** Begin <<<<<<<<<<<<<<<<")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  # $($MyControlName)Dialog Form")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogForm = [System.Windows.Forms.Form]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm = [System.Windows.Forms.Form]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.BackColor = [MyConfig]::Colors.Back")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.Font = [MyConfig]::Font.Regular")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.ForeColor = [MyConfig]::Colors.Fore")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::Fixed3D")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.Icon = `$IDTForm.Icon")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.KeyPreview = `$True")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.MaximizeBox = `$False")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.MinimizeBox = `$False")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.MinimumSize = [System.Drawing.Size]::New(([MyConfig]::Font.Width * `$Width), ([MyConfig]::Font.Height * `$Height))")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.Name = `"$($MyControlName)DialogForm`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.Owner = `$IDTForm")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.ShowInTaskbar = `$False")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterParent")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.Text = `$DialogTitle")
+  [Void]$StringBuilder.AppendLine("  #endregion `$$($MyControlName)DialogForm = [System.Windows.Forms.Form]::New()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** Function Start-$($MyControlName)DialogFormKeyDown ********")
+  [Void]$StringBuilder.AppendLine("  Function Start-$($MyControlName)DialogFormKeyDown")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    <#")
+  [Void]$StringBuilder.AppendLine("      .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("        KeyDown Event for the $($MyControlName)Dialog Form Control")
+  [Void]$StringBuilder.AppendLine("      .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("        KeyDown Event for the $($MyControlName)Dialog Form Control")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER Sender")
+  [Void]$StringBuilder.AppendLine("        The Form Control that fired the KeyDown Event")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER EventArg")
+  [Void]$StringBuilder.AppendLine("        The Event Arguments for the Form KeyDown Event")
+  [Void]$StringBuilder.AppendLine("      .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("        Start-$($MyControlName)DialogFormKeyDown -Sender `$Sender -EventArg `$EventArg")
+  [Void]$StringBuilder.AppendLine("      .NOTES")
+  [Void]$StringBuilder.AppendLine("        Original Function By MyUserName)")
+  [Void]$StringBuilder.AppendLine("    #>")
+  [Void]$StringBuilder.AppendLine("    [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("    Param (")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [System.Windows.Forms.Form]`$Sender,")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
+  [Void]$StringBuilder.AppendLine("    )")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter KeyDown Event for ```$$($MyControlName)DialogForm`"")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    If (`$EventArg.KeyCode -eq [System.Windows.Forms.Keys]::Escape)")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      `$$($MyControlName)DialogForm.Close()")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit KeyDown Event for ```$$($MyControlName)DialogForm`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormKeyDown ********")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.add_KeyDown({ Start-$($MyControlName)DialogFormKeyDown -Sender `$This -EventArg `$PSItem })")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** Function Start-$($MyControlName)DialogFormShown ********")
+  [Void]$StringBuilder.AppendLine("  Function Start-$($MyControlName)DialogFormShown")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    <#")
+  [Void]$StringBuilder.AppendLine("      .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("        Shown Event for the $($MyControlName)Dialog Form Control")
+  [Void]$StringBuilder.AppendLine("      .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("        Shown Event for the $($MyControlName)Dialog Form Control")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER Sender")
+  [Void]$StringBuilder.AppendLine("        The Form Control that fired the Shown Event")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER EventArg")
+  [Void]$StringBuilder.AppendLine("        The Event Arguments for the Form Shown Event")
+  [Void]$StringBuilder.AppendLine("      .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("        Start-$($MyControlName)DialogFormShown -Sender `$Sender -EventArg `$EventArg")
+  [Void]$StringBuilder.AppendLine("      .NOTES")
+  [Void]$StringBuilder.AppendLine("        Original Function By Ken Sweet)")
+  [Void]$StringBuilder.AppendLine("    #>")
+  [Void]$StringBuilder.AppendLine("    [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("    Param (")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [System.Windows.Forms.Form]`$Sender,")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
+  [Void]$StringBuilder.AppendLine("    )")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Shown Event for ```$$($MyControlName)DialogForm`"")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    `$Sender.Refresh()")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
+  [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Shown Event for ```$$($MyControlName)DialogForm`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormShown ********")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.add_Shown({ Start-$($MyControlName)DialogFormShown -Sender `$This -EventArg `$PSItem })")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** Controls for $($MyControlName)Dialog Form ********")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  # $($MyControlName)DialogMain Panel")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogMainPanel = [System.Windows.Forms.Panel]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainPanel = [System.Windows.Forms.Panel]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.Controls.Add(`$$($MyControlName)DialogMainPanel)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainPanel.BorderStyle = [System.Windows.Forms.BorderStyle]::None")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainPanel.Dock = [System.Windows.Forms.DockStyle]::Fill")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainPanel.Name = `"$($MyControlName)DialogMainPanel`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainPanel.Text = `"$($MyControlName)DialogMainPanel`"")
+  [Void]$StringBuilder.AppendLine("  #endregion `$$($MyControlName)DialogMainPanel = [System.Windows.Forms.Panel]::New()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** `$$($MyControlName)DialogMainPanel Controls ********")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  If (`$PSBoundParameters.ContainsKey(`"MessageText`"))")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    #region `$$($MyControlName)DialogMainLabel = [System.Windows.Forms.Label]::New()")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainLabel = [System.Windows.Forms.Label]::New()")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainPanel.Controls.Add(`$$($MyControlName)DialogMainLabel)")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainLabel.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, ([MyConfig]::FormSpacer * 2))")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainLabel.Name = `"SearchTextMainLabel`"")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainLabel.Size = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainPanel.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), 23)")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainLabel.Text = `$MessageText")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter")
+  [Void]$StringBuilder.AppendLine("    #endregion `$$($MyControlName)DialogMainLabel = [System.Windows.Forms.Label]::New()")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    # Returns the minimum size required to display the text")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainLabel.Size = [System.Windows.Forms.TextRenderer]::MeasureText(`$$($MyControlName)DialogMainLabel.Text, `$$($MyControlName)DialogMainLabel.Font, `$$($MyControlName)DialogMainLabel.Size, ([System.Windows.Forms.TextFormatFlags](`"Top`", `"Left`", `"WordBreak`")))")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    `$TempBottom = `$$($MyControlName)DialogMainLabel.Bottom")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  Else")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TempBottom = 0")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  # $($MyControlName)Dialog GroupBox")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogGroupBox = [System.Windows.Forms.GroupBox]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox = [System.Windows.Forms.GroupBox]::New()")
+  [Void]$StringBuilder.AppendLine("  # Location of First Control = [System.Drawing.Point]::New([MyConfig]::FormSpacer, [MyConfig]::Font.Height)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainPanel.Controls.Add(`$$($MyControlName)DialogGroupBox)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox.BackColor = [MyConfig]::Colors.Back")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox.Font = [MyConfig]::Font.Bold")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox.ForeColor = [MyConfig]::Colors.GroupFore")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, (`$TempBottom + [MyConfig]::FormSpacer))")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox.Name = `"$($MyControlName)DialogGroupBox`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox.Text = `$ReturnTitle")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox.Width = (`$$($MyControlName)DialogMainPanel.ClientSize.Width - ([MyConfig]::FormSpacer * 2))")
+  [Void]$StringBuilder.AppendLine("  #endregion `$$($MyControlName)DialogGroupBox = [System.Windows.Forms.GroupBox]::New()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$TmpLabelWidth = 0")
+  [Void]$StringBuilder.AppendLine("  `$Count = 0")
+  [Void]$StringBuilder.AppendLine("  ForEach (`$Key In `$NamedItems.Keys)")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    #region `$$($MyControlName)DialogLabel = [System.Windows.Forms.Label]::New()")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel = [System.Windows.Forms.Label]::New()")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogGroupBox.Controls.Add(`$$($MyControlName)DialogLabel)")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.AutoSize = `$True")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.BackColor = [MyConfig]::Colors.Back")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.Font = [MyConfig]::Font.Regular")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.ForeColor = [MyConfig]::Colors.Fore")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.Location = [System.Drawing.Size]::New([MyConfig]::FormSpacer, ([MyConfig]::Font.Height + ((`$$($MyControlName)DialogLabel.PreferredHeight + [MyConfig]::FormSpacer) * `$Count)))")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.Name = `"`$(`$Key)Label`"")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.Tag = `$Null")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.Text = `"`$(`$Key):`"")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogLabel.TextAlign = [System.Drawing.ContentAlignment]::BottomRight")
+  [Void]$StringBuilder.AppendLine("    #endregion `$$($MyControlName)DialogLabel = [System.Windows.Forms.Label]::New()")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    `$TmpLabelWidth = [Math]::Max(`$TmpLabelWidth, `$$($MyControlName)DialogLabel.Width)")
+  [Void]$StringBuilder.AppendLine("    `$Count += 1")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("  #region ******** Function Start-$($MyControlName)DialogTextBoxKeyPress ********")
+  [Void]$StringBuilder.AppendLine("  function Start-$($MyControlName)DialogTextBoxKeyPress")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    <#")
+  [Void]$StringBuilder.AppendLine("      .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("        KeyPress Event for the $($MyControlName)Dialog TextBox Control")
+  [Void]$StringBuilder.AppendLine("      .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("        KeyPress Event for the $($MyControlName)Dialog TextBox Control")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER Sender")
+  [Void]$StringBuilder.AppendLine("         The TextBox Control that fired the KeyPress Event")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER EventArg")
+  [Void]$StringBuilder.AppendLine("         The Event Arguments for the TextBox KeyPress Event")
+  [Void]$StringBuilder.AppendLine("      .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("         Start-$($MyControlName)DialogTextBoxKeyPress -Sender `$Sender -EventArg `$EventArg")
+  [Void]$StringBuilder.AppendLine("      .NOTES")
+  [Void]$StringBuilder.AppendLine("        Original Function By ken.sweet")
+  [Void]$StringBuilder.AppendLine("    #>")
+  [Void]$StringBuilder.AppendLine("    [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("    param (")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [System.Windows.Forms.TextBox]`$Sender,")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
+  [Void]$StringBuilder.AppendLine("    )")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter KeyPress Event for ```$$($MyControlName)DialogTextBox`"")
+  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    `$EventArg.Handled = (`$EventArg.KeyChar -notmatch `$ValidCharacters)")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit KeyPress Event for ```$$($MyControlName)DialogTextBox`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogTextBoxKeyPress ********")
+  [Void]$StringBuilder.AppendLine("  #`$$($MyControlName)DialogTextBox.add_KeyPress({Start-$($MyControlName)DialogTextBoxKeyPress -Sender `$This -EventArg `$PSItem})")
+  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("  ForEach (`$Key In `$NamedItems.Keys)")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    `$TmpLabel = `$$($MyControlName)DialogGroupBox.Controls[`"`$(`$Key)Label`"]")
+  [Void]$StringBuilder.AppendLine("    `$TmpLabel.AutoSize = `$False")
+  [Void]$StringBuilder.AppendLine("    `$TmpLabel.Size = [System.Drawing.Size]::New(`$TmpLabelWidth, `$TmpLabel.PreferredHeight)")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    #region `$$($MyControlName)DialogTextBox = [System.Windows.Forms.TextBox]::New()")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox = [System.Windows.Forms.TextBox]::New()")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogGroupBox.Controls.Add(`$$($MyControlName)DialogTextBox)")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.AutoSize = `$False")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.BackColor = [MyConfig]::Colors.TextBack")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.Font = [MyConfig]::Font.Regular")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.ForeColor = [MyConfig]::Colors.TextFore")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.Location = [System.Drawing.Size]::New((`$TmpLabel.Right + [MyConfig]::FormSpacer), `$TmpLabel.Top)")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.MaxLength = 25")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.Name = `"`$(`$Key)`"")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.TabStop = `$True")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.Tag = `$Null")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.Text = `$NamedItems[`$Key]")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.TextAlign = [System.Windows.Forms.HorizontalAlignment]::Left")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.Size = [System.Drawing.Size]::New((`$$($MyControlName)DialogGroupBox.ClientSize.Width - (`$TmpLabel.Right + ([MyConfig]::FormSpacer) * 2)), `$TmpLabel.Height)")
+  [Void]$StringBuilder.AppendLine("    #endregion `$$($MyControlName)DialogTextBox = [System.Windows.Forms.TextBox]::New()")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogTextBox.add_KeyPress({Start-$($MyControlName)DialogTextBoxKeyPress -Sender `$This -EventArg `$PSItem})")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogGroupBox.ClientSize = [System.Drawing.Size]::New(`$$($MyControlName)DialogGroupBox.ClientSize.Width, ((`$$($MyControlName)DialogGroupBox.Controls[`$$($MyControlName)DialogGroupBox.Controls.Count - 1]).Bottom + [MyConfig]::FormSpacer))")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$TempClientSize = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainTextBox.Right + [MyConfig]::FormSpacer), (`$$($MyControlName)DialogGroupBox.Bottom + [MyConfig]::FormSpacer))")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** `$$($MyControlName)DialogMainPanel Controls ********")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  # $($MyControlName)DialogBtm Panel")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogBtmPanel = [System.Windows.Forms.Panel]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel = [System.Windows.Forms.Panel]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.Controls.Add(`$$($MyControlName)DialogBtmPanel)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel.BorderStyle = [System.Windows.Forms.BorderStyle]::None")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel.Dock = [System.Windows.Forms.DockStyle]::Bottom")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel.Name = `"$($MyControlName)DialogBtmPanel`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel.Text = `"$($MyControlName)DialogBtmPanel`"")
+  [Void]$StringBuilder.AppendLine("  #endregion `$$($MyControlName)DialogBtmPanel = [System.Windows.Forms.Panel]::New()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** `$$($MyControlName)DialogBtmPanel Controls ********")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # Evenly Space Buttons - Move Size to after Text")
+  [Void]$StringBuilder.AppendLine("  `$NumButtons = 3")
+  [Void]$StringBuilder.AppendLine("  `$TempSpace = [Math]::Floor(`$$($MyControlName)DialogBtmPanel.ClientSize.Width - ([MyConfig]::FormSpacer * (`$NumButtons + 1)))")
+  [Void]$StringBuilder.AppendLine("  `$TempWidth = [Math]::Floor(`$TempSpace / `$NumButtons)")
+  [Void]$StringBuilder.AppendLine("  `$TempMod = `$TempSpace % `$NumButtons")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogBtmLeftButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel.Controls.Add(`$$($MyControlName)DialogBtmLeftButton)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.Anchor = [System.Windows.Forms.AnchorStyles](`"Top, Left`")")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.AutoSizeMode = [System.Windows.Forms.AutoSizeMode]::GrowAndShrink")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.BackColor = [MyConfig]::Colors.ButtonBack")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.Font = [MyConfig]::Font.Bold")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.ForeColor = [MyConfig]::Colors.ButtonFore")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, [MyConfig]::FormSpacer)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.Name = `"$($MyControlName)DialogBtmLeftButton`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.TabIndex = 1")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.TabStop = `$True")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.Text = `$ButtonLeft")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.Size = [System.Drawing.Size]::New(`$TempWidth, `$$($MyControlName)DialogBtmLeftButton.PreferredSize.Height)")
+  [Void]$StringBuilder.AppendLine("  #endregion `$$($MyControlName)DialogBtmLeftButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** Function Start-$($MyControlName)DialogBtmLeftButtonClick ********")
+  [Void]$StringBuilder.AppendLine("  Function Start-$($MyControlName)DialogBtmLeftButtonClick")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    <#")
+  [Void]$StringBuilder.AppendLine("      .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("        Click Event for the $($MyControlName)DialogBtmLeft Button Control")
+  [Void]$StringBuilder.AppendLine("      .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("        Click Event for the $($MyControlName)DialogBtmLeft Button Control")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER Sender")
+  [Void]$StringBuilder.AppendLine("        The Button Control that fired the Click Event")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER EventArg")
+  [Void]$StringBuilder.AppendLine("        The Event Arguments for the Button Click Event")
+  [Void]$StringBuilder.AppendLine("      .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("        Start-$($MyControlName)DialogBtmLeftButtonClick -Sender `$Sender -EventArg `$EventArg")
+  [Void]$StringBuilder.AppendLine("      .NOTES")
+  [Void]$StringBuilder.AppendLine("        Original Function By MyUserName)")
+  [Void]$StringBuilder.AppendLine("    #>")
+  [Void]$StringBuilder.AppendLine("    [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("    Param (")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [System.Windows.Forms.Button]`$Sender,")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
+  [Void]$StringBuilder.AppendLine("    )")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Click Event for ```$$($MyControlName)DialogBtmLeftButton`"")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    `$TmpValidCheck = `$False")
+  [Void]$StringBuilder.AppendLine("    ForEach (`$Key In `$NamedItems.Keys)")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      `$TmpValidCheck = (-not [String]::IsNullOrEmpty(`$$($MyControlName)DialogGroupBox.Controls[`$Key].Text)) -or `$TmpValidCheck")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    If (`$TmpValidCheck)")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      ForEach (`$Key In @(`$NamedItems.Keys))")
+  [Void]$StringBuilder.AppendLine("      {")
+  [Void]$StringBuilder.AppendLine("        `$NamedItems[`$Key] = `$$($MyControlName)DialogGroupBox.Controls[`$Key].Text")
+  [Void]$StringBuilder.AppendLine("      }")
+  [Void]$StringBuilder.AppendLine("      ")
+  [Void]$StringBuilder.AppendLine("      `$$($MyControlName)DialogForm.DialogResult = [System.Windows.Forms.DialogResult]::OK")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    Else")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      [Void][System.Windows.Forms.MessageBox]::Show(`$$($MyControlName)DialogForm, `"Missing or Invalid Value.`", [MyConfig]::ScriptName, `"OK`", `"Warning`")")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Click Event for ```$$($MyControlName)DialogBtmLeftButton`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogBtmLeftButtonClick ********")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmLeftButton.add_Click({ Start-$($MyControlName)DialogBtmLeftButtonClick -Sender `$This -EventArg `$PSItem })")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogBtmMidButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel.Controls.Add(`$$($MyControlName)DialogBtmMidButton)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.Anchor = [System.Windows.Forms.AnchorStyles](`"Top, Left, Right`")")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.Anchor = [System.Windows.Forms.AnchorStyles](`"Top`")")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.AutoSizeMode = [System.Windows.Forms.AutoSizeMode]::GrowAndShrink")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.BackColor = [MyConfig]::Colors.ButtonBack")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.Font = [MyConfig]::Font.Bold")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.ForeColor = [MyConfig]::Colors.ButtonFore")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.Location = [System.Drawing.Point]::New((`$$($MyControlName)DialogBtmLeftButton.Right + [MyConfig]::FormSpacer), [MyConfig]::FormSpacer)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.Name = `"$($MyControlName)DialogBtmMidButton`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.TabIndex = 2")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.TabStop = `$True")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.Text = `$ButtonMid")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.Size = [System.Drawing.Size]::New((`$TempWidth + `$TempMod), `$$($MyControlName)DialogBtmMidButton.PreferredSize.Height)")
+  [Void]$StringBuilder.AppendLine("  #endregion `$$($MyControlName)DialogBtmMidButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** Function Start-$($MyControlName)DialogBtmMidButtonClick ********")
+  [Void]$StringBuilder.AppendLine("  Function Start-$($MyControlName)DialogBtmMidButtonClick")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    <#")
+  [Void]$StringBuilder.AppendLine("      .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("        Click Event for the $($MyControlName)DialogBtmMid Button Control")
+  [Void]$StringBuilder.AppendLine("      .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("        Click Event for the $($MyControlName)DialogBtmMid Button Control")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER Sender")
+  [Void]$StringBuilder.AppendLine("        The Button Control that fired the Click Event")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER EventArg")
+  [Void]$StringBuilder.AppendLine("        The Event Arguments for the Button Click Event")
+  [Void]$StringBuilder.AppendLine("      .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("        Start-$($MyControlName)DialogBtmMidButtonClick -Sender `$Sender -EventArg `$EventArg")
+  [Void]$StringBuilder.AppendLine("      .NOTES")
+  [Void]$StringBuilder.AppendLine("        Original Function By MyUserName)")
+  [Void]$StringBuilder.AppendLine("    #>")
+  [Void]$StringBuilder.AppendLine("    [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("    Param (")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [System.Windows.Forms.Button]`$Sender,")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
+  [Void]$StringBuilder.AppendLine("    )")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Click Event for ```$$($MyControlName)DialogBtmMidButton`"")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    ForEach (`$Key In `$NamedItems.Keys)")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      `$$($MyControlName)DialogGroupBox.Controls[`$Key].Text = `$NamedItems[`$Key]")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Click Event for ```$$($MyControlName)DialogBtmMidButton`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogBtmMidButtonClick ********")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmMidButton.add_Click({ Start-$($MyControlName)DialogBtmMidButtonClick -Sender `$This -EventArg `$PSItem })")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogBtmRightButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel.Controls.Add(`$$($MyControlName)DialogBtmRightButton)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.Anchor = [System.Windows.Forms.AnchorStyles](`"Top, Right`")")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.AutoSizeMode = [System.Windows.Forms.AutoSizeMode]::GrowAndShrink")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.BackColor = [MyConfig]::Colors.ButtonBack")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.Font = [MyConfig]::Font.Bold")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.ForeColor = [MyConfig]::Colors.ButtonFore")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.Location = [System.Drawing.Point]::New((`$$($MyControlName)DialogBtmMidButton.Right + [MyConfig]::FormSpacer), [MyConfig]::FormSpacer)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.Name = `"$($MyControlName)DialogBtmRightButton`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.TabIndex = 3")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.TabStop = `$True")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.Text = `$ButtonRight")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.Size = [System.Drawing.Size]::New(`$TempWidth, `$$($MyControlName)DialogBtmRightButton.PreferredSize.Height)")
+  [Void]$StringBuilder.AppendLine("  #endregion `$$($MyControlName)DialogBtmRightButton = [System.Windows.Forms.Button]::New()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** Function Start-$($MyControlName)DialogBtmRightButtonClick ********")
+  [Void]$StringBuilder.AppendLine("  Function Start-$($MyControlName)DialogBtmRightButtonClick")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    <#")
+  [Void]$StringBuilder.AppendLine("      .SYNOPSIS")
+  [Void]$StringBuilder.AppendLine("        Click Event for the $($MyControlName)DialogBtmRight Button Control")
+  [Void]$StringBuilder.AppendLine("      .DESCRIPTION")
+  [Void]$StringBuilder.AppendLine("        Click Event for the $($MyControlName)DialogBtmRight Button Control")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER Sender")
+  [Void]$StringBuilder.AppendLine("        The Button Control that fired the Click Event")
+  [Void]$StringBuilder.AppendLine("      .PARAMETER EventArg")
+  [Void]$StringBuilder.AppendLine("        The Event Arguments for the Button Click Event")
+  [Void]$StringBuilder.AppendLine("      .EXAMPLE")
+  [Void]$StringBuilder.AppendLine("        Start-$($MyControlName)DialogBtmRightButtonClick -Sender `$Sender -EventArg `$EventArg")
+  [Void]$StringBuilder.AppendLine("      .NOTES")
+  [Void]$StringBuilder.AppendLine("        Original Function By MyUserName)")
+  [Void]$StringBuilder.AppendLine("    #>")
+  [Void]$StringBuilder.AppendLine("    [CmdletBinding()]")
+  [Void]$StringBuilder.AppendLine("    Param (")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [System.Windows.Forms.Button]`$Sender,")
+  [Void]$StringBuilder.AppendLine("      [parameter(Mandatory = `$True)]")
+  [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
+  [Void]$StringBuilder.AppendLine("    )")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Click Event for ```$$($MyControlName)DialogBtmRightButton`"")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    # Cancel Code Goes here")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogForm.DialogResult = [System.Windows.Forms.DialogResult]::Cancel")
+  [Void]$StringBuilder.AppendLine("    ")
+  [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Click Event for ```$$($MyControlName)DialogBtmRightButton`"")
+  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogBtmRightButtonClick ********")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmRightButton.add_Click({ Start-$($MyControlName)DialogBtmRightButtonClick -Sender `$This -EventArg `$PSItem })")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogBtmPanel.ClientSize = [System.Drawing.Size]::New((`$$($MyControlName)DialogBtmRightButton.Right + [MyConfig]::FormSpacer), (`$$($MyControlName)DialogBtmRightButton.Bottom + [MyConfig]::FormSpacer))")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** `$$($MyControlName)DialogBtmPanel Controls ********")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.ClientSize = [System.Drawing.Size]::New(`$$($MyControlName)DialogForm.ClientSize.Width, (`$TempClientSize.Height + `$$($MyControlName)DialogBtmPanel.Height))")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** Controls for $($MyControlName)Dialog Form ********")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #endregion ================ End **** $($MyControlName)Dialog **** End ================")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$DialogResult = `$$($MyControlName)DialogForm.ShowDialog(`$IDTForm)")
+  [Void]$StringBuilder.AppendLine("  [$($MyControlName)Dialog]::New((`$DialogResult -eq [System.Windows.Forms.DialogResult]::OK), `$DialogResult, `$NamedItems)")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogForm.Dispose()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  [System.GC]::Collect()")
+  [Void]$StringBuilder.AppendLine("  [System.GC]::WaitForPendingFinalizers()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Show-$($MyControlName)Dialog`"")
+  [Void]$StringBuilder.AppendLine("}")
+  [Void]$StringBuilder.AppendLine("#endregion function Show-$($MyControlName)Dialog")
+  [Void]$StringBuilder.AppendLine("")
+  #endregion function Show-MyControlNameDialog
+  
+  #endregion ********* My Code ********
+  
+  $StringBuilder.ToString()
+  $StringBuilder = $Null
+  
+  [System.GC]::Collect()
+  [System.GC]::WaitForPendingFinalizers()
+  
+  Write-Verbose -Message "Exit Function Build-MyScriptNamedListDialog"
+}
+#endregion function Build-MyScriptNamedListDialog
+
 #region function Build-MyScriptSelectOptionDialog
 function Build-MyScriptSelectOptionDialog ()
 {
@@ -17521,6 +19435,9 @@ function Build-MyScriptStatusSample ()
     [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
     [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Font ([MyConfig]::Font.Title) -Alignment `"Center`" -Text `"`$(`$$($MyControlType).Parent.Parent.Text)`" -TextFore ([MyConfig]::Colors.TextTitle)")
     [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+    [Void]$StringBuilder.AppendLine("")
+    [Void]$StringBuilder.AppendLine("    # Initialize StopWatch")
+    [Void]$StringBuilder.AppendLine("    `$StopWatch = [System.Diagnostics.Stopwatch]::StartNew()")
     [Void]$StringBuilder.AppendLine(" }")
     [Void]$StringBuilder.AppendLine("")
     [Void]$StringBuilder.AppendLine("  Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
@@ -17549,9 +19466,9 @@ function Build-MyScriptStatusSample ()
   [Void]$StringBuilder.AppendLine("    {")
   if ($MyControlType -eq "RichTextBox")
   {
-    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Found Key`" -TextFore `"Blue`" -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Found Key`" -TextFore ([MyConfig]::Colors.TextInfo) -NoNewLine")
     [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `": `" -NoNewLine")
-    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"`$(`$Key) = `$(`$HashTable[`$Key])`" -TextFore `"Green`" -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"`$(`$Key) = `$(`$HashTable[`$Key])`" -TextFore ([MyConfig]::Colors.TextGood) -NoNewLine")
     [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
   }
   else
@@ -17569,9 +19486,9 @@ function Build-MyScriptStatusSample ()
   [Void]$StringBuilder.AppendLine("    {")
   if ($MyControlType -eq "RichTextBox")
   {
-    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"`$(`"X`" * `$Count)`" -TextFore `"Blue`" -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"`$(`"X`" * `$Count)`" -TextFore ([MyConfig]::Colors.TextInfo) -NoNewLine")
     [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `" - `" -NoNewLine")
-    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Green`" -TextFore `"Green`" -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Green`" -TextFore ([MyConfig]::Colors.TextGood) -NoNewLine")
     [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
   }
   else
@@ -17586,12 +19503,37 @@ function Build-MyScriptStatusSample ()
   [Void]$StringBuilder.AppendLine("    }")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("  Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"List Data Here...`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlType).SelectionIndent = 10")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlType).SelectionBullet = `$False")
+  [Void]$StringBuilder.AppendLine("  Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+  [Void]$StringBuilder.AppendLine("  Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Show Fake Error Message`"-TextFore ([MyConfig]::Colors.TextWarn) -Font ([MyConfig]::Font.Bold)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlType).SelectionIndent = 20")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlType).SelectionBullet = `$True")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  if (`$ShowHeader)")
   [Void]$StringBuilder.AppendLine("  {")
   if ($MyControlType -eq "RichTextBox")
   {
+    [Void]$StringBuilder.AppendLine("")
+    [Void]$StringBuilder.AppendLine("    Try")
+    [Void]$StringBuilder.AppendLine("    {")
+    [Void]$StringBuilder.AppendLine("      Throw `"This is a Fake Error!`"")
+    [Void]$StringBuilder.AppendLine("    }")
+    [Void]$StringBuilder.AppendLine("    Catch")
+    [Void]$StringBuilder.AppendLine("    {")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Error: `" -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `$(`$Error[0].Exception.Message) -TextFore ([MyConfig]::Colors.TextBad) -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+    [Void]$StringBuilder.AppendLine("")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Code: `" -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text ((`$Error[0].InvocationInfo.Line).Trim()) -TextFore ([MyConfig]::Colors.TextBad) -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+    [Void]$StringBuilder.AppendLine("")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Line: `" -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text (`$Error[0].InvocationInfo.ScriptLineNumber) -TextFore ([MyConfig]::Colors.TextBad) -NoNewLine")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+    [Void]$StringBuilder.AppendLine("    }")
+    [Void]$StringBuilder.AppendLine("")
     [Void]$StringBuilder.AppendLine("    `$$($MyControlType).SelectionIndent = 10")
     [Void]$StringBuilder.AppendLine("    `$$($MyControlType).SelectionBullet = `$False")
     [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
@@ -17610,10 +19552,24 @@ function Build-MyScriptStatusSample ()
     [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
     [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Font ([MyConfig]::Font.Title) -Alignment `"Center`" -TextFore `$FinalClr -Text `$FinalMsg")
     [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+    [Void]$StringBuilder.AppendLine("")
+    [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Alignment `"Center`" -Text (`$StopWatch.Elapsed.ToString())")
+    [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
   }
   else
   {
     [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+    [Void]$StringBuilder.AppendLine("")
+    [Void]$StringBuilder.AppendLine("    Try")
+    [Void]$StringBuilder.AppendLine("    {")
+    [Void]$StringBuilder.AppendLine("      Throw `"This is a Fake Error!`"")
+    [Void]$StringBuilder.AppendLine("    }")
+    [Void]$StringBuilder.AppendLine("    Catch")
+    [Void]$StringBuilder.AppendLine("    {")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Error: `$(`$Error[0].Exception.Message)`"")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Code: `$((`$Error[0].InvocationInfo.Line).Trim())`"")
+    [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `"Line: `$(`$Error[0].InvocationInfo.ScriptLineNumber)`"")
+    [Void]$StringBuilder.AppendLine("    }")
     [Void]$StringBuilder.AppendLine("")
     [Void]$StringBuilder.AppendLine("    if (`$DisplayResult -eq [System.Windows.Forms.DialogResult]::OK)")
     [Void]$StringBuilder.AppendLine("    {")
@@ -17624,9 +19580,12 @@ function Build-MyScriptStatusSample ()
     [Void]$StringBuilder.AppendLine("      `$FinalMsg = `"Add Error Nessage Here!`"")
     [Void]$StringBuilder.AppendLine("    }")
     [Void]$StringBuilder.AppendLine("")
-    [Void]$StringBuilder.AppendLine("    Write-TextBox -TextBox `$TextBox")
-    [Void]$StringBuilder.AppendLine("    Write-TextBox -TextBox `$TextBox -Text `$FinalMsg")
-    [Void]$StringBuilder.AppendLine("    Write-TextBox -TextBox `$TextBox")
+    [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+    [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `$FinalMsg")
+    [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
+    [Void]$StringBuilder.AppendLine("")
+    [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text (`$StopWatch.Elapsed.ToString())")
+    [Void]$StringBuilder.AppendLine("    Write-$($MyControlType) -$($MyControlType) `$$($MyControlType)")
   }
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("")
@@ -17637,10 +19596,13 @@ function Build-MyScriptStatusSample ()
   [Void]$StringBuilder.AppendLine("}")
   [Void]$StringBuilder.AppendLine("#endregion function Display-MyStatus$($MyControlType)")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("#Show-StatusDialog -ScriptBlock { [CmdletBinding()] param ([System.Windows.Forms.$($MyControlType)]`$$($MyControlType)) Display-MyStatus$($MyControlType) -$($MyControlType) `$$($MyControlType) } -DialogTitle `"Test Title 1`"")
+  [Void]$StringBuilder.AppendLine("#`$HashTable = @{`"ShowHeader`" = `$True; `"Name`" = `"Item Name`"; `"Value`" = `"Item Value`"}")
+  [Void]$StringBuilder.AppendLine("#`$ScriptBlock = { [CmdletBinding()] param ([System.Windows.Forms.$($MyControlType)]`$$($MyControlType), [HashTable]`$HashTable) Display-MyStatus$($MyControlType) -$($MyControlType) `$$($MyControlType) -HashTable `$HashTable -AutoCloseWait 30 }")
+  [Void]$StringBuilder.AppendLine("#Show-$($MyControlName)Dialog -ScriptBlock `$ScriptBlock -DialogTitle `"Test Title 1`"")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("#`$Items = @(1..99)")
-  [Void]$StringBuilder.AppendLine("#Show-StatusDialog -ScriptBlock { [CmdletBinding()] param ([System.Windows.Forms.$($MyControlType)]`$$($MyControlType), [HashTable]`$HashTable) Display-MyStatus$($MyControlType) -$($MyControlType) `$$($MyControlType) -HashTable `$HashTable } -DialogTitle `"Test Title 2`" -HashTable `$HashTable")
+  [Void]$StringBuilder.AppendLine("#`$HashTable = @{`"ShowHeader`" = `$True; `"Name`" = `"Item Name`"; `"Value`" = `"Item Value`"}")
+  [Void]$StringBuilder.AppendLine("#`$ScriptBlock = { [CmdletBinding()] param ([System.Windows.Forms.$($MyControlType)]`$$($MyControlType), [HashTable]`$HashTable) Display-MyStatus$($MyControlType) -$($MyControlType) `$$($MyControlType) -HashTable `$HashTable }")
+  [Void]$StringBuilder.AppendLine("#Show-$($MyControlName)Dialog -ScriptBlock `$ScriptBlock -DialogTitle `"Test Title 2`" -HashTable `$HashTable -ButtonMid `"OK`"")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Display-MyStatusControlType - Sample Code
   
@@ -18035,7 +19997,7 @@ function Show-MySIDialog ()
   #>
   [CmdletBinding()]
   param (
-    [String]$DialogTitle = "$([MyFCGConfig]::ScriptName)",
+    [String]$DialogTitle = "$([MyConfig]::ScriptName)",
     [String]$FileMessage = "Selected Icon File / Library",
     [String]$IconMessage = "File / Library Icons...",
     [String]$IconPath = "",
@@ -18069,15 +20031,15 @@ function Show-MySIDialog ()
   # ************************************************
   #region $MySIDialogForm = [System.Windows.Forms.Form]::New()
   $MySIDialogForm = [System.Windows.Forms.Form]::New()
-  $MySIDialogForm.BackColor = [MyFCGConfig]::Colors.Back
-  $MySIDialogForm.Font = [MyFCGConfig]::Font.Regular
-  $MySIDialogForm.ForeColor = [MyFCGConfig]::Colors.Fore
+  $MySIDialogForm.BackColor = [MyConfig]::Colors.Back
+  $MySIDialogForm.Font = [MyConfig]::Font.Regular
+  $MySIDialogForm.ForeColor = [MyConfig]::Colors.Fore
   $MySIDialogForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::Fixed3D
   $MySIDialogForm.Icon = $MyFCGForm.Icon
   $MySIDialogForm.KeyPreview = $True
   $MySIDialogForm.MaximizeBox = $False
   $MySIDialogForm.MinimizeBox = $False
-  $MySIDialogForm.MinimumSize = [System.Drawing.Size]::New(([MyFCGConfig]::Font.Width * $Width), ([MyFCGConfig]::Font.Height * $Height))
+  $MySIDialogForm.MinimumSize = [System.Drawing.Size]::New(([MyConfig]::Font.Width * $Width), ([MyConfig]::Font.Height * $Height))
   $MySIDialogForm.Name = "MySIDialogForm"
   $MySIDialogForm.Owner = $MyFCGForm
   $MySIDialogForm.ShowInTaskbar = $False
@@ -18111,7 +20073,7 @@ function Show-MySIDialog ()
     )
     Write-Verbose -Message "Enter KeyDown Event for `$MySIDialogForm"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     if ($EventArg.KeyCode -eq [System.Windows.Forms.Keys]::Escape)
     {
@@ -18149,7 +20111,7 @@ function Show-MySIDialog ()
     )
     Write-Verbose -Message "Enter Move Event for `$MySIDialogForm"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     Write-Verbose -Message "Exit Move Event for `$MySIDialogForm"
   }
@@ -18182,7 +20144,7 @@ function Show-MySIDialog ()
     )
     Write-Verbose -Message "Enter Shown Event for `$MySIDialogForm"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     $Sender.Refresh()
     
@@ -18249,7 +20211,7 @@ function Show-MySIDialog ()
   $MySIDialogMainFileLabel = [System.Windows.Forms.Label]::New()
   $MySIDialogMainPanel.Controls.Add($MySIDialogMainFileLabel)
   $MySIDialogMainFileLabel.AutoSize = $True
-  $MySIDialogMainFileLabel.Location = [System.Drawing.Point]::New([MyFCGConfig]::FormSpacer, ([MyFCGConfig]::FormSpacer * 2))
+  $MySIDialogMainFileLabel.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, ([MyConfig]::FormSpacer * 2))
   $MySIDialogMainFileLabel.Name = "MySIDialogMainFileLabel"
   $MySIDialogMainFileLabel.TabStop = $False
   $MySIDialogMainFileLabel.Text = $FileMessage
@@ -18260,15 +20222,15 @@ function Show-MySIDialog ()
   $MySIDialogMainFileButton = [System.Windows.Forms.Button]::New()
   $MySIDialogMainPanel.Controls.Add($MySIDialogMainFileButton)
   $MySIDialogMainFileButton.AutoSize = $True
-  $MySIDialogMainFileButton.BackColor = [MyFCGConfig]::Colors.ButtonBack
-  $MySIDialogMainFileButton.Font = [MyFCGConfig]::Font.Bold
-  $MySIDialogMainFileButton.ForeColor = [MyFCGConfig]::Colors.ButtonFore
+  $MySIDialogMainFileButton.BackColor = [MyConfig]::Colors.ButtonBack
+  $MySIDialogMainFileButton.Font = [MyConfig]::Font.Bold
+  $MySIDialogMainFileButton.ForeColor = [MyConfig]::Colors.ButtonFore
   $MySIDialogMainFileButton.Name = "MySIDialogMainFileButton"
   $MySIDialogMainFileButton.TabIndex = 0
   $MySIDialogMainFileButton.TabStop = $True
   $MySIDialogMainFileButton.Text = "  &Browse...  "
   $MySIDialogMainFileButton.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-  $MySIDialogMainFileButton.Location = [System.Drawing.Point]::New(($MySIDialogMainPanel.ClientSize.Width - ($MySIDialogMainFileButton.Width + [MyFCGConfig]::FormSpacer)), ($MySIDialogMainFileLabel.Bottom + [MyFCGConfig]::FormSpacer))
+  $MySIDialogMainFileButton.Location = [System.Drawing.Point]::New(($MySIDialogMainPanel.ClientSize.Width - ($MySIDialogMainFileButton.Width + [MyConfig]::FormSpacer)), ($MySIDialogMainFileLabel.Bottom + [MyConfig]::FormSpacer))
   #endregion $MySIDialogMainFileButton = [System.Windows.Forms.Button]::New()
   
   #region ******** Function Start-MySIDialogMainFileButtonClick ********
@@ -18297,7 +20259,7 @@ function Show-MySIDialog ()
     )
     Write-Verbose -Message "Enter Click Event for `$MySIDialogMainFileButton"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     $MyFCGOpenFileDialog.Title = "Extact Icons"
     $MyFCGOpenFileDialog.Filter = "All Icon Files|*.ico;*.exe;*.dll|Icon Files|*.ico|EXE Files|*.exe|DLL Files|*.dll|All Files|*.*"
@@ -18333,14 +20295,14 @@ function Show-MySIDialog ()
   $MySIDialogMainFileTextBox = [System.Windows.Forms.TextBox]::New()
   $MySIDialogMainPanel.Controls.Add($MySIDialogMainFileTextBox)
   $MySIDialogMainFileTextBox.AutoSize = $False
-  $MySIDialogMainFileTextBox.BackColor = [MyFCGConfig]::Colors.TextBack
+  $MySIDialogMainFileTextBox.BackColor = [MyConfig]::Colors.TextBack
   $MySIDialogMainFileTextBox.BorderStyle = [System.Windows.Forms.BorderStyle]::Fixed3D
-  $MySIDialogMainFileTextBox.Font = [MyFCGConfig]::Font.Regular
-  $MySIDialogMainFileTextBox.ForeColor = [MyFCGConfig]::Colors.TextFore
-  $MySIDialogMainFileTextBox.Location = [System.Drawing.Point]::New([MyFCGConfig]::FormSpacer, ($MySIDialogMainFileLabel.Bottom + [MyFCGConfig]::FormSpacer))
+  $MySIDialogMainFileTextBox.Font = [MyConfig]::Font.Regular
+  $MySIDialogMainFileTextBox.ForeColor = [MyConfig]::Colors.TextFore
+  $MySIDialogMainFileTextBox.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, ($MySIDialogMainFileLabel.Bottom + [MyConfig]::FormSpacer))
   $MySIDialogMainFileTextBox.Name = "MySIDialogMainFileTextBox"
   $MySIDialogMainFileTextBox.ReadOnly = $True
-  $MySIDialogMainFileTextBox.Size = [System.Drawing.Size]::New((($MySIDialogMainFileButton.Left - [MyFCGConfig]::FormSpacer) - $MySIDialogMainFileTextBox.Left), $MySIDialogMainFileButton.Height)
+  $MySIDialogMainFileTextBox.Size = [System.Drawing.Size]::New((($MySIDialogMainFileButton.Left - [MyConfig]::FormSpacer) - $MySIDialogMainFileTextBox.Left), $MySIDialogMainFileButton.Height)
   $MySIDialogMainFileTextBox.TabStop = $False
   $MySIDialogMainFileTextBox.Text = $IconPath
   $MySIDialogMainFileTextBox.Tag = $IconIndex
@@ -18352,7 +20314,7 @@ function Show-MySIDialog ()
   $MySIDialogMainIconLabel = [System.Windows.Forms.Label]::New()
   $MySIDialogMainPanel.Controls.Add($MySIDialogMainIconLabel)
   $MySIDialogMainIconLabel.AutoSize = $True
-  $MySIDialogMainIconLabel.Location = [System.Drawing.Point]::New([MyFCGConfig]::FormSpacer, ($MySIDialogMainFileTextBox.Bottom + ([MyFCGConfig]::FormSpacer * 2)))
+  $MySIDialogMainIconLabel.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, ($MySIDialogMainFileTextBox.Bottom + ([MyConfig]::FormSpacer * 2)))
   $MySIDialogMainIconLabel.Name = "MySIDialogMainIconLabel"
   $MySIDialogMainIconLabel.TabStop = $False
   $MySIDialogMainIconLabel.Text = $IconMessage
@@ -18363,19 +20325,19 @@ function Show-MySIDialog ()
   $MySIDialogMainIconListView = [System.Windows.Forms.ListView]::New()
   $MySIDialogMainPanel.Controls.Add($MySIDialogMainIconListView)
   $MySIDialogMainIconListView.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Left, Bottom, Right")
-  $MySIDialogMainIconListView.BackColor = [MyFCGConfig]::Colors.TextBack
+  $MySIDialogMainIconListView.BackColor = [MyConfig]::Colors.TextBack
   $MySIDialogMainIconListView.CheckBoxes = $Multi.IsPresent
-  $MySIDialogMainIconListView.Font = [MyFCGConfig]::Font.Bold
-  $MySIDialogMainIconListView.ForeColor = [MyFCGConfig]::Colors.TextFore
+  $MySIDialogMainIconListView.Font = [MyConfig]::Font.Bold
+  $MySIDialogMainIconListView.ForeColor = [MyConfig]::Colors.TextFore
   $MySIDialogMainIconListView.HeaderStyle = [System.Windows.Forms.ColumnHeaderStyle]::None
   $MySIDialogMainIconListView.HideSelection = $False
   $MySIDialogMainIconListView.LabelWrap = $False
   $MySIDialogMainIconListView.LargeImageList = $MySIDialogImageList
-  $MySIDialogMainIconListView.Location = [System.Drawing.Point]::New([MyFCGConfig]::FormSpacer, ($MySIDialogMainIconLabel.Bottom + [MyFCGConfig]::FormSpacer))
+  $MySIDialogMainIconListView.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, ($MySIDialogMainIconLabel.Bottom + [MyConfig]::FormSpacer))
   $MySIDialogMainIconListView.MultiSelect = $Multi.IsPresent
   $MySIDialogMainIconListView.Name = "MySIDialogMainIconListView"
   $MySIDialogMainIconListView.ShowGroups = $False
-  $MySIDialogMainIconListView.Size = [System.Drawing.Size]::New(($MySIDialogMainPanel.ClientSize.Width - ([MyFCGConfig]::FormSpacer * 2)), (($MySIDialogMainPanel.ClientSize.Height - [MyFCGConfig]::FormSpacer) - $MySIDialogMainIconListView.Top))
+  $MySIDialogMainIconListView.Size = [System.Drawing.Size]::New(($MySIDialogMainPanel.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), (($MySIDialogMainPanel.ClientSize.Height - [MyConfig]::FormSpacer) - $MySIDialogMainIconListView.Top))
   $MySIDialogMainIconListView.Sorting = [System.Windows.Forms.SortOrder]::None
   $MySIDialogMainIconListView.TabIndex = 1
   $MySIDialogMainIconListView.TabStop = $True
@@ -18409,7 +20371,7 @@ function Show-MySIDialog ()
     )
     Write-Verbose -Message "Enter SelectedIndexChanged Event for `$MySIDialogMainIconListView"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     Write-Verbose -Message "Exit SelectedIndexChanged Event for `$MySIDialogMainIconListView"
   }
@@ -18434,7 +20396,7 @@ function Show-MySIDialog ()
   
   # Evenly Space Buttons - Move Size to after Text
   $NumButtons = 3
-  $TempSpace = [Math]::Floor($MySIDialogBtmPanel.ClientSize.Width - ([MyFCGConfig]::FormSpacer * ($NumButtons + 1)))
+  $TempSpace = [Math]::Floor($MySIDialogBtmPanel.ClientSize.Width - ([MyConfig]::FormSpacer * ($NumButtons + 1)))
   $TempWidth = [Math]::Floor($TempSpace / $NumButtons)
   $TempMod = $TempSpace % $NumButtons
   
@@ -18443,10 +20405,10 @@ function Show-MySIDialog ()
   $MySIDialogBtmPanel.Controls.Add($MySIDialogBtmLeftButton)
   $MySIDialogBtmLeftButton.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Left")
   $MySIDialogBtmLeftButton.AutoSizeMode = [System.Windows.Forms.AutoSizeMode]::GrowAndShrink
-  $MySIDialogBtmLeftButton.BackColor = [MyFCGConfig]::Colors.ButtonBack
-  $MySIDialogBtmLeftButton.Font = [MyFCGConfig]::Font.Bold
-  $MySIDialogBtmLeftButton.ForeColor = [MyFCGConfig]::Colors.ButtonFore
-  $MySIDialogBtmLeftButton.Location = [System.Drawing.Point]::New([MyFCGConfig]::FormSpacer, [MyFCGConfig]::FormSpacer)
+  $MySIDialogBtmLeftButton.BackColor = [MyConfig]::Colors.ButtonBack
+  $MySIDialogBtmLeftButton.Font = [MyConfig]::Font.Bold
+  $MySIDialogBtmLeftButton.ForeColor = [MyConfig]::Colors.ButtonFore
+  $MySIDialogBtmLeftButton.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, [MyConfig]::FormSpacer)
   $MySIDialogBtmLeftButton.Name = "MySIDialogBtmLeftButton"
   $MySIDialogBtmLeftButton.TabIndex = 2
   $MySIDialogBtmLeftButton.TabStop = $True
@@ -18480,7 +20442,7 @@ function Show-MySIDialog ()
     )
     Write-Verbose -Message "Enter Click Event for `$MySIDialogBtmLeftButton"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     if (($MySIDialogMainIconListView.CheckedIndices.Count -and $MySIDialogMainIconListView.CheckBoxes) -or ($MySIDialogMainIconListView.SelectedIndices.Count -and (-not $MySIDialogMainIconListView.CheckBoxes)))
     {
@@ -18488,7 +20450,7 @@ function Show-MySIDialog ()
     }
     else
     {
-      [Void][System.Windows.Forms.MessageBox]::Show($MySIDialogForm, "No Icons Selected", [MyFCGConfig]::ScriptName, "OK", "Warning")
+      [Void][System.Windows.Forms.MessageBox]::Show($MySIDialogForm, "No Icons Selected", [MyConfig]::ScriptName, "OK", "Warning")
     }
     
     
@@ -18502,10 +20464,10 @@ function Show-MySIDialog ()
   $MySIDialogBtmPanel.Controls.Add($MySIDialogBtmMidButton)
   $MySIDialogBtmMidButton.Anchor = [System.Windows.Forms.AnchorStyles]("Top")
   $MySIDialogBtmMidButton.AutoSizeMode = [System.Windows.Forms.AutoSizeMode]::GrowAndShrink
-  $MySIDialogBtmMidButton.BackColor = [MyFCGConfig]::Colors.ButtonBack
-  $MySIDialogBtmMidButton.Font = [MyFCGConfig]::Font.Bold
-  $MySIDialogBtmMidButton.ForeColor = [MyFCGConfig]::Colors.ButtonFore
-  $MySIDialogBtmMidButton.Location = [System.Drawing.Point]::New(($MySIDialogBtmLeftButton.Right + [MyFCGConfig]::FormSpacer), [MyFCGConfig]::FormSpacer)
+  $MySIDialogBtmMidButton.BackColor = [MyConfig]::Colors.ButtonBack
+  $MySIDialogBtmMidButton.Font = [MyConfig]::Font.Bold
+  $MySIDialogBtmMidButton.ForeColor = [MyConfig]::Colors.ButtonFore
+  $MySIDialogBtmMidButton.Location = [System.Drawing.Point]::New(($MySIDialogBtmLeftButton.Right + [MyConfig]::FormSpacer), [MyConfig]::FormSpacer)
   $MySIDialogBtmMidButton.Name = "MySIDialogBtmMidButton"
   $MySIDialogBtmMidButton.TabIndex = 3
   $MySIDialogBtmMidButton.TabStop = $True
@@ -18539,7 +20501,7 @@ function Show-MySIDialog ()
     )
     Write-Verbose -Message "Enter Click Event for `$MySIDialogBtmMidButton"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     $TempIconIndex = $MySIDialogMainFileTextBox.Tag
     if ($MySIDialogMainIconListView.CheckBoxes)
@@ -18571,10 +20533,10 @@ function Show-MySIDialog ()
   $MySIDialogBtmPanel.Controls.Add($MySIDialogBtmRightButton)
   $MySIDialogBtmRightButton.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Right")
   $MySIDialogBtmRightButton.AutoSizeMode = [System.Windows.Forms.AutoSizeMode]::GrowAndShrink
-  $MySIDialogBtmRightButton.BackColor = [MyFCGConfig]::Colors.ButtonBack
-  $MySIDialogBtmRightButton.Font = [MyFCGConfig]::Font.Bold
-  $MySIDialogBtmRightButton.ForeColor = [MyFCGConfig]::Colors.ButtonFore
-  $MySIDialogBtmRightButton.Location = [System.Drawing.Point]::New(($MySIDialogBtmMidButton.Right + [MyFCGConfig]::FormSpacer), [MyFCGConfig]::FormSpacer)
+  $MySIDialogBtmRightButton.BackColor = [MyConfig]::Colors.ButtonBack
+  $MySIDialogBtmRightButton.Font = [MyConfig]::Font.Bold
+  $MySIDialogBtmRightButton.ForeColor = [MyConfig]::Colors.ButtonFore
+  $MySIDialogBtmRightButton.Location = [System.Drawing.Point]::New(($MySIDialogBtmMidButton.Right + [MyConfig]::FormSpacer), [MyConfig]::FormSpacer)
   $MySIDialogBtmRightButton.Name = "MySIDialogBtmRightButton"
   $MySIDialogBtmRightButton.TabIndex = 5
   $MySIDialogBtmRightButton.TabStop = $True
@@ -18608,7 +20570,7 @@ function Show-MySIDialog ()
     )
     Write-Verbose -Message "Enter Click Event for `$MySIDialogBtmRightButton"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     # Cancel Code Goes here
     
@@ -18619,7 +20581,7 @@ function Show-MySIDialog ()
   #endregion ******** Function Start-MySIDialogBtmRightButtonClick ********
   $MySIDialogBtmRightButton.add_Click({ Start-MySIDialogBtmRightButtonClick -Sender $This -EventArg $PSItem })
   
-  $MySIDialogBtmPanel.ClientSize = [System.Drawing.Size]::New(($MySIDialogBtmRightButton.Right + [MyFCGConfig]::FormSpacer), ($MySIDialogBtmRightButton.Bottom + [MyFCGConfig]::FormSpacer))
+  $MySIDialogBtmPanel.ClientSize = [System.Drawing.Size]::New(($MySIDialogBtmRightButton.Right + [MyConfig]::FormSpacer), ($MySIDialogBtmRightButton.Bottom + [MyConfig]::FormSpacer))
   
   #endregion ******** $MySIDialogBtmPanel Controls ********
   
@@ -18730,8 +20692,8 @@ function Show-MyHelpDialog ()
   #>
   [CmdletBinding()]
   param (
-    [String]$DialogTitle = "$([MyFCGConfig]::ScriptName)",
-    [String]$WindowTitle = "$([MyFCGConfig]::ScriptName) Info",
+    [String]$DialogTitle = "$([MyConfig]::ScriptName)",
+    [String]$WindowTitle = "$([MyConfig]::ScriptName) Info",
     [String]$InfoTitle = " << MyFCG Info Topics >> ",
     [String]$DefInfoTopic = "InfoIntro",
     [Int]$Width = 60,
@@ -18746,14 +20708,14 @@ function Show-MyHelpDialog ()
   # ************************************************
   #region $MyHelpDialogForm = [System.Windows.Forms.Form]::New()
   $MyHelpDialogForm = [System.Windows.Forms.Form]::New()
-  $MyHelpDialogForm.BackColor = [MyFCGConfig]::Colors.Back
-  $MyHelpDialogForm.Font = [MyFCGConfig]::Font.Regular
-  $MyHelpDialogForm.ForeColor = [MyFCGConfig]::Colors.Fore
+  $MyHelpDialogForm.BackColor = [MyConfig]::Colors.Back
+  $MyHelpDialogForm.Font = [MyConfig]::Font.Regular
+  $MyHelpDialogForm.ForeColor = [MyConfig]::Colors.Fore
   $MyHelpDialogForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::Sizable
   $MyHelpDialogForm.Icon = $MyFCGForm.Icon
   $MyHelpDialogForm.MaximizeBox = $False
   $MyHelpDialogForm.MinimizeBox = $False
-  $MyHelpDialogForm.MinimumSize = [System.Drawing.Size]::New(([MyFCGConfig]::Font.Width * $Width), ([MyFCGConfig]::Font.Height * $Height))
+  $MyHelpDialogForm.MinimumSize = [System.Drawing.Size]::New(([MyConfig]::Font.Width * $Width), ([MyConfig]::Font.Height * $Height))
   $MyHelpDialogForm.Name = "MyHelpDialogForm"
   $MyHelpDialogForm.Owner = $MyFCGForm
   $MyHelpDialogForm.ShowInTaskbar = $False
@@ -18787,7 +20749,7 @@ function Show-MyHelpDialog ()
     )
     Write-Verbose -Message "Enter Move Event for `$MyHelpDialogForm"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     Write-Verbose -Message "Exit Move Event for `$MyHelpDialogForm"
   }
@@ -18820,7 +20782,7 @@ function Show-MyHelpDialog ()
     )
     Write-Verbose -Message "Enter Resize Event for `$MyHelpDialogForm"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     Write-Verbose -Message "Exit Resize Event for `$MyHelpDialogForm"
   }
@@ -18853,7 +20815,7 @@ function Show-MyHelpDialog ()
     )
     Write-Verbose -Message "Enter Shown Event for `$MyHelpDialogForm"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     $Sender.Refresh()
     
@@ -18884,19 +20846,19 @@ function Show-MyHelpDialog ()
   $MyHelpDialogMainRichTextBox = [System.Windows.Forms.RichTextBox]::New()
   $MyHelpDialogMainPanel.Controls.Add($MyHelpDialogMainRichTextBox)
   $MyHelpDialogMainRichTextBox.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Left, Bottom, Right")
-  $MyHelpDialogMainRichTextBox.BackColor = [MyFCGConfig]::Colors.TextBack
+  $MyHelpDialogMainRichTextBox.BackColor = [MyConfig]::Colors.TextBack
   $MyHelpDialogMainRichTextBox.BorderStyle = [System.Windows.Forms.BorderStyle]::Fixed3D
   $MyHelpDialogMainRichTextBox.DetectUrls = $True
-  $MyHelpDialogMainRichTextBox.Font = [MyFCGConfig]::Font.Regular
-  $MyHelpDialogMainRichTextBox.ForeColor = [MyFCGConfig]::Colors.TextFore
-  $MyHelpDialogMainRichTextBox.Location = [System.Drawing.Point]::New([MyFCGConfig]::FormSpacer, [MyFCGConfig]::FormSpacer)
+  $MyHelpDialogMainRichTextBox.Font = [MyConfig]::Font.Regular
+  $MyHelpDialogMainRichTextBox.ForeColor = [MyConfig]::Colors.TextFore
+  $MyHelpDialogMainRichTextBox.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, [MyConfig]::FormSpacer)
   $MyHelpDialogMainRichTextBox.MaxLength = [Int]::MaxValue
   $MyHelpDialogMainRichTextBox.Multiline = $True
   $MyHelpDialogMainRichTextBox.Name = "MyHelpDialogMainRichTextBox"
   $MyHelpDialogMainRichTextBox.ReadOnly = $True
   $MyHelpDialogMainRichTextBox.Rtf = ""
   $MyHelpDialogMainRichTextBox.ScrollBars = [System.Windows.Forms.RichTextBoxScrollBars]::Both
-  $MyHelpDialogMainRichTextBox.Size = [System.Drawing.Size]::New(($MyHelpDialogMainPanel.ClientSize.Width - ([MyFCGConfig]::FormSpacer * 2)), ($MyHelpDialogMainPanel.ClientSize.Height - ($MyHelpDialogMainRichTextBox.Top + [MyFCGConfig]::FormSpacer)))
+  $MyHelpDialogMainRichTextBox.Size = [System.Drawing.Size]::New(($MyHelpDialogMainPanel.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), ($MyHelpDialogMainPanel.ClientSize.Height - ($MyHelpDialogMainRichTextBox.Top + [MyConfig]::FormSpacer)))
   $MyHelpDialogMainRichTextBox.TabStop = $False
   $MyHelpDialogMainRichTextBox.Text = ""
   $MyHelpDialogMainRichTextBox.WordWrap = $False
@@ -18911,10 +20873,10 @@ function Show-MyHelpDialog ()
   $MyHelpDialogLeftMenuStrip = [System.Windows.Forms.MenuStrip]::New()
   $MyHelpDialogForm.Controls.Add($MyHelpDialogLeftMenuStrip)
   $MyHelpDialogForm.MainMenuStrip = $MyHelpDialogLeftMenuStrip
-  $MyHelpDialogLeftMenuStrip.BackColor = [MyFCGConfig]::Colors.Back
+  $MyHelpDialogLeftMenuStrip.BackColor = [MyConfig]::Colors.Back
   $MyHelpDialogLeftMenuStrip.Dock = [System.Windows.Forms.DockStyle]::Left
-  $MyHelpDialogLeftMenuStrip.Font = [MyFCGConfig]::Font.Regular
-  $MyHelpDialogLeftMenuStrip.ForeColor = [MyFCGConfig]::Colors.Fore
+  $MyHelpDialogLeftMenuStrip.Font = [MyConfig]::Font.Regular
+  $MyHelpDialogLeftMenuStrip.ForeColor = [MyConfig]::Colors.Fore
   $MyHelpDialogLeftMenuStrip.ImageList = $MyFCGImageList
   $MyHelpDialogLeftMenuStrip.Name = "MyHelpDialogLeftMenuStrip"
   $MyHelpDialogLeftMenuStrip.ShowItemToolTips = $True
@@ -18947,7 +20909,7 @@ function Show-MyHelpDialog ()
     )
     Write-Verbose -Message "Enter Click Event for `$MyHelpDialogLeftToolStripItem"
     
-    [MyFCGConfig]::AutoExit = 0
+    [MyConfig]::AutoExit = 0
     
     $MyHelpDialogBtmStatusStrip.Items["Status"].Text = "Showing: $($Sender.Text)"
     
@@ -18974,7 +20936,7 @@ function Show-MyHelpDialog ()
   #endregion ******** Function Start-MyHelpDialogLeftToolStripItemClick ********
   
   New-MenuSeparator -Menu $MyHelpDialogLeftMenuStrip
-  New-MenuLabel -Menu $MyHelpDialogLeftMenuStrip -Text $InfoTitle -Name "Info Topics" -Tag "Info Topics" -Font ([MyFCGConfig]::Font.Bold)
+  New-MenuLabel -Menu $MyHelpDialogLeftMenuStrip -Text $InfoTitle -Name "Info Topics" -Tag "Info Topics" -Font ([MyConfig]::Font.Bold)
   New-MenuSeparator -Menu $MyHelpDialogLeftMenuStrip
   
   forEach ($Key in $MyHelpDialogTopics.Keys)
@@ -19001,18 +20963,18 @@ function Show-MyHelpDialog ()
   $MyHelpDialogTopLabel = [System.Windows.Forms.Label]::New()
   $MyHelpDialogTopPanel.Controls.Add($MyHelpDialogTopLabel)
   $MyHelpDialogTopLabel.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Left, Right")
-  $MyHelpDialogTopLabel.BackColor = [MyFCGConfig]::Colors.TitleBack
+  $MyHelpDialogTopLabel.BackColor = [MyConfig]::Colors.TitleBack
   $MyHelpDialogTopLabel.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
-  $MyHelpDialogTopLabel.Font = [MyFCGConfig]::Font.Title
-  $MyHelpDialogTopLabel.ForeColor = [MyFCGConfig]::Colors.TitleFore
-  $MyHelpDialogTopLabel.Location = [System.Drawing.Point]::New([MyFCGConfig]::FormSpacer, [MyFCGConfig]::FormSpacer)
+  $MyHelpDialogTopLabel.Font = [MyConfig]::Font.Title
+  $MyHelpDialogTopLabel.ForeColor = [MyConfig]::Colors.TitleFore
+  $MyHelpDialogTopLabel.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, [MyConfig]::FormSpacer)
   $MyHelpDialogTopLabel.Name = "MyHelpDialogTopLabel"
   $MyHelpDialogTopLabel.Text = $WindowTitle
   $MyHelpDialogTopLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-  $MyHelpDialogTopLabel.Size = [System.Drawing.Size]::New(($MyHelpDialogTopPanel.ClientSize.Width - ([MyFCGConfig]::FormSpacer * 2)), $MyHelpDialogTopLabel.PreferredHeight)
+  $MyHelpDialogTopLabel.Size = [System.Drawing.Size]::New(($MyHelpDialogTopPanel.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), $MyHelpDialogTopLabel.PreferredHeight)
   #endregion $MyHelpDialogTopLabel = [System.Windows.Forms.Label]::New()
   
-  $MyHelpDialogTopPanel.ClientSize = [System.Drawing.Size]::New($MyHelpDialogTopPanel.ClientSize.Width, ($MyHelpDialogTopLabel.Bottom + [MyFCGConfig]::FormSpacer))
+  $MyHelpDialogTopPanel.ClientSize = [System.Drawing.Size]::New($MyHelpDialogTopPanel.ClientSize.Width, ($MyHelpDialogTopLabel.Bottom + [MyConfig]::FormSpacer))
   
   #endregion ******** $MyHelpDialogTopPanel Controls ********
   
@@ -19022,10 +20984,10 @@ function Show-MyHelpDialog ()
   #region $MyHelpDialogBtmStatusStrip = [System.Windows.Forms.StatusStrip]::New()
   $MyHelpDialogBtmStatusStrip = [System.Windows.Forms.StatusStrip]::New()
   $MyHelpDialogForm.Controls.Add($MyHelpDialogBtmStatusStrip)
-  $MyHelpDialogBtmStatusStrip.BackColor = [MyFCGConfig]::Colors.Back
+  $MyHelpDialogBtmStatusStrip.BackColor = [MyConfig]::Colors.Back
   $MyHelpDialogBtmStatusStrip.Dock = [System.Windows.Forms.DockStyle]::Bottom
-  $MyHelpDialogBtmStatusStrip.Font = [MyFCGConfig]::Font.Regular
-  $MyHelpDialogBtmStatusStrip.ForeColor = [MyFCGConfig]::Colors.Fore
+  $MyHelpDialogBtmStatusStrip.Font = [MyConfig]::Font.Regular
+  $MyHelpDialogBtmStatusStrip.ForeColor = [MyConfig]::Colors.Fore
   $MyHelpDialogBtmStatusStrip.ImageList = $MyFCGImageList
   $MyHelpDialogBtmStatusStrip.Name = "MyHelpDialogBtmStatusStrip"
   $MyHelpDialogBtmStatusStrip.ShowItemToolTips = $True
@@ -20852,6 +22814,11 @@ function Build-MyScriptEvent ()
     else
     {
       [Void]$StringBuilder.AppendLine("  [MyConfig]::AutoExit = 0")
+      [Void]$StringBuilder.AppendLine("")
+      [Void]$StringBuilder.AppendLine("  # **** Testing - Exit to Nested Prompt ****")
+      [Void]$StringBuilder.AppendLine("  #Write-Host -Object `"Line Num: `$((Get-PSCallStack).ScriptLineNumber)`"")
+      [Void]$StringBuilder.AppendLine("  #`$Host.EnterNestedPrompt()")
+      [Void]$StringBuilder.AppendLine("  # **** Testing - Exit to Nested Prompt ****")
     }
     [Void]$StringBuilder.AppendLine("")
     
@@ -20948,6 +22915,30 @@ function Build-MyScriptEvent ()
         }
         Break
       }
+      "ListView"
+      {
+        Switch ($TempEvent.Name)
+        {
+          "MouseDown"
+          {
+            [Void]$StringBuilder.AppendLine("  #`$TmpItem = `$Sender.GetItemAt(`$EventArg.Location.X, `$EventArg.Location.Y)")
+            Break
+          }
+        }
+        Break
+      }
+      "DataGridView"
+      {
+        Switch ($TempEvent.Name)
+        {
+          "MouseDown"
+          {
+            [Void]$StringBuilder.AppendLine("  #`$Sender.HitTest(`$EventArg.X, `$EventArg.Y)")
+            Break
+          }
+        }
+        Break
+      }
       "TreeView"
       {
         Switch ($TempEvent.Name)
@@ -20983,7 +22974,17 @@ function Build-MyScriptEvent ()
             [Void]$StringBuilder.AppendLine("    }")
             [Void]$StringBuilder.AppendLine("    `"Exit`"")
             [Void]$StringBuilder.AppendLine("    {")
-            [Void]$StringBuilder.AppendLine("      `$$($MyScriptName)Form.Close()")
+            [Void]$StringBuilder.AppendLine("      if ([MyConfig]::Production)")
+            [Void]$StringBuilder.AppendLine("      {")
+            [Void]$StringBuilder.AppendLine("        `$$($MyScriptName)Form.Close()")
+            [Void]$StringBuilder.AppendLine("      }")
+            [Void]$StringBuilder.AppendLine("      else")
+            [Void]$StringBuilder.AppendLine("      {")
+            [Void]$StringBuilder.AppendLine("        # **** Testing - Exit to Nested Prompt ****")
+            [Void]$StringBuilder.AppendLine("        Write-Host -Object `"Line Num: `$((Get-PSCallStack).ScriptLineNumber)`"")
+            [Void]$StringBuilder.AppendLine("        `$Host.EnterNestedPrompt()")
+            [Void]$StringBuilder.AppendLine("        # **** Testing - Exit to Nested Prompt ****")
+            [Void]$StringBuilder.AppendLine("      }")
             [Void]$StringBuilder.AppendLine("      Break")
             [Void]$StringBuilder.AppendLine("    }")
             [Void]$StringBuilder.AppendLine("  }")
@@ -20999,6 +23000,10 @@ function Build-MyScriptEvent ()
           "Shown"
           {
             [Void]$StringBuilder.AppendLine("  `$Sender.Refresh()")
+            [Void]$StringBuilder.AppendLine("")
+            [Void]$StringBuilder.AppendLine("  `$HashTable = @{`"ShowHeader`" = `$True; `"Name`" = `"Item Name`"; `"Value`" = `"Item Value`"}")
+            [Void]$StringBuilder.AppendLine("  `$ScriptBlock = { [CmdletBinding()] param ([System.Windows.Forms.RichTextBox]`$RichTextBox, [HashTable]`$HashTable) Display-MyStatusRichTextBox -RichTextBox `$RichTextBox -HashTable `$HashTable }")
+            [Void]$StringBuilder.AppendLine("  Show-MyStatusDialog -ScriptBlock `$ScriptBlock -DialogTitle `"This is a Test Status`" -ButtonMid `"OK`" -HashTable `$HashTable")
             [Void]$StringBuilder.AppendLine("")
             [Void]$StringBuilder.AppendLine("  if ([MyConfig]::Production)")
             [Void]$StringBuilder.AppendLine("  {")
@@ -21871,6 +23876,8 @@ function Build-MyScript ()
       
       [Void]$StringBuilder.AppendLine("#region >>>>>>>>>>>>>>>> $($MyScriptName) Custom Dialogs <<<<<<<<<<<<<<<<")
       [Void]$StringBuilder.AppendLine("")
+      [Void]$StringBuilder.AppendLine((Build-MyScriptAdvStatusDialog -MyScriptName $MyScriptName -MyControlName "MyStatus" -MyControlType "RichTextBox"))
+      [Void]$StringBuilder.AppendLine("")
       [Void]$StringBuilder.AppendLine("#endregion ================ $($MyScriptName) Custom Dialogs ================")
       [Void]$StringBuilder.AppendLine("")
       
@@ -21959,7 +23966,20 @@ function Build-MyScript ()
       [Void]$StringBuilder.AppendLine("  [Void][Console.Window]::Hide()")
       [Void]$StringBuilder.AppendLine("}")
       [Void]$StringBuilder.AppendLine("")
-      [Void]$StringBuilder.AppendLine("[System.Windows.Forms.Application]::Run(`$$($MyScriptName)Form)")
+      [Void]$StringBuilder.AppendLine("Try")
+      [Void]$StringBuilder.AppendLine("{")
+      [Void]$StringBuilder.AppendLine("  [System.Windows.Forms.Application]::Run(`$$($MyScriptName)Form)")
+      [Void]$StringBuilder.AppendLine("}")
+      [Void]$StringBuilder.AppendLine("Catch")
+      [Void]$StringBuilder.AppendLine("{")
+      [Void]$StringBuilder.AppendLine("  if (-not [MyConfig]::Production)")
+      [Void]$StringBuilder.AppendLine("  {")
+      [Void]$StringBuilder.AppendLine("    # **** Testing - Exit to Nested Prompt ****")
+      [Void]$StringBuilder.AppendLine("    Write-Host -Object `"Line Num: `$((Get-PSCallStack).ScriptLineNumber)`"")
+      [Void]$StringBuilder.AppendLine("    #`$Host.EnterNestedPrompt()")
+      [Void]$StringBuilder.AppendLine("    # **** Testing - Exit to Nested Prompt ****")
+      [Void]$StringBuilder.AppendLine("  }")
+      [Void]$StringBuilder.AppendLine("}")
       [Void]$StringBuilder.AppendLine("")
       [Void]$StringBuilder.AppendLine("`$$($MyScriptName)OpenFileDialog.Dispose()")
       [Void]$StringBuilder.AppendLine("`$$($MyScriptName)SaveFileDialog.Dispose()")
@@ -21993,21 +24013,28 @@ function Build-MyScript ()
       [Void]$StringBuilder.AppendLine("  Try")
       [Void]$StringBuilder.AppendLine("  {")
       [Void]$StringBuilder.AppendLine("    Write-Host -Object `"Logon to Azure: `" -NoNewLine")
-      [Void]$StringBuilder.AppendLine("    [MyRuntime]::AADLogonInfo = Connect-AzAccount -Tenant ([MyRuntime]::TenantID) -Force -WarningAction SilentlyContinue")
-      [Void]$StringBuilder.AppendLine("    Write-Host -Object `"Success`" -ForegroundColor Green")
-      [Void]$StringBuilder.AppendLine("    Write-Host -Object `"Get AuthToken: `" -NoNewLine")
-      [Void]$StringBuilder.AppendLine("    [MyRuntime]::AccessToken = Get-AzAccessToken -ResourceUrl `"https://vault.azure.net`"")
-      [Void]$StringBuilder.AppendLine("    [MyRuntime]::AuthToken = @{")
-      [Void]$StringBuilder.AppendLine("      `"Content-Type`"  = `"application/json`"")
-      [Void]$StringBuilder.AppendLine("      `"Authorization`" = `"Bearer `$([MyRuntime]::AccessToken.Token)`"")
-      [Void]$StringBuilder.AppendLine("      `"ExpiresOn`"     = ([MyRuntime]::AccessToken.ExpiresOn.LocalDateTime)")
+      [Void]$StringBuilder.AppendLine("    [MyRuntime]::AADLogonInfo = Connect-AzAccount -Tenant ([MyRuntime]::TenantID) -Force -WarningAction SilentlyContinue -ErrorAction SilentlyContinue")
+      [Void]$StringBuilder.AppendLine("    if ([String]::IsNullOrEmpty([MyRuntime]::AADLogonInfo))")
+      [Void]$StringBuilder.AppendLine("    {")
+      [Void]$StringBuilder.AppendLine("      Write-Host -Object `"Failed`" -ForegroundColor Red")
       [Void]$StringBuilder.AppendLine("    }")
-      [Void]$StringBuilder.AppendLine("    Write-Host -Object `"Success`" -ForegroundColor Green")
-      [Void]$StringBuilder.AppendLine("    # ************")
-      [Void]$StringBuilder.AppendLine("    #  Run Script")
-      [Void]$StringBuilder.AppendLine("    # ************")
-      [Void]$StringBuilder.AppendLine("    `$RunMe = `$True")
-      [Void]$StringBuilder.AppendLine("    # ************")
+      [Void]$StringBuilder.AppendLine("    else")
+      [Void]$StringBuilder.AppendLine("    {")
+      [Void]$StringBuilder.AppendLine("      Write-Host -Object `"Success`" -ForegroundColor Green")
+      [Void]$StringBuilder.AppendLine("      Write-Host -Object `"Get AuthToken: `" -NoNewLine")
+      [Void]$StringBuilder.AppendLine("      [MyRuntime]::AccessToken = Get-AzAccessToken -ResourceUrl `"https://vault.azure.net`"")
+      [Void]$StringBuilder.AppendLine("      [MyRuntime]::AuthToken = @{")
+      [Void]$StringBuilder.AppendLine("        `"Content-Type`"  = `"application/json`"")
+      [Void]$StringBuilder.AppendLine("        `"Authorization`" = `"Bearer `$([MyRuntime]::AccessToken.Token)`"")
+      [Void]$StringBuilder.AppendLine("        `"ExpiresOn`"     = ([MyRuntime]::AccessToken.ExpiresOn.LocalDateTime)")
+      [Void]$StringBuilder.AppendLine("      }")
+      [Void]$StringBuilder.AppendLine("      Write-Host -Object `"Success`" -ForegroundColor Green")
+      [Void]$StringBuilder.AppendLine("      # ************")
+      [Void]$StringBuilder.AppendLine("      #  Run Script")
+      [Void]$StringBuilder.AppendLine("      # ************")
+      [Void]$StringBuilder.AppendLine("      `$RunMe = `$True")
+      [Void]$StringBuilder.AppendLine("      # ************")
+      [Void]$StringBuilder.AppendLine("    }")
       [Void]$StringBuilder.AppendLine("  }")
       [Void]$StringBuilder.AppendLine("  Catch")
       [Void]$StringBuilder.AppendLine("  {")
@@ -22034,21 +24061,28 @@ function Build-MyScript ()
       [Void]$StringBuilder.AppendLine("          Try")
       [Void]$StringBuilder.AppendLine("          {")
       [Void]$StringBuilder.AppendLine("            Write-Host -Object `"Logon to Azure: `" -NoNewLine")
-      [Void]$StringBuilder.AppendLine("            [MyRuntime]::AADLogonInfo = Connect-AzAccount -Tenant ([MyRuntime]::TenantID) -Force -WarningAction SilentlyContinue")
-      [Void]$StringBuilder.AppendLine("            Write-Host -Object `"Success`" -ForegroundColor Green")
-      [Void]$StringBuilder.AppendLine("            Write-Host -Object `"Get AuthToken: `" -NoNewLine")
-      [Void]$StringBuilder.AppendLine("            [MyRuntime]::AccessToken = Get-AzAccessToken -ResourceUrl `"https://vault.azure.net`"")
-      [Void]$StringBuilder.AppendLine("            [MyRuntime]::AuthToken = @{")
-      [Void]$StringBuilder.AppendLine("              `"Content-Type`"  = `"application/json`"")
-      [Void]$StringBuilder.AppendLine("              `"Authorization`" = `"Bearer `$([MyRuntime]::AccessToken.Token)`"")
-      [Void]$StringBuilder.AppendLine("              `"ExpiresOn`"     = ([MyRuntime]::AccessToken.ExpiresOn.LocalDateTime)")
+      [Void]$StringBuilder.AppendLine("            [MyRuntime]::AADLogonInfo = Connect-AzAccount -Tenant ([MyRuntime]::TenantID) -Force -WarningAction SilentlyContinue -ErrorAction SilentlyContinue")
+      [Void]$StringBuilder.AppendLine("            if ([String]::IsNullOrEmpty([MyRuntime]::AADLogonInfo))")
+      [Void]$StringBuilder.AppendLine("            {")
+      [Void]$StringBuilder.AppendLine("              Write-Host -Object `"Failed`" -ForegroundColor Red")
       [Void]$StringBuilder.AppendLine("            }")
-      [Void]$StringBuilder.AppendLine("            Write-Host -Object `"Success`" -ForegroundColor Green")
-      [Void]$StringBuilder.AppendLine("            # ************")
-      [Void]$StringBuilder.AppendLine("            #  Run Script")
-      [Void]$StringBuilder.AppendLine("            # ************")
-      [Void]$StringBuilder.AppendLine("            `$RunMe = `$True")
-      [Void]$StringBuilder.AppendLine("            # ************")
+      [Void]$StringBuilder.AppendLine("            else")
+      [Void]$StringBuilder.AppendLine("            {")
+      [Void]$StringBuilder.AppendLine("              Write-Host -Object `"Success`" -ForegroundColor Green")
+      [Void]$StringBuilder.AppendLine("              Write-Host -Object `"Get AuthToken: `" -NoNewLine")
+      [Void]$StringBuilder.AppendLine("              [MyRuntime]::AccessToken = Get-AzAccessToken -ResourceUrl `"https://vault.azure.net`"")
+      [Void]$StringBuilder.AppendLine("              [MyRuntime]::AuthToken = @{")
+      [Void]$StringBuilder.AppendLine("                `"Content-Type`"  = `"application/json`"")
+      [Void]$StringBuilder.AppendLine("                `"Authorization`" = `"Bearer `$([MyRuntime]::AccessToken.Token)`"")
+      [Void]$StringBuilder.AppendLine("                `"ExpiresOn`"     = ([MyRuntime]::AccessToken.ExpiresOn.LocalDateTime)")
+      [Void]$StringBuilder.AppendLine("              }")
+      [Void]$StringBuilder.AppendLine("              Write-Host -Object `"Success`" -ForegroundColor Green")
+      [Void]$StringBuilder.AppendLine("              # ************")
+      [Void]$StringBuilder.AppendLine("              #  Run Script")
+      [Void]$StringBuilder.AppendLine("              # ************")
+      [Void]$StringBuilder.AppendLine("              `$RunMe = `$True")
+      [Void]$StringBuilder.AppendLine("              # ************")
+      [Void]$StringBuilder.AppendLine("            }")
       [Void]$StringBuilder.AppendLine("          }")
       [Void]$StringBuilder.AppendLine("          Catch")
       [Void]$StringBuilder.AppendLine("          {")
@@ -22087,7 +24121,20 @@ function Build-MyScript ()
       [Void]$StringBuilder.AppendLine("    [Void][Console.Window]::Hide()")
       [Void]$StringBuilder.AppendLine("  }")
       [Void]$StringBuilder.AppendLine("")
-      [Void]$StringBuilder.AppendLine("  [System.Windows.Forms.Application]::Run(`$$($MyScriptName)Form)")
+      [Void]$StringBuilder.AppendLine("  Try")
+      [Void]$StringBuilder.AppendLine("  {")
+      [Void]$StringBuilder.AppendLine("    [System.Windows.Forms.Application]::Run(`$$($MyScriptName)Form)")
+      [Void]$StringBuilder.AppendLine("  }")
+      [Void]$StringBuilder.AppendLine("  Catch")
+      [Void]$StringBuilder.AppendLine("  {")
+      [Void]$StringBuilder.AppendLine("    if (-not [MyConfig]::Production)")
+      [Void]$StringBuilder.AppendLine("    {")
+      [Void]$StringBuilder.AppendLine("      # **** Testing - Exit to Nested Prompt ****")
+      [Void]$StringBuilder.AppendLine("      Write-Host -Object `"Line Num: `$((Get-PSCallStack).ScriptLineNumber)`"")
+      [Void]$StringBuilder.AppendLine("      #`$Host.EnterNestedPrompt()")
+      [Void]$StringBuilder.AppendLine("        # **** Testing - Exit to Nested Prompt ****")
+      [Void]$StringBuilder.AppendLine("    }")
+      [Void]$StringBuilder.AppendLine("  }")
       [Void]$StringBuilder.AppendLine("")
       [Void]$StringBuilder.AppendLine("  `$$($MyScriptName)OpenFileDialog.Dispose()")
       [Void]$StringBuilder.AppendLine("  `$$($MyScriptName)SaveFileDialog.Dispose()")
@@ -22218,6 +24265,11 @@ function Build-MyScript ()
       [Void]$StringBuilder.AppendLine("(New-MenuItem -Menu $($TempControl) -Text `"&Bug`" -Name `"Bug`" -Tag `"Bug`" -DisplayStyle `"ImageAndText`" -ImageKey `"BugIcon`" -PassThru).add_Click({Start-$($TempName)$($Control.Name)ItemClick -Sender `$This -EventArg `$PSItem})")
       [Void]$StringBuilder.AppendLine("(New-MenuItem -Menu $($TempControl) -Text `"&Help`" -Name `"Help`" -Tag `"Help`" -DisplayStyle `"ImageAndText`" -ImageKey `"HelpIcon`" -PassThru).add_Click({Start-$($TempName)$($Control.Name)ItemClick -Sender `$This -EventArg `$PSItem})")
       [Void]$StringBuilder.AppendLine("(New-MenuItem -Menu $($TempControl) -Text `"E&xit`" -Name `"Exit`" -Tag `"Exit`" -DisplayStyle `"ImageAndText`" -ImageKey `"ExitIcon`" -PassThru).add_Click({Start-$($TempName)$($Control.Name)ItemClick -Sender `$This -EventArg `$PSItem})")
+      [Void]$StringBuilder.AppendLine("")
+      [Void]$StringBuilder.AppendLine("# Right Dropdown")
+      [Void]$StringBuilder.AppendLine("#`$DropDownMenu = New-MenuItem -Menu $($TempControl) -Text `"DropDown Menu`" -Name `"DropMenu`" -Tag `"DropMenu`" -DisplayStyle `"ImageAndText`" -TextImageRelation `"TextBeforeImage`" -ImageKey `"$($MyScriptName)FormIcon`" -PassThru")
+      [Void]$StringBuilder.AppendLine("#`$DropDownMenu.DropDownDirection = [System.Windows.Forms.ToolStripDropDownDirection]::BelowRight")
+      [Void]$StringBuilder.AppendLine("#`$DropDownMenu.DropDown.RightToLeft = [System.Windows.Forms.RightToLeft]::No")
       Break
     }
     "StatusStrip"
@@ -22260,21 +24312,21 @@ function Build-MyScript ()
 #endregion ================ Generate Script Code - MyFCG Custom Code ================
 
 # Add Default Events for Controls
-#[Void][MyFCGConfig]::DefaultEvents.Add("ControlName", @("EventName", "EventName"))
-[Void][MyFCGConfig]::DefaultEvents.Add("Button", @("Click"))
-[Void][MyFCGConfig]::DefaultEvents.Add("CheckBox", @("CheckedChanged"))
-[Void][MyFCGConfig]::DefaultEvents.Add("CheckedListBox", @("ItemCheck", "SelectedIndexChanged"))
-[Void][MyFCGConfig]::DefaultEvents.Add("ComboBox", @("SelectedIndexChanged"))
-[Void][MyFCGConfig]::DefaultEvents.Add("ContextMenuStrip", @("Opening"))
-[Void][MyFCGConfig]::DefaultEvents.Add("Form", @("Closing", "KeyDown", "Load", "Move", "Resize", "Shown"))
-[Void][MyFCGConfig]::DefaultEvents.Add("ListBox", @("MouseDown", "SelectedIndexChanged"))
-[Void][MyFCGConfig]::DefaultEvents.Add("ListView", @("ColumnClick"))
-[Void][MyFCGConfig]::DefaultEvents.Add("NotifyIcon", @("MouseClick"))
-[Void][MyFCGConfig]::DefaultEvents.Add("RadioButton", @("CheckedChanged"))
-[Void][MyFCGConfig]::DefaultEvents.Add("TextBox", @("GotFocus", "KeyDown", "KeyUp", "LostFocus"))
-[Void][MyFCGConfig]::DefaultEvents.Add("Timer", @("Tick"))
-[Void][MyFCGConfig]::DefaultEvents.Add("TreeView", @("AfterSelect", "BeforeExpand"))
-[Void][MyFCGConfig]::DefaultEvents.Add("WebBrowser", @("NewWindow", "StatusTextChanged"))
+#[Void][MyConfig]::DefaultEvents.Add("ControlName", @("EventName", "EventName"))
+[Void][MyConfig]::DefaultEvents.Add("Button", @("Click"))
+[Void][MyConfig]::DefaultEvents.Add("CheckBox", @("CheckedChanged"))
+[Void][MyConfig]::DefaultEvents.Add("CheckedListBox", @("ItemCheck", "SelectedIndexChanged"))
+[Void][MyConfig]::DefaultEvents.Add("ComboBox", @("SelectedIndexChanged"))
+[Void][MyConfig]::DefaultEvents.Add("ContextMenuStrip", @("Opening"))
+[Void][MyConfig]::DefaultEvents.Add("Form", @("Closing", "KeyDown", "Load", "Move", "Resize", "Shown"))
+[Void][MyConfig]::DefaultEvents.Add("ListBox", @("MouseDown", "SelectedIndexChanged"))
+[Void][MyConfig]::DefaultEvents.Add("ListView", @("ColumnClick"))
+[Void][MyConfig]::DefaultEvents.Add("NotifyIcon", @("MouseClick"))
+[Void][MyConfig]::DefaultEvents.Add("RadioButton", @("CheckedChanged"))
+[Void][MyConfig]::DefaultEvents.Add("TextBox", @("GotFocus", "KeyDown", "KeyUp", "LostFocus"))
+[Void][MyConfig]::DefaultEvents.Add("Timer", @("Tick"))
+[Void][MyConfig]::DefaultEvents.Add("TreeView", @("AfterSelect", "BeforeExpand"))
+[Void][MyConfig]::DefaultEvents.Add("WebBrowser", @("NewWindow", "StatusTextChanged"))
 
 #region >>>>>>>>>>>>>>>> Begin **** MyFCG **** Begin <<<<<<<<<<<<<<<<
 
@@ -22302,7 +24354,9 @@ $MyFCGImageList.Images.Add("ImageIcon", [System.Drawing.Icon]::New([System.IO.Me
 $MyFCGImageList.Images.Add("DataIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($DataIcon))))
 $MyFCGImageList.Images.Add("DialogIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($DialogIcon))))
 $MyFCGImageList.Images.Add("SourceIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($SourceIcon))))
-
+$MyFCGImageList.Images.Add("CheckAllIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($CheckAllIcon))))
+$MyFCGImageList.Images.Add("UnCheckAllIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($UnCheckAllIcon))))
+$MyFCGImageList.Images.Add("FavoritesIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($FavoritesIcon))))
 
 #region $MyFCGOpenFileDialog = [System.Windows.Forms.OpenFileDialog]::New()
 $MyFCGOpenFileDialog = [System.Windows.Forms.OpenFileDialog]::New()
@@ -22314,17 +24368,17 @@ $MyFCGOpenFileDialog = [System.Windows.Forms.OpenFileDialog]::New()
 # ************************************************
 #region $MyFCGForm = [System.Windows.Forms.Form]::New()
 $MyFCGForm = [System.Windows.Forms.Form]::New()
-$MyFCGForm.BackColor = [MyFCGConfig]::Colors.Back
-$MyFCGForm.Font = [MyFCGConfig]::Font.Regular
-$MyFCGForm.ForeColor = [MyFCGConfig]::Colors.Fore
+$MyFCGForm.BackColor = [MyConfig]::Colors.Back
+$MyFCGForm.Font = [MyConfig]::Font.Regular
+$MyFCGForm.ForeColor = [MyConfig]::Colors.Fore
 $MyFCGForm.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::Sizable
 $MyFCGForm.Icon = [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($MyFCGFormIcon)))
 $MyFCGForm.KeyPreview = $True
-$MyFCGForm.MinimumSize = [System.Drawing.Size]::New(([MyFCGConfig]::Font.Width * [MyFCGConfig]::FormMinWidth), ([MyFCGConfig]::Font.Height * [MyFCGConfig]::FormMinHeight))
+$MyFCGForm.MinimumSize = [System.Drawing.Size]::New(([MyConfig]::Font.Width * [MyConfig]::FormMinWidth), ([MyConfig]::Font.Height * [MyConfig]::FormMinHeight))
 $MyFCGForm.Name = "MyFCGForm"
 $MyFCGForm.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MyFCGForm.TabStop = $True
-$MyFCGForm.Text = "$([MyFCGConfig]::ScriptName) - $([MyFCGConfig]::ScriptVersion)"
+$MyFCGForm.Text = "$([MyConfig]::ScriptName) - $([MyConfig]::ScriptVersion)"
 #endregion $MyFCGForm = [System.Windows.Forms.Form]::New()
 
 #region ******** Function Start-MyFCGFormClosing ********
@@ -22353,16 +24407,16 @@ function Start-MyFCGFormClosing
   )
   Write-Verbose -Message "Enter Closing Event for `$MyFCGForm"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
-  if ([MyFCGConfig]::Production)
+  if ([MyConfig]::Production)
   {
     # Show Console Window
     $Script:VerbosePreference = "Continue"
     $Script:DebugPreference = "Continue"
     
     [Void][Console.Window]::Show()
-    [System.Console]::Title = "Closing: $([MyFCGConfig]::ScriptName) - $([MyFCGConfig]::ScriptVersion)"
+    [System.Console]::Title = "Closing: $([MyConfig]::ScriptName) - $([MyConfig]::ScriptVersion)"
     $MyFCGForm.Tag = $True
   }
   
@@ -22397,7 +24451,7 @@ function Start-MyFCGFormKeyDown
   )
   Write-Verbose -Message "Enter KeyDown Event for `$MyFCGForm"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   if ($EventArg.Control -and $EventArg.Alt -and $EventArg.KeyCode -eq [System.Windows.Forms.Keys]::F10)
   {
@@ -22406,7 +24460,7 @@ function Start-MyFCGFormKeyDown
       # Hide Console Window
       $Script:VerbosePreference = "SilentlyContinue"
       $Script:DebugPreference = "SilentlyContinue"
-      [System.Console]::Title = "RUNNING: $([MyFCGConfig]::ScriptName) - $([MyFCGConfig]::ScriptVersion)"
+      [System.Console]::Title = "RUNNING: $([MyConfig]::ScriptName) - $([MyConfig]::ScriptVersion)"
       [Void][Console.Window]::Hide()
       $MyFCGForm.Tag = $False
     }
@@ -22416,7 +24470,7 @@ function Start-MyFCGFormKeyDown
       $Script:VerbosePreference = "Continue"
       $Script:DebugPreference = "Continue"
       [Void][Console.Window]::Show()
-      [System.Console]::Title = "DEBUG: $([MyFCGConfig]::ScriptName) - $([MyFCGConfig]::ScriptVersion)"
+      [System.Console]::Title = "DEBUG: $([MyConfig]::ScriptName) - $([MyConfig]::ScriptVersion)"
       $MyFCGForm.Tag = $True
     }
     $MyFCGForm.Activate()
@@ -22458,29 +24512,29 @@ function Start-MyFCGFormLoad
   )
   Write-Verbose -Message "Enter Load Event for `$MyFCGForm"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   $Screen = ([System.Windows.Forms.Screen]::FromControl($Sender)).WorkingArea
   $Sender.Left = [Math]::Floor(($Screen.Width - $Sender.Width) / 2)
   $Sender.Top = [Math]::Floor(($Screen.Height - $Sender.Height) / 2)
   
-  if ([MyFCGConfig]::Production)
+  if ([MyConfig]::Production)
   {
     # Enable $MyFCGTimer
-    $MyFCGTimer.Enabled = ([MyFCGConfig]::AutoExitMax -gt 0)
+    $MyFCGTimer.Enabled = ([MyConfig]::AutoExitMax -gt 0)
     
     # Hide Console Window
     $Script:VerbosePreference = "SilentlyContinue"
     $Script:DebugPreference = "SilentlyContinue"
     
-    [System.Console]::Title = "RUNNING: $([MyFCGConfig]::ScriptName) - $([MyFCGConfig]::ScriptVersion)"
+    [System.Console]::Title = "RUNNING: $([MyConfig]::ScriptName) - $([MyConfig]::ScriptVersion)"
     [Void][Console.Window]::Hide()
     $MyFCGForm.Tag = $False
   }
   else
   {
     [Void][Console.Window]::Show()
-    [System.Console]::Title = "DEBUG: $([MyFCGConfig]::ScriptName) - $([MyFCGConfig]::ScriptVersion)"
+    [System.Console]::Title = "DEBUG: $([MyConfig]::ScriptName) - $([MyConfig]::ScriptVersion)"
     $MyFCGForm.Tag = $True
   }
   
@@ -22515,7 +24569,7 @@ function Start-MyFCGFormMove
   )
   Write-Verbose -Message "Enter Move Event for `$MyFCGForm"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   Write-Verbose -Message "Exit Move Event for `$MyFCGForm"
 }
@@ -22548,7 +24602,7 @@ function Start-MyFCGFormResize
   )
   Write-Verbose -Message "Enter Resize Event for `$MyFCGForm"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   Write-Verbose -Message "Exit Resize Event for `$MyFCGForm"
 }
@@ -22581,11 +24635,11 @@ function Start-MyFCGFormShown
   )
   Write-Verbose -Message "Enter Shown Event for `$MyFCGForm"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   $Sender.Refresh()
   
-  $MyFCGScriptNameTextBox.Text = [MyFCGConfig]::DefScriptName
+  $MyFCGScriptNameTextBox.Text = [MyConfig]::DefScriptName
   $MyFCGScriptNameTextBox.Select()
   
   $MyFCGControlListListBox.Items.AddRange(@(Get-MyFormControls))
@@ -22604,7 +24658,7 @@ $MyFCGForm.add_Shown({ Start-MyFCGFormShown -Sender $This -EventArg $PSItem })
 
 #region $MyFCGTimer = [System.Windows.Forms.Timer]::New()
 $MyFCGTimer = [System.Windows.Forms.Timer]::New($MyFCGFormComponents)
-$MyFCGTimer.Interval = [MyFCGConfig]::AutoExitTic
+$MyFCGTimer.Interval = [MyConfig]::AutoExitTic
 #endregion $MyFCGTimer = [System.Windows.Forms.Timer]::New()
 
 #region ******** Function Start-MyFCGTimerTick ********
@@ -22633,15 +24687,15 @@ function Start-MyFCGTimerTick
   )
   Write-Verbose -Message "Enter Tick Event for `$MyFCGTimer"
   
-  [MyFCGConfig]::AutoExit += 1
-  Write-Verbose -Message "Auto Exit in $([MyFCGConfig]::AutoExitMax - [MyFCGConfig]::AutoExit) Minutes"
-  if ([MyFCGConfig]::AutoExit -ge [MyFCGConfig]::AutoExitMax)
+  [MyConfig]::AutoExit += 1
+  Write-Verbose -Message "Auto Exit in $([MyConfig]::AutoExitMax - [MyConfig]::AutoExit) Minutes"
+  if ([MyConfig]::AutoExit -ge [MyConfig]::AutoExitMax)
   {
     $MyFCGForm.Close()
   }
-  ElseIf (([MyFCGConfig]::AutoExitMax - [MyFCGConfig]::AutoExit) -le 5)
+  ElseIf (([MyConfig]::AutoExitMax - [MyConfig]::AutoExit) -le 5)
   {
-    $MyFCGBtmStatusStrip.Items["Status"].Text = "Auto Exit in $([MyFCGConfig]::AutoExitMax - [MyFCGConfig]::AutoExit) Minutes"
+    $MyFCGBtmStatusStrip.Items["Status"].Text = "Auto Exit in $([MyConfig]::AutoExitMax - [MyConfig]::AutoExit) Minutes"
   }
   
   Write-Verbose -Message "Exit Tick Event for `$MyFCGTimer"
@@ -22660,10 +24714,10 @@ $MyFCGMainSplitContainer.BorderStyle = [System.Windows.Forms.BorderStyle]::None
 $MyFCGMainSplitContainer.Dock = [System.Windows.Forms.DockStyle]::Fill
 $MyFCGMainSplitContainer.FixedPanel = [System.Windows.Forms.FixedPanel]::Panel1
 $MyFCGMainSplitContainer.Name = "MyFCGMainSplitContainer"
-$MyFCGMainSplitContainer.Panel1MinSize = ([MyFCGConfig]::Font.Width * [MyFCGConfig]::InfoMinWidth)
+$MyFCGMainSplitContainer.Panel1MinSize = ([MyConfig]::Font.Width * [MyConfig]::InfoMinWidth)
 $MyFCGMainSplitContainer.SplitterDistance = $MyFCGMainSplitContainer.Panel1MinSize
-$MyFCGMainSplitContainer.SplitterIncrement = [MyFCGConfig]::FormSpacer
-$MyFCGMainSplitContainer.SplitterWidth = ([MyFCGConfig]::FormSpacer * 2)
+$MyFCGMainSplitContainer.SplitterIncrement = [MyConfig]::FormSpacer
+$MyFCGMainSplitContainer.SplitterWidth = ([MyConfig]::FormSpacer * 2)
 $MyFCGMainSplitContainer.TabStop = $False
 $MyFCGMainSplitContainer.Text = "MyFCGMainSplitContainer"
 #endregion $MyFCGMainSplitContainer = [System.Windows.Forms.SplitContainer]::New()
@@ -22694,7 +24748,7 @@ function Start-MyFCGMainSplitContainerSplitterMoved
   )
   Write-Verbose -Message "Enter SplitterMoved Event for `$MyFCGMainSplitContainer"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   Write-Verbose -Message "Exit SplitterMoved Event for `$MyFCGMainSplitContainer"
 }
@@ -22706,7 +24760,7 @@ $MyFCGMainSplitContainer.add_SplitterMoved({ Start-MyFCGMainSplitContainerSplitt
 # ************************************************
 #region ******** $MyFCGMainSplitContainer Panel1 Controls ********
 
-$MyFCGMainSplitContainer.Panel1.Padding = [System.Windows.Forms.Padding]::New([MyFCGConfig]::FormSpacer, 0, 0, 0)
+$MyFCGMainSplitContainer.Panel1.Padding = [System.Windows.Forms.Padding]::New([MyConfig]::FormSpacer, 0, 0, 0)
 
 # ************************************************
 # MyFCGControl GroupBox
@@ -22715,7 +24769,7 @@ $MyFCGMainSplitContainer.Panel1.Padding = [System.Windows.Forms.Padding]::New([M
 $MyFCGControlGroupBox = [System.Windows.Forms.GroupBox]::New()
 $MyFCGMainSplitContainer.Panel1.Controls.Add($MyFCGControlGroupBox)
 $MyFCGControlGroupBox.Dock = [System.Windows.Forms.DockStyle]::Fill
-$MyFCGControlGroupBox.ForeColor = [MyFCGConfig]::Colors.GroupFore
+$MyFCGControlGroupBox.ForeColor = [MyConfig]::Colors.GroupFore
 $MyFCGControlGroupBox.Name = "MyFCGControlGroupBox"
 $MyFCGControlGroupBox.TabStop = $False
 $MyFCGControlGroupBox.Text = "Control Information"
@@ -22726,11 +24780,11 @@ $MyFCGControlGroupBox.Text = "Control Information"
 #region $MyFCGControlNameLabel = [System.Windows.Forms.Label]::New()
 $MyFCGControlNameLabel = [System.Windows.Forms.Label]::New()
 $MyFCGControlGroupBox.Controls.Add($MyFCGControlNameLabel)
-$MyFCGControlNameLabel.BackColor = [MyFCGConfig]::Colors.TitleBack
+$MyFCGControlNameLabel.BackColor = [MyConfig]::Colors.TitleBack
 $MyFCGControlNameLabel.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
 $MyFCGControlNameLabel.Dock = [System.Windows.Forms.DockStyle]::Top
-$MyFCGControlNameLabel.Font = [MyFCGConfig]::Font.Bold
-$MyFCGControlNameLabel.ForeColor = [MyFCGConfig]::Colors.TitleFore
+$MyFCGControlNameLabel.Font = [MyConfig]::Font.Bold
+$MyFCGControlNameLabel.ForeColor = [MyConfig]::Colors.TitleFore
 $MyFCGControlNameLabel.Name = "MyFCGControlNameLabel"
 $MyFCGControlNameLabel.TabStop = $False
 $MyFCGControlNameLabel.Text = "Control Name"
@@ -22743,9 +24797,9 @@ $MyFCGControlNameLabel.Height = $MyFCGControlNameLabel.PreferredSize.Height
 $MyFCGControlNameTextBox = [System.Windows.Forms.TextBox]::New()
 $MyFCGControlGroupBox.Controls.Add($MyFCGControlNameTextBox)
 $MyFCGControlNameTextBox.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Left, Right")
-$MyFCGControlNameTextBox.BackColor = [MyFCGConfig]::Colors.TextBack
-$MyFCGControlNameTextBox.ForeColor = [MyFCGConfig]::Colors.TextFore
-$MyFCGControlNameTextBox.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlNameLabel.Bottom + [MyFCGConfig]::FormSpacer))
+$MyFCGControlNameTextBox.BackColor = [MyConfig]::Colors.TextBack
+$MyFCGControlNameTextBox.ForeColor = [MyConfig]::Colors.TextFore
+$MyFCGControlNameTextBox.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlNameLabel.Bottom + [MyConfig]::FormSpacer))
 $MyFCGControlNameTextBox.Name = "MyFCGControlNameTextBox"
 $MyFCGControlNameTextBox.TabIndex = 1
 $MyFCGControlNameTextBox.TabStop = $True
@@ -22757,11 +24811,11 @@ $MyFCGControlNameTextBox.Width = $MyFCGControlNameLabel.Width
 $MyFCGControlListLabel = [System.Windows.Forms.Label]::New()
 $MyFCGControlGroupBox.Controls.Add($MyFCGControlListLabel)
 $MyFCGControlListLabel.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Left, Right")
-$MyFCGControlListLabel.BackColor = [MyFCGConfig]::Colors.TitleBack
+$MyFCGControlListLabel.BackColor = [MyConfig]::Colors.TitleBack
 $MyFCGControlListLabel.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
-$MyFCGControlListLabel.Font = [MyFCGConfig]::Font.Bold
-$MyFCGControlListLabel.ForeColor = [MyFCGConfig]::Colors.TitleFore
-$MyFCGControlListLabel.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlNameTextBox.Bottom + [MyFCGConfig]::FormSpacer))
+$MyFCGControlListLabel.Font = [MyConfig]::Font.Bold
+$MyFCGControlListLabel.ForeColor = [MyConfig]::Colors.TitleFore
+$MyFCGControlListLabel.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlNameTextBox.Bottom + [MyConfig]::FormSpacer))
 $MyFCGControlListLabel.Name = "MyFCGControlListLabel"
 $MyFCGControlListLabel.Size = $MyFCGControlNameLabel.Size
 $MyFCGControlListLabel.TabStop = $False
@@ -22773,14 +24827,14 @@ $MyFCGControlListLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCent
 $MyFCGControlEventCheckedListBox = [System.Windows.Forms.CheckedListBox]::New()
 $MyFCGControlGroupBox.Controls.Add($MyFCGControlEventCheckedListBox)
 $MyFCGControlEventCheckedListBox.Anchor = [System.Windows.Forms.AnchorStyles]("Bottom, Left, Right")
-$MyFCGControlEventCheckedListBox.BackColor = [MyFCGConfig]::Colors.TextBack
+$MyFCGControlEventCheckedListBox.BackColor = [MyConfig]::Colors.TextBack
 $MyFCGControlEventCheckedListBox.CheckOnClick = $True
 $MyFCGControlEventCheckedListBox.DisplayMember = "Name"
-$MyFCGControlEventCheckedListBox.ForeColor = [MyFCGConfig]::Colors.TextFore
-$MyFCGControlEventCheckedListBox.Height = ([MyFCGConfig]::Font.Height * [MyFCGConfig]::EventHeight)
+$MyFCGControlEventCheckedListBox.ForeColor = [MyConfig]::Colors.TextFore
+$MyFCGControlEventCheckedListBox.Height = ([MyConfig]::Font.Height * [MyConfig]::EventHeight)
 $MyFCGControlEventCheckedListBox.IntegralHeight = $False
-$MyFCGControlEventCheckedListBox.ItemHeight = [MyFCGConfig]::Font.Height
-$MyFCGControlEventCheckedListBox.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlGroupBox.ClientSize.Height - (([MyFCGConfig]::FormSpacer * 2) + $MyFCGControlEventCheckedListBox.Height)))
+$MyFCGControlEventCheckedListBox.ItemHeight = [MyConfig]::Font.Height
+$MyFCGControlEventCheckedListBox.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlGroupBox.ClientSize.Height - (([MyConfig]::FormSpacer * 2) + $MyFCGControlEventCheckedListBox.Height)))
 $MyFCGControlEventCheckedListBox.Name = "MyFCGControlEventCheckedListBox"
 $MyFCGControlEventCheckedListBox.SelectionMode = [System.Windows.Forms.SelectionMode]::One
 $MyFCGControlEventCheckedListBox.Sorted = $True
@@ -22817,7 +24871,7 @@ function Start-MyFCGControlEventCheckedListBoxItemCheck
   )
   Write-Verbose -Message "Enter ItemCheck Event for `$MyFCGControlEventCheckedListBox"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   $Contains = $MyFCGControlEventCheckedListBox.CheckedItems.Contains($Sender.SelectedItem)
   $Count = $MyFCGControlEventCheckedListBox.CheckedItems.Count
@@ -22833,11 +24887,11 @@ $MyFCGControlEventCheckedListBox.add_ItemCheck({ Start-MyFCGControlEventCheckedL
 $MyFCGControlEventLabel = [System.Windows.Forms.Label]::New()
 $MyFCGControlGroupBox.Controls.Add($MyFCGControlEventLabel)
 $MyFCGControlEventLabel.Anchor = [System.Windows.Forms.AnchorStyles]("Bottom, Left, Right")
-$MyFCGControlEventLabel.BackColor = [MyFCGConfig]::Colors.TitleBack
+$MyFCGControlEventLabel.BackColor = [MyConfig]::Colors.TitleBack
 $MyFCGControlEventLabel.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
-$MyFCGControlEventLabel.Font = [MyFCGConfig]::Font.Bold
-$MyFCGControlEventLabel.ForeColor = [MyFCGConfig]::Colors.TitleFore
-$MyFCGControlEventLabel.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlEventCheckedListBox.Top - ($MyFCGControlNameLabel.Height + [MyFCGConfig]::FormSpacer)))
+$MyFCGControlEventLabel.Font = [MyConfig]::Font.Bold
+$MyFCGControlEventLabel.ForeColor = [MyConfig]::Colors.TitleFore
+$MyFCGControlEventLabel.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlEventCheckedListBox.Top - ($MyFCGControlNameLabel.Height + [MyConfig]::FormSpacer)))
 $MyFCGControlEventLabel.Name = "MyFCGControlEventLabel"
 $MyFCGControlEventLabel.Size = $MyFCGControlNameLabel.Size
 $MyFCGControlEventLabel.TabStop = $False
@@ -22849,12 +24903,12 @@ $MyFCGControlEventLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCen
 $MyFCGControlListListBox = [System.Windows.Forms.ListBox]::New()
 $MyFCGControlGroupBox.Controls.Add($MyFCGControlListListBox)
 $MyFCGControlListListBox.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Bottom, Left, Right")
-$MyFCGControlListListBox.BackColor = [MyFCGConfig]::Colors.TextBack
+$MyFCGControlListListBox.BackColor = [MyConfig]::Colors.TextBack
 $MyFCGControlListListBox.DisplayMember = "Name"
-$MyFCGControlListListBox.ForeColor = [MyFCGConfig]::Colors.TextFore
-$MyFCGControlListListBox.Height = ($MyFCGControlEventLabel.Top - [MyFCGConfig]::FormSpacer) - ($MyFCGControlListLabel.Bottom + [MyFCGConfig]::FormSpacer)
+$MyFCGControlListListBox.ForeColor = [MyConfig]::Colors.TextFore
+$MyFCGControlListListBox.Height = ($MyFCGControlEventLabel.Top - [MyConfig]::FormSpacer) - ($MyFCGControlListLabel.Bottom + [MyConfig]::FormSpacer)
 $MyFCGControlListListBox.IntegralHeight = $False
-$MyFCGControlListListBox.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlListLabel.Bottom + [MyFCGConfig]::FormSpacer))
+$MyFCGControlListListBox.Location = [System.Drawing.Point]::New($MyFCGControlNameLabel.Left, ($MyFCGControlListLabel.Bottom + [MyConfig]::FormSpacer))
 $MyFCGControlListListBox.Name = "MyFCGControlListListBox"
 $MyFCGControlListListBox.SelectionMode = [System.Windows.Forms.SelectionMode]::One
 $MyFCGControlListListBox.Sorted = $True
@@ -22891,7 +24945,7 @@ function Start-MyFCGControlListListBoxSelectedIndexChanged
   )
   Write-Verbose -Message "Enter SelectedIndexChanged Event for `$MyFCGControlListListBox"
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   $MyFCGControlEventCheckedListBox.Items.Clear()
   if ($MyFCGControlListListBox.SelectedIndex -gt -1)
@@ -22900,9 +24954,9 @@ function Start-MyFCGControlListListBoxSelectedIndexChanged
     $MyFCGBtmStatusStrip.Items["Status"].Text = "Found $($MyFCGControlEventCheckedListBox.Items.Count) $(($MyFCGControlListListBox.SelectedItem).Name) Control Events..."
   }
   
-  if ([MyFCGConfig]::DefaultEvents.ContainsKey("$(($MyFCGControlListListBox.SelectedItem).Name)"))
+  if ([MyConfig]::DefaultEvents.ContainsKey("$(($MyFCGControlListListBox.SelectedItem).Name)"))
   {
-    ($MyFCGControlEventCheckedListBox.Items | Where-Object -FilterScript { $PSItem.Name -in @([MyFCGConfig]::DefaultEvents["$(($MyFCGControlListListBox.SelectedItem).Name)"]) }) | ForEach-Object -Process { $MyFCGControlEventCheckedListBox.SetItemChecked($MyFCGControlEventCheckedListBox.Items.IndexOf($PSItem), $True) }
+    ($MyFCGControlEventCheckedListBox.Items | Where-Object -FilterScript { $PSItem.Name -in @([MyConfig]::DefaultEvents["$(($MyFCGControlListListBox.SelectedItem).Name)"]) }) | ForEach-Object -Process { $MyFCGControlEventCheckedListBox.SetItemChecked($MyFCGControlEventCheckedListBox.Items.IndexOf($PSItem), $True) }
   }
   
   $MyFCGTopMenuStrip.Items["Generate"].Enabled = ($MyFCGControlListListBox.SelectedIndex -gt -1)
@@ -22917,6 +24971,153 @@ function Start-MyFCGControlListListBoxSelectedIndexChanged
 #endregion ******** Function Start-MyFCGControlListListBoxSelectedIndexChanged ********
 $MyFCGControlListListBox.add_SelectedIndexChanged({ Start-MyFCGControlListListBoxSelectedIndexChanged -Sender $This -EventArg $PSItem })
 
+# ************************************************
+# MyFCGControlEvent ContextMenuStrip
+# ************************************************
+#region $MyFCGControlEventContextMenuStrip = [System.Windows.Forms.ContextMenuStrip]::New()
+$MyFCGControlEventContextMenuStrip = [System.Windows.Forms.ContextMenuStrip]::New()
+#$MyFCGControlEventCheckedListBox.Controls.Add($MyFCGControlEventContextMenuStrip)
+$MyFCGControlEventCheckedListBox.ContextMenuStrip = $MyFCGControlEventContextMenuStrip
+$MyFCGControlEventContextMenuStrip.BackColor = [MyConfig]::Colors.Back
+$MyFCGControlEventContextMenuStrip.Font = [MyConfig]::Font.Regular
+$MyFCGControlEventContextMenuStrip.ForeColor = [MyConfig]::Colors.Fore
+$MyFCGControlEventContextMenuStrip.ImageList = $MyFCGImageList
+$MyFCGControlEventContextMenuStrip.Name = "MyFCGControlEventContextMenuStrip"
+#endregion $MyFCGControlEventContextMenuStrip = [System.Windows.Forms.ContextMenuStrip]::New()
+
+#region ******** Function Start-MyFCGControlEventContextMenuStripOpening ********
+function Start-MyFCGControlEventContextMenuStripOpening
+{
+  <#
+    .SYNOPSIS
+      Opening Event for the MyFCGControlEvent ContextMenuStrip Control
+    .DESCRIPTION
+      Opening Event for the MyFCGControlEvent ContextMenuStrip Control
+    .PARAMETER Sender
+       The ContextMenuStrip Control that fired the Opening Event
+    .PARAMETER EventArg
+       The Event Arguments for the ContextMenuStrip Opening Event
+    .EXAMPLE
+       Start-MyFCGControlEventContextMenuStripOpening -Sender $Sender -EventArg $EventArg
+    .NOTES
+      Original Function By kensw
+  #>
+  [CmdletBinding()]
+  param (
+    [parameter(Mandatory = $True)]
+    [System.Windows.Forms.ContextMenuStrip]$Sender,
+    [parameter(Mandatory = $True)]
+    [Object]$EventArg
+  )
+  Write-Verbose -Message "Enter Opening Event for `$MyFCGControlEventContextMenuStrip"
+  #$MyFCGForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
+
+  [MyConfig]::AutoExit = 0
+  If ($MyFCGControlEventCheckedListBox.Items.Count)
+  {
+    $MyFCGControlEventContextMenuStrip.Items["CheckAll"].Enabled = ($MyFCGControlEventCheckedListBox.CheckedIndices.Count -ne $MyFCGControlEventCheckedListBox.Items.Count)
+    $MyFCGControlEventContextMenuStrip.Items["UnCheckAll"].Enabled = ($MyFCGControlEventCheckedListBox.CheckedIndices.Count -gt 0)
+    $MyFCGControlEventContextMenuStrip.Items["Favorites"].Enabled = ([MyConfig]::DefaultEvents.ContainsKey(($MyFCGControlListListBox.SelectedItem.Name)))
+  }
+  else
+  {
+    $EventArg.Cancel = $True
+  }
+  
+  #$MyFCGBtmStatusStrip.Items["Status"].Text = "$($Sender.Name)"
+
+  #$MyFCGForm.Cursor = [System.Windows.Forms.Cursors]::Arrow
+  Write-Verbose -Message "Exit Opening Event for `$MyFCGControlEventContextMenuStrip"
+}
+#endregion ******** Function Start-MyFCGControlEventContextMenuStripOpening ********
+$MyFCGControlEventContextMenuStrip.add_Opening({Start-MyFCGControlEventContextMenuStripOpening -Sender $This -EventArg $PSItem})
+
+#region ******** Function Start-MyFCGControlEventContextMenuStripItemClick ********
+function Start-MyFCGControlEventContextMenuStripItemClick
+{
+  <#
+    .SYNOPSIS
+      Click Event for the MyFCGControlEvent ToolStripItem Control
+    .DESCRIPTION
+      Click Event for the MyFCGControlEvent ToolStripItem Control
+    .PARAMETER Sender
+       The ToolStripItem Control that fired the Click Event
+    .PARAMETER EventArg
+       The Event Arguments for the ToolStripItem Click Event
+    .EXAMPLE
+       Start-MyFCGControlEventContextMenuStripItemClick -Sender $Sender -EventArg $EventArg
+    .NOTES
+      Original Function By kensw
+  #>
+  [CmdletBinding()]
+  param (
+    [parameter(Mandatory = $True)]
+    [System.Windows.Forms.ToolStripItem]$Sender,
+    [parameter(Mandatory = $True)]
+    [Object]$EventArg
+  )
+  Write-Verbose -Message "Enter Click Event for `$MyFCGControlEventContextMenuStripItem"
+  #$MyFCGForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
+
+  [MyConfig]::AutoExit = 0
+  
+  Switch ($Sender.Name)
+  {
+    "CheckAll"
+    {
+      $NumItems = $MyFCGControlEventCheckedListBox.Items.Count - 1
+      For ($Index = 0; $Index -le $NumItems; $Index++)
+      {
+        $MyFCGControlEventCheckedListBox.SetItemCheckState($Index, [System.Windows.Forms.CheckState]::Checked)
+      }
+      $MyFCGBtmStatusStrip.Items["Status"].Text = "Checked All Events"
+      Break
+    }
+    "UnCheckAll"
+    {
+      $NumItems = $MyFCGControlEventCheckedListBox.Items.Count - 1
+      For ($Index = 0; $Index -le $NumItems; $Index++)
+      {
+        $MyFCGControlEventCheckedListBox.SetItemCheckState($Index, [System.Windows.Forms.CheckState]::Unchecked)
+      }
+      $MyFCGBtmStatusStrip.Items["Status"].Text = "Unchecked All Events"
+      Break
+    }
+    "Favorites"
+    {
+      $FavList = @([MyConfig]::DefaultEvents[($MyFCGControlListListBox.SelectedItem.Name)])
+      $NumItems = $MyFCGControlEventCheckedListBox.Items.Count - 1
+      For ($Index = 0; $Index -le $NumItems; $Index++)
+      {
+        If ($MyFCGControlEventCheckedListBox.Items[$Index].Name -in $FavList)
+        {
+          $MyFCGControlEventCheckedListBox.SetItemCheckState($Index, [System.Windows.Forms.CheckState]::Checked)
+        }
+        Else
+        {
+          $MyFCGControlEventCheckedListBox.SetItemCheckState($Index, [System.Windows.Forms.CheckState]::Unchecked)
+        }
+      }
+      $MyFCGBtmStatusStrip.Items["Status"].Text = "Checked All Favorite Events"
+      Break
+    }
+  }
+  
+  #$MyFCGForm.Cursor = [System.Windows.Forms.Cursors]::Arrow
+  Write-Verbose -Message "Exit Click Event for `$MyFCGControlEventContextMenuStripItem"
+}
+#endregion ******** Function Start-MyFCGControlEventContextMenuStripItemClick ********
+
+(New-MenuItem -Menu $MyFCGControlEventContextMenuStrip -Text "Check All" -Name "CheckAll" -Tag "CheckAll" -DisplayStyle "ImageAndText" -ImageKey "CheckAllIcon" -PassThru).add_Click({Start-MyFCGControlEventContextMenuStripItemClick -Sender $This -EventArg $PSItem})
+(New-MenuItem -Menu $MyFCGControlEventContextMenuStrip -Text "UnCheck All" -Name "UnCheckAll" -Tag "UnCheckAll" -DisplayStyle "ImageAndText" -ImageKey "UnCheckAllIcon" -PassThru).add_Click({Start-MyFCGControlEventContextMenuStripItemClick -Sender $This -EventArg $PSItem})
+(New-MenuItem -Menu $MyFCGControlEventContextMenuStrip -Text "Check Favorites" -Name "Favorites" -Tag "Favorites" -DisplayStyle "ImageAndText" -ImageKey "FavoritesIcon" -PassThru).add_Click({Start-MyFCGControlEventContextMenuStripItemClick -Sender $This -EventArg $PSItem})
+
+# Right Dropdown
+#$DropDownMenu = New-MenuItem -Menu $MyFCGControlEventContextMenuStrip -Text "DropDown Menu" -Name "DropMenu" -Tag "DropMenu" -DisplayStyle "ImageAndText" -TextImageRelation "TextBeforeImage" -ImageKey "MyFCGFormIcon" -PassThru
+#$DropDownMenu.DropDownDirection = [System.Windows.Forms.ToolStripDropDownDirection]::BelowRight
+#$DropDownMenu.DropDown.RightToLeft = [System.Windows.Forms.RightToLeft]::No
+
+
 #endregion ******** $MyFCGControlGroupBox Controls ********
 
 
@@ -22927,7 +25128,7 @@ $MyFCGControlListListBox.add_SelectedIndexChanged({ Start-MyFCGControlListListBo
 $MyFCGScriptGroupBox = [System.Windows.Forms.GroupBox]::New()
 $MyFCGMainSplitContainer.Panel1.Controls.Add($MyFCGScriptGroupBox)
 $MyFCGScriptGroupBox.Dock = [System.Windows.Forms.DockStyle]::Top
-$MyFCGScriptGroupBox.ForeColor = [MyFCGConfig]::Colors.GroupFore
+$MyFCGScriptGroupBox.ForeColor = [MyConfig]::Colors.GroupFore
 $MyFCGScriptGroupBox.Name = "MyFCGScriptGroupBox"
 $MyFCGScriptGroupBox.TabStop = $False
 $MyFCGScriptGroupBox.Text = "Script Information"
@@ -22938,11 +25139,11 @@ $MyFCGScriptGroupBox.Text = "Script Information"
 #region $MyFCGScriptNameLabel = [System.Windows.Forms.Label]::New()
 $MyFCGScriptNameLabel = [System.Windows.Forms.Label]::New()
 $MyFCGScriptGroupBox.Controls.Add($MyFCGScriptNameLabel)
-$MyFCGScriptNameLabel.BackColor = [MyFCGConfig]::Colors.TitleBack
+$MyFCGScriptNameLabel.BackColor = [MyConfig]::Colors.TitleBack
 $MyFCGScriptNameLabel.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
 $MyFCGScriptNameLabel.Dock = [System.Windows.Forms.DockStyle]::Top
-$MyFCGScriptNameLabel.Font = [MyFCGConfig]::Font.Bold
-$MyFCGScriptNameLabel.ForeColor = [MyFCGConfig]::Colors.TitleFore
+$MyFCGScriptNameLabel.Font = [MyConfig]::Font.Bold
+$MyFCGScriptNameLabel.ForeColor = [MyConfig]::Colors.TitleFore
 $MyFCGScriptNameLabel.Name = "MyFCGScriptNameLabel"
 $MyFCGScriptNameLabel.TabStop = $False
 $MyFCGScriptNameLabel.Text = "Script Name"
@@ -22955,9 +25156,9 @@ $MyFCGScriptNameLabel.Height = $MyFCGScriptNameLabel.PreferredSize.Height
 $MyFCGScriptNameTextBox = [System.Windows.Forms.TextBox]::New()
 $MyFCGScriptGroupBox.Controls.Add($MyFCGScriptNameTextBox)
 $MyFCGScriptNameTextBox.Anchor = [System.Windows.Forms.AnchorStyles]("Top, Left, Right")
-$MyFCGScriptNameTextBox.BackColor = [MyFCGConfig]::Colors.TextBack
-$MyFCGScriptNameTextBox.ForeColor = [MyFCGConfig]::Colors.TextFore
-$MyFCGScriptNameTextBox.Location = [System.Drawing.Point]::New($MyFCGScriptNameLabel.Left, ($MyFCGScriptNameLabel.Bottom + [MyFCGConfig]::FormSpacer))
+$MyFCGScriptNameTextBox.BackColor = [MyConfig]::Colors.TextBack
+$MyFCGScriptNameTextBox.ForeColor = [MyConfig]::Colors.TextFore
+$MyFCGScriptNameTextBox.Location = [System.Drawing.Point]::New($MyFCGScriptNameLabel.Left, ($MyFCGScriptNameLabel.Bottom + [MyConfig]::FormSpacer))
 $MyFCGScriptNameTextBox.Name = "MyFCGScriptNameTextBox"
 $MyFCGScriptNameTextBox.TabIndex = 0
 $MyFCGScriptNameTextBox.TabStop = $True
@@ -22965,7 +25166,7 @@ $MyFCGScriptNameTextBox.Text = ""
 $MyFCGScriptNameTextBox.Width = $MyFCGScriptNameLabel.Width
 #endregion $MyFCGScriptNameTextBox = [System.Windows.Forms.TextBox]::New()
 
-$MyFCGScriptGroupBox.ClientSize = [System.Drawing.Size]::New(($MyFCGScriptNameTextBox.Right + [MyFCGConfig]::FormSpacer), ($MyFCGScriptNameTextBox.Bottom + [MyFCGConfig]::FormSpacer))
+$MyFCGScriptGroupBox.ClientSize = [System.Drawing.Size]::New(($MyFCGScriptNameTextBox.Right + [MyConfig]::FormSpacer), ($MyFCGScriptNameTextBox.Bottom + [MyConfig]::FormSpacer))
 
 #endregion ******** $MyFCGScriptGroupBox Controls ********
 
@@ -22977,7 +25178,7 @@ $MyFCGScriptGroupBox.ClientSize = [System.Drawing.Size]::New(($MyFCGScriptNameTe
 # ************************************************
 #region ******** $MyFCGMainSplitContainer Panel2 Controls ********
 
-$MyFCGMainSplitContainer.Panel2.Padding = [System.Windows.Forms.Padding]::New(0, 0, [MyFCGConfig]::FormSpacer, 0)
+$MyFCGMainSplitContainer.Panel2.Padding = [System.Windows.Forms.Padding]::New(0, 0, [MyConfig]::FormSpacer, 0)
 
 # ************************************************
 # MyFCGCode GroupBox
@@ -22986,7 +25187,7 @@ $MyFCGMainSplitContainer.Panel2.Padding = [System.Windows.Forms.Padding]::New(0,
 $MyFCGCodeGroupBox = [System.Windows.Forms.GroupBox]::New()
 $MyFCGMainSplitContainer.Panel2.Controls.Add($MyFCGCodeGroupBox)
 $MyFCGCodeGroupBox.Dock = [System.Windows.Forms.DockStyle]::Fill
-$MyFCGCodeGroupBox.ForeColor = [MyFCGConfig]::Colors.GroupFore
+$MyFCGCodeGroupBox.ForeColor = [MyConfig]::Colors.GroupFore
 $MyFCGCodeGroupBox.Name = "MyFCGCodeGroupBox"
 $MyFCGCodeGroupBox.TabStop = $False
 $MyFCGCodeGroupBox.Text = "My Generated Form Code"
@@ -22997,10 +25198,10 @@ $MyFCGCodeGroupBox.Text = "My Generated Form Code"
 #region $MyFCGCodeTextBox = [System.Windows.Forms.TextBox]::New()
 $MyFCGCodeTextBox = [System.Windows.Forms.TextBox]::New()
 $MyFCGCodeGroupBox.Controls.Add($MyFCGCodeTextBox)
-$MyFCGCodeTextBox.BackColor = [MyFCGConfig]::Colors.TextBack
+$MyFCGCodeTextBox.BackColor = [MyConfig]::Colors.TextBack
 $MyFCGCodeTextBox.Dock = [System.Windows.Forms.DockStyle]::Fill
-$MyFCGCodeTextBox.Font = [System.Drawing.Font]::New([MyFCGConfig]::CodeFont, [MyFCGConfig]::FontSize, [System.Drawing.FontStyle]::Regular)
-$MyFCGCodeTextBox.ForeColor = [MyFCGConfig]::Colors.TextFore
+$MyFCGCodeTextBox.Font = [System.Drawing.Font]::New([MyConfig]::CodeFont, [MyConfig]::FontSize, [System.Drawing.FontStyle]::Regular)
+$MyFCGCodeTextBox.ForeColor = [MyConfig]::Colors.TextFore
 $MyFCGCodeTextBox.MaxLength = [System.Int32]::MaxValue
 $MyFCGCodeTextBox.Multiline = $True
 $MyFCGCodeTextBox.Name = "MyFCGCodeTextBox"
@@ -23023,9 +25224,9 @@ $MyFCGCodeTextBox.WordWrap = $False
 $MyFCGTopMenuStrip = [System.Windows.Forms.MenuStrip]::New()
 $MyFCGForm.Controls.Add($MyFCGTopMenuStrip)
 $MyFCGForm.MainMenuStrip = $MyFCGTopMenuStrip
-$MyFCGTopMenuStrip.BackColor = [MyFCGConfig]::Colors.Back
-$MyFCGTopMenuStrip.Font = [MyFCGConfig]::Font.Regular
-$MyFCGTopMenuStrip.ForeColor = [MyFCGConfig]::Colors.Fore
+$MyFCGTopMenuStrip.BackColor = [MyConfig]::Colors.Back
+$MyFCGTopMenuStrip.Font = [MyConfig]::Font.Regular
+$MyFCGTopMenuStrip.ForeColor = [MyConfig]::Colors.Fore
 $MyFCGTopMenuStrip.ImageList = $MyFCGImageList
 $MyFCGTopMenuStrip.Name = "MyFCGTopMenuStrip"
 $MyFCGTopMenuStrip.TabIndex = 4
@@ -23060,7 +25261,7 @@ function Start-MyFCGTopToolStripItemClick
   Write-Verbose -Message "Enter Click Event for `$MyFCGTopToolStripItem"
   $MyFCGForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
   
-  [MyFCGConfig]::AutoExit = 0
+  [MyConfig]::AutoExit = 0
   
   Switch ($Sender.Name)
   {
@@ -23077,7 +25278,7 @@ function Start-MyFCGTopToolStripItemClick
       }
       else
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script and/or Control Names", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script and/or Control Names", [MyConfig]::ScriptName, "OK", "Warning")
       }
       #endregion GroupBox
       Break
@@ -23095,7 +25296,7 @@ function Start-MyFCGTopToolStripItemClick
       }
       else
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script and/or Control Names", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script and/or Control Names", [MyConfig]::ScriptName, "OK", "Warning")
       }
       #endregion GroupBox
       Break
@@ -23105,7 +25306,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Display-TextBox
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23123,7 +25324,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Display-TextBox
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23141,7 +25342,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Display-TextBox
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23159,11 +25360,29 @@ function Start-MyFCGTopToolStripItemClick
       #region Get-UserInput
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
         $MyFCGCodeTextBox.Text = Build-MyScriptUserInputDialog -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text)
+        $MyFCGCodeTextBox.SelectAll()
+        $MyFCGCodeTextBox.Copy()
+        $MyFCGCodeTextBox.DeselectAll()
+        $MyFCGBtmStatusStrip.Items["Status"].Text = "Script Code Generated: $($MyFCGCodeTextBox.Lines.Count) Line(s)"
+      }
+      #endregion Get-UserInput
+      Break
+    }
+    "Get-NamedList"
+    {
+      #region Get-UserInput
+      If ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
+      {
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
+      }
+      Else
+      {
+        $MyFCGCodeTextBox.Text = Build-MyScriptNamedListDialog -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text)
         $MyFCGCodeTextBox.SelectAll()
         $MyFCGCodeTextBox.Copy()
         $MyFCGCodeTextBox.DeselectAll()
@@ -23177,7 +25396,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Get-UserChoice
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23194,7 +25413,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Get-SelectOption
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23212,7 +25431,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Get-ListViewChoice
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23229,7 +25448,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Get-ListViewSearch
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23246,7 +25465,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Show-MsgDialog
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23264,7 +25483,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Show-Info
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23282,7 +25501,7 @@ function Start-MyFCGTopToolStripItemClick
       #region Select-Icon
       if ([String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text) -or [String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script or Control Name ", [MyConfig]::ScriptName, "OK", "Warning")
       }
       else
       {
@@ -23357,7 +25576,7 @@ function Start-MyFCGTopToolStripItemClick
       }
       else
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyConfig]::ScriptName, "OK", "Warning")
       }
       #endregion Generate
       Break
@@ -23382,7 +25601,7 @@ function Start-MyFCGTopToolStripItemClick
       }
       else
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyConfig]::ScriptName, "OK", "Warning")
       }
       #endregion Control
       Break
@@ -23407,7 +25626,7 @@ function Start-MyFCGTopToolStripItemClick
       }
       else
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Events Selected", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Events Selected", [MyConfig]::ScriptName, "OK", "Warning")
       }
       #endregion Event
       Break
@@ -23425,7 +25644,7 @@ function Start-MyFCGTopToolStripItemClick
       }
       else
       {
-        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyFCGConfig]::ScriptName, "OK", "Warning")
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyConfig]::ScriptName, "OK", "Warning")
       }
       #endregion Library
       Break
@@ -23439,7 +25658,7 @@ function Start-MyFCGTopToolStripItemClick
       $MyFCGCodeTextBox.SelectAll()
       $MyFCGCodeTextBox.Copy()
       $MyFCGCodeTextBox.DeselectAll()
-      $MyFCGBtmStatusStrip.Items["Status"].Text = "$([MyFCGConfig]::ScriptName) Source Code: $($MyFCGCodeTextBox.Lines.Count) Line(s)"
+      $MyFCGBtmStatusStrip.Items["Status"].Text = "$([MyConfig]::ScriptName) Source Code: $($MyFCGCodeTextBox.Lines.Count) Line(s)"
       #endregion Source
       Break
     }
@@ -23483,7 +25702,7 @@ function Start-MyFCGTopToolStripItemClick
     {
       $MyFCGBtmStatusStrip.Items["Status"].Text = "Help!"
       Show-MyHelpDialog
-      #[Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "There is no Help!", [MyFCGConfig]::ScriptName, "OK", "Information")
+      #[Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "There is no Help!", [MyConfig]::ScriptName, "OK", "Information")
       Break
     }
     "Exit"
@@ -23545,6 +25764,7 @@ $SubMenuItem = New-MenuItem -Menu $NewMenuItem -Text "Dialog - Show-&Message" -N
 New-MenuSeparator -Menu $NewMenuItem
 
 (New-MenuItem -Menu $NewMenuItem -Text "Dialog - Get-&TextBoxInput" -Name "Get-TextBoxInput" -Tag "Get-TextBoxInput" -DisplayStyle "ImageAndText" -ImageKey "DialogIcon" -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem })
+(New-MenuItem -Menu $NewMenuItem -Text "Dialog - Get-&NamedList" -Name "Get-NamedList" -Tag "Get-NamedList" -DisplayStyle "ImageAndText" -ImageKey "DialogIcon" -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem })
 (New-MenuItem -Menu $NewMenuItem -Text "Dialog - Get-&RadioButtonChoice" -Name "Get-RadioButtonChoice" -Tag "Get-RadioButtonChoice" -DisplayStyle "ImageAndText" -ImageKey "DialogIcon" -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem})
 (New-MenuItem -Menu $NewMenuItem -Text "Dialog - Get-&ListViewChoice" -Name "Get-ListViewChoice" -Tag "Get-ListViewChoice" -DisplayStyle "ImageAndText" -ImageKey "DialogIcon" -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem})
 (New-MenuItem -Menu $NewMenuItem -Text "Dialog - Get-&ListViewSearch" -Name "Get-ListViewSearch" -Tag "Get-ListViewSearch" -DisplayStyle "ImageAndText" -ImageKey "DialogIcon" -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem})
@@ -23579,10 +25799,10 @@ New-MenuSeparator -Menu $MyFCGTopMenuStrip
 $MyFCGBtmStatusStrip = [System.Windows.Forms.StatusStrip]::New()
 $MyFCGForm.Controls.Add($MyFCGBtmStatusStrip)
 #$MyFCGForm.StatusStrip = $MyFCGBtmStatusStrip
-$MyFCGBtmStatusStrip.BackColor = [MyFCGConfig]::Colors.Back
+$MyFCGBtmStatusStrip.BackColor = [MyConfig]::Colors.Back
 $MyFCGBtmStatusStrip.Dock = [System.Windows.Forms.DockStyle]::Bottom
-$MyFCGBtmStatusStrip.Font = [MyFCGConfig]::Font.Regular
-$MyFCGBtmStatusStrip.ForeColor = [MyFCGConfig]::Colors.Fore
+$MyFCGBtmStatusStrip.Font = [MyConfig]::Font.Regular
+$MyFCGBtmStatusStrip.ForeColor = [MyConfig]::Colors.Fore
 $MyFCGBtmStatusStrip.ImageList = $MyFCGImageList
 $MyFCGBtmStatusStrip.Name = "MyFCGBtmStatusStrip"
 $MyFCGBtmStatusStrip.TabStop = $False
@@ -23601,7 +25821,7 @@ $MyFCGOpenFileDialog.Dispose()
 $MyFCGFormComponents.Dispose()
 $MyFCGForm.Dispose()
 
-if ([MyFCGConfig]::Production)
+if ([MyConfig]::Production)
 {
   [System.Environment]::Exit(0)
 }
