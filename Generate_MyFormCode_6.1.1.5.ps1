@@ -45,7 +45,7 @@ Class MyConfig
   static [bool]$Production = $True
   
   static [String]$ScriptName = "My PS5 Form Code Generator"
-  static [Version]$ScriptVersion = [Version]::New("6.1.1.4")
+  static [Version]$ScriptVersion = [Version]::New("6.1.1.5")
   static [String]$ScriptAuthor = "Ken Sweet"
   
   # Default Form Settings
@@ -6161,7 +6161,15 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    Write-Host -Object `"`$(`$TempDate.ToString(`"yy-MM-dd HH:mm:ss`")) - `$(`$Message)`" -ForegroundColor `$HostColor")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  Add-Content -Path `$TempFile -Value (`"<![LOG[{0}]LOG]!><time=```"{1}```" date=```"{2}```" component=```"{3}```" context=```"{4}```" type=```"{5}```" thread=```"{6}```" file=```"{7}```">`" -f `$Message, `$(`$TempDate.ToString(`"HH:mm:ss.fff+000`")), `$(`$TempDate.ToString(`"MM-dd-yyyy`")), `$Component, `$Context, `$TempSeverity, `$Thread, `$TempSource)")
+  [Void]$StringBuilder.AppendLine("  :Done While (`$True)")
+  [Void]$StringBuilder.AppendLine("  {")
+  [Void]$StringBuilder.AppendLine("    Try")
+  [Void]$StringBuilder.AppendLine("    {")
+  [Void]$StringBuilder.AppendLine("      Add-Content -Encoding Ascii -Path `$TempFile -Value (`"<![LOG[{0}]LOG]!><time=```"{1}```" date=```"{2}```" component=```"{3}```" context=```"{4}```" type=```"{5}```" thread=```"{6}```" file=```"{7}```">`" -f `$Message, `$(`$TempDate.ToString(`"HH:mm:ss.fff+000`")), `$(`$TempDate.ToString(`"MM-dd-yyyy`")), `$Component, `$Context, `$TempSeverity, `$Thread, `$TempSource)")
+  [Void]$StringBuilder.AppendLine("      break Done")
+  [Void]$StringBuilder.AppendLine("    }")
+  [Void]$StringBuilder.AppendLine("    Catch {}")
+  [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
   [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Exit Function Write-MyLogFile`"")
   [Void]$StringBuilder.AppendLine("}")
