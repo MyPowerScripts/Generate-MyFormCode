@@ -137,3 +137,208 @@ $X.Form.GetProperties() | Where-Object -Property Name -Value "ShowIcon" -EQ | So
 $X.Form.GetProperties() | Where-Object -Property CanWrite -Value $True -EQ | Sort-Object -Property name
 
 $X.Form.GetProperties() | Where-Object -FilterScript { $PSItem.CanWrite -or $PSItem.PropertyType.Name -match "Collection" } | Select-Object -property name | Sort-Object -Property name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Using namespace System.Collections
+
+$Error.Clear()
+Clear-Host
+
+#region Class MyFormControlEvent
+Class MyFormControlEvent
+{
+  [String]$Name
+  [String]$AddMethod
+  MyFormControlEvent ([String]$Name, [String]$AddMethod)
+  {
+    $This.Name = $Name
+    $This.AddMethod = $AddMethod
+  }
+}
+#endregion Class MyFormControlEvent
+
+#region Class MyFormControlProperty
+Class MyFormControlProperty
+{
+  [String]$Name
+  [String]$PropertyType
+  [Object]$Default
+  MyFormControlProperty ([String]$Name, [String]$PropertyType, [Object]$Default)
+  {
+    $This.Name = $Name
+    $This.PropertyType = $PropertyType
+    $This.Default = $Default
+  }
+}
+#endregion Class MyFormControlProperty
+
+#region Class MyFormControlParameter
+Class MyFormControlParameter
+{
+  [String]$Parameter
+  [String]$PropertyType
+  MyFormControlParameter ([String]$Parameter, [String]$PropertyType)
+  {
+    $This.Parameter = [System.Globalization.CultureInfo]::CurrentCulture.TextInfo.ToTitleCase($Parameter)
+    $This.PropertyType = $PropertyType
+  }
+}
+#endregion Class MyFormControlParameter
+
+#region Class MyFormControlConstructor
+Class MyFormControlConstructor
+{
+  [System.Collections.Generic.List[MyFormControlParameter]]$Parameter = [System.Collections.Generic.List[MyFormControlParameter]]::New()
+  MyFormControlConstructor ([MyFormControlParameter[]]$Parameter)
+  {
+    $This.Parameter.AddRange($Parameter)
+  }
+}
+#endregion Class MyFormControlConstructor
+
+#region Class MyFormControlItems
+Class MyFormControlItems
+{
+  [String]$Medhod
+  [System.Collections.Generic.List[MyFormControlParameter]]$Parameter = [System.Collections.Generic.List[MyFormControlParameter]]::New()
+  MyFormControlItems ([String]$Medhod, [MyFormControlParameter[]]$Parameter)
+  {
+    $This.Medhod = $Medhod
+    $This.Parameter.AddRange($Parameter)
+  }
+}
+#endregion Class MyFormControlItems
+
+#region Class MyFormControl
+Class MyFormControl
+{
+  [String]$Name
+  [String]$FullName
+  [System.Collections.Generic.List[MyFormControlConstructor]]$Constructors = [System.Collections.Generic.List[MyFormControlConstructor]]::New()
+  [System.Collections.Generic.List[MyFormControlProperty]]$Properties = [System.Collections.Generic.List[MyFormControlProperty]]::New()
+  [System.Collections.Generic.List[MyFormControlItems]]$Items = [System.Collections.Generic.List[MyFormControlItems]]::New()
+  [System.Collections.Generic.List[MyFormControlEvent]]$Events = [System.Collections.Generic.List[MyFormControlEvent]]::New()
+  MyFormControl ([String]$Name, [String]$FullName)
+  {
+    $This.Name = $Name
+    $This.FullName = $FullName
+  }
+}
+#endregion Class MyFormControl
+
+#region function Get-MyFormControls
+function Get-MyFormControls ()
+{
+  <#
+    .SYNOPSIS
+      Get List of Windows Form Controls
+    .DESCRIPTION
+      Get List of Windows Form Controls
+    .EXAMPLE
+      Get-MyFormControls
+    .NOTES
+      Original Function By Ken Sweet
+  #>
+  [CmdletBinding()]
+  param (
+  )
+  Write-Verbose -Message "Enter Function Get-MyFormControls"
+  
+  # Get System.Windows.Forms.Form Assembly
+  $Assembly = [System.Reflection.Assembly]::GetAssembly("System.Windows.Forms.Form")
+  # Get List of Exported System.Windows.Forms Types
+  $ExportedTypes = $Assembly.ExportedTypes | Where-Object -FilterScript { $PSitem.IsPublic -and $PSItem.IsClass -and (-not $PSItem.IsAbstract) -and ($PSItem.FullName -like "System.Windows.Forms*") } | Sort-Object -Property FullName
+  # Check Each Expoted Type
+  ForEach ($ExportedType in $ExportedTypes)
+  {
+    $TmpConstructors = @($ExportedType.GetConstructors(("Instance", "Public")))
+    if ((($ExportedType.GetInterface("IComponent")).IsPublic -or ($ExportedType.GetInterface("ISerializable")).IsPublic) -and ($TmpConstructors.Count -gt 0) -and (@($TmpConstructors | Where-Object -FilterScript { @($PSItem.GetParameters()).Count -eq 0 }).Count -eq 1))
+    {
+      # Create Form Control Return Value
+      $RetValue = [MyFormControl]::New($ExportedType.Name, $ExportedType.FullName)
+      # Get Form Control Constructors
+      ForEach ($TmpConstructor In @($ExportedType.GetConstructors(("Instance", "Public"))))
+      {
+        $RetValue.Constructors.Add([MyFormControlConstructor]::New(@($TmpConstructor.GetParameters() | ForEach-Object -Process { [MyFormControlParameter]::New($PSItem.Name, $PSItem.ParameterType.FullName) }))) | Out-Null
+      }
+      # Get Form Control Property List
+      $TmpProperties = $ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.CanWrite } | Sort-Object -Property Name -Unique
+      $TmpControl = $ExportedType::New()
+      ForEach ($TmpProperty In $TmpProperties)
+      {
+        $RetValue.Properties.Add([MyFormControlProperty]::New($TmpProperty.Name, $TmpProperty.PropertyType.FullName, $TmpControl.PSObject.Properties[$TmpProperty.Name].Value)) | Out-Null
+      }
+      Try { $TmpControl.Dispose() } Catch {}
+      # Get Form Control Items - Add / AddRange
+      $TmpItems = $ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.Name -notin @("Controls", "DataBindings") -and -not $PSItem.CanWrite -and $PSItem.PropertyType.GetInterface("ICollection").IsPublic } | Sort-Object -Property Name -Unique
+      ForEach ($TmpItem In $TmpItems)
+      {
+        ForEach ($TmpAddItem In @($TmpItem.PropertyType.GetDeclaredMethods("Add")))
+        {
+          $RetValue.Items.Add([MyFormControlItems]::New("Add", ([MyFormControlParameter[]]@($TmpAddItem.GetParameters() | ForEach-Object -Process { [MyFormControlParameter]::New($PSItem.Name, $PSItem.ParameterType.FullName) })))) | Out-Null
+        }
+        ForEach ($TmpAddItem In @($TmpItem.PropertyType.GetDeclaredMethods("AddRange")))
+        {
+          $RetValue.Items.Add([MyFormControlItems]::New("AddRange", ([MyFormControlParameter[]]@($TmpAddItem.GetParameters() | ForEach-Object -Process { [MyFormControlParameter]::New($PSItem.Name, $PSItem.ParameterType.FullName) })))) | Out-Null
+        }
+      }
+      # Get Form Control Events
+      ForEach ($Event In @($ExportedType.GetEvents() | Sort-Object -Property Name -Unique))
+      {
+        $RetValue.Events.Add([MyFormControlEvent]::New($Event.Name, $Event.AddMethod.Name)) | Out-Null
+      }
+      # Return Form Confrom Info
+      $RetValue
+    }
+  }
+  
+  Write-Verbose -Message "Exit Function Get-MyFormControls"
+}
+#endregion function Get-MyFormControls
+
+$FormControlList = Get-MyFormControls
+$FormControlList.Count
+
