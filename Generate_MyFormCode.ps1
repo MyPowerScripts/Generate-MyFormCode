@@ -3524,14 +3524,8 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$TempTreeNode.BackColor = `$BackColor")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempTreeNode.ForeColor = `$ForeColor")
-  [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Font`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempTreeNode.NodeFont = `$Font")
-  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  `$TempTreeNode.ForeColor = `$ForeColor")
+  [Void]$StringBuilder.AppendLine("  `$TempTreeNode.NodeFont = `$Font")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  Switch (`$PSCmdlet.ParameterSetName)")
   [Void]$StringBuilder.AppendLine("  {")
@@ -3688,14 +3682,8 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$TempMenuItem.BackColor = `$BackColor")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempMenuItem.ForeColor = `$ForeColor")
-  [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Font`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempMenuItem.Font = `$Font")
-  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  `$TempMenuItem.ForeColor = `$ForeColor")
+  [Void]$StringBuilder.AppendLine("  `$TempMenuItem.Font = `$Font")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  If (`$PSCmdlet.ParameterSetName -eq `"Default`")")
   [Void]$StringBuilder.AppendLine("  {")
@@ -3827,14 +3815,8 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$TempMenuButton.BackColor = `$BackColor")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempMenuButton.ForeColor = `$ForeColor")
-  [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Font`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempMenuButton.Font = `$Font")
-  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  `$TempMenuButton.ForeColor = `$ForeColor")
+  [Void]$StringBuilder.AppendLine("  `$TempMenuButton.Font = `$Font")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  If (`$PSCmdlet.ParameterSetName -eq `"Default`")")
   [Void]$StringBuilder.AppendLine("  {")
@@ -3956,14 +3938,8 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$TempMenuLabel.BackColor = `$BackColor")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempMenuLabel.ForeColor = `$ForeColor")
-  [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Font`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempMenuLabel.Font = `$Font")
-  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  `$TempMenuLabel.ForeColor = `$ForeColor")
+  [Void]$StringBuilder.AppendLine("  `$TempMenuLabel.Font = `$Font")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Icon`"))")
   [Void]$StringBuilder.AppendLine("  {")
@@ -4139,10 +4115,7 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$TempListViewItem.BackColor = `$BackColor")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempListViewItem.ForeColor = `$ForeColor")
-  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  `$TempListViewItem.ForeColor = `$ForeColor")
   [Void]$StringBuilder.AppendLine("  `$TempListViewItem.Font = `$Font")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"SubItems`"))")
   [Void]$StringBuilder.AppendLine("  {")
@@ -4367,14 +4340,8 @@ function Build-MyScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  {")
   [Void]$StringBuilder.AppendLine("    `$TempTabPage.BackColor = `$BackColor")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"ForeColor`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempTabPage.ForeColor = `$ForeColor")
-  [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("  If (`$PSBoundParameters.ContainsKey(`"Font`"))")
-  [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempTabPage.Font = `$Font")
-  [Void]$StringBuilder.AppendLine("  }")
+  [Void]$StringBuilder.AppendLine("  `$TempTabPage.ForeColor = `$ForeColor")
+  [Void]$StringBuilder.AppendLine("  `$TempTabPage.Font = `$Font")
   [Void]$StringBuilder.AppendLine("  #endregion `$TempTabPage = [System.Windows.Forms.TabPage]")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  If (`$PassThru.IsPresent)")
@@ -15558,7 +15525,6 @@ function Build-MyScriptDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter KeyDown Event for ```$$($MyControlName)DialogForm`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
@@ -15570,7 +15536,6 @@ function Build-MyScriptDialog ()
   [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
   [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit KeyDown Event for ```$$($MyControlName)DialogForm`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormKeyDown ********")
@@ -15601,7 +15566,6 @@ function Build-MyScriptDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Load Event for ```$$($MyControlName)DialogForm`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
@@ -15609,7 +15573,6 @@ function Build-MyScriptDialog ()
   [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
   [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Load Event for ```$$($MyControlName)DialogForm`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormLoad ********")
@@ -15640,7 +15603,6 @@ function Build-MyScriptDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Move Event for ```$$($MyControlName)DialogForm`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
@@ -15648,7 +15610,6 @@ function Build-MyScriptDialog ()
   [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
   [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Move Event for ```$$($MyControlName)DialogForm`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormMove ********")
@@ -15679,7 +15640,6 @@ function Build-MyScriptDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Shown Event for ```$$($MyControlName)DialogForm`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
@@ -15688,7 +15648,6 @@ function Build-MyScriptDialog ()
   [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
   [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Shown Event for ```$$($MyControlName)DialogForm`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormShown ********")
@@ -16183,7 +16142,6 @@ function Build-MyScriptAdvDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter KeyDown Event for ```$$($MyControlName)DialogForm`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
@@ -16195,7 +16153,6 @@ function Build-MyScriptAdvDialog ()
   [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
   [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit KeyDown Event for ```$$($MyControlName)DialogForm`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormKeyDown ********")
@@ -16226,7 +16183,6 @@ function Build-MyScriptAdvDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Load Event for ```$$($MyControlName)DialogForm`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
@@ -16234,7 +16190,6 @@ function Build-MyScriptAdvDialog ()
   [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
   [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Load Event for ```$$($MyControlName)DialogForm`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormLoad ********")
@@ -16265,7 +16220,6 @@ function Build-MyScriptAdvDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Move Event for ```$$($MyControlName)DialogForm`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
@@ -16273,7 +16227,6 @@ function Build-MyScriptAdvDialog ()
   [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
   [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Move Event for ```$$($MyControlName)DialogForm`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormMove ********")
@@ -16304,7 +16257,6 @@ function Build-MyScriptAdvDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter Shown Event for ```$$($MyControlName)DialogForm`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
@@ -16313,7 +16265,6 @@ function Build-MyScriptAdvDialog ()
   [Void]$StringBuilder.AppendLine("    [System.GC]::Collect()")
   [Void]$StringBuilder.AppendLine("    [System.GC]::WaitForPendingFinalizers()")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit Shown Event for ```$$($MyControlName)DialogForm`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogFormShown ********")
@@ -16624,9 +16575,9 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("{")
   [Void]$StringBuilder.AppendLine("  <#")
   [Void]$StringBuilder.AppendLine("    .SYNOPSIS")
-  [Void]$StringBuilder.AppendLine("      Shows Show-GetUserTextDialog")
+  [Void]$StringBuilder.AppendLine("      Shows Show-$($MyControlName)Dialog")
   [Void]$StringBuilder.AppendLine("    .DESCRIPTION")
-  [Void]$StringBuilder.AppendLine("      Shows Show-GetUserTextDialog")
+  [Void]$StringBuilder.AppendLine("      Shows Show-$($MyControlName)Dialog")
   [Void]$StringBuilder.AppendLine("    .PARAMETER DialogTitle")
   [Void]$StringBuilder.AppendLine("    .PARAMETER MessageText")
   [Void]$StringBuilder.AppendLine("    .PARAMETER HintText")
@@ -16640,7 +16591,7 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("    .PARAMETER ButtonMid")
   [Void]$StringBuilder.AppendLine("    .PARAMETER ButtonRight")
   [Void]$StringBuilder.AppendLine("    .EXAMPLE")
-  [Void]$StringBuilder.AppendLine("      `$Return = Show-GetUserTextDialog -DialogTitle `$DialogTitle")
+  [Void]$StringBuilder.AppendLine("      `$Return = Show-$($MyControlName)Dialog -DialogTitle `$DialogTitle")
   [Void]$StringBuilder.AppendLine("    .NOTES")
   [Void]$StringBuilder.AppendLine("      Original Function By Ken Sweet")
   [Void]$StringBuilder.AppendLine("  #>")
@@ -16649,7 +16600,7 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("    [String]`$DialogTitle = `"`$([MyConfig]::ScriptName)`",")
   [Void]$StringBuilder.AppendLine("    [String]`$MessageText = `"Status Message`",")
   [Void]$StringBuilder.AppendLine("    [String]`$HintText = `"Enter Value Here`",")
-  [Void]$StringBuilder.AppendLine("    [String]`$ValidChars = `"[\s\w\d\.\-_]`",")
+  [Void]$StringBuilder.AppendLine("    [String]`$ValidChars = `"[\s\w\d\.\-_,;]`",")
   [Void]$StringBuilder.AppendLine("    [String[]]`$Items = @(),")
   [Void]$StringBuilder.AppendLine("    [Int]`$MaxLength = [Int]::MaxValue,")
   [Void]$StringBuilder.AppendLine("    [Int]`$Width = 35,")
@@ -16801,23 +16752,41 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("    # Returns the minimum size required to display the text")
   [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainLabel.Size = [System.Windows.Forms.TextRenderer]::MeasureText(`$$($MyControlName)DialogMainLabel.Text, `$$($MyControlName)DialogMainLabel.Font, `$$($MyControlName)DialogMainLabel.Size, ([System.Windows.Forms.TextFormatFlags](`"Top`", `"Left`", `"WordBreak`")))")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    `$TempBottom = `$$($MyControlName)DialogMainLabel.Bottom + [MyConfig]::FormSpacer")
+  [Void]$StringBuilder.AppendLine("    `$TmpBottom = `$$($MyControlName)DialogMainLabel.Bottom + [MyConfig]::FormSpacer")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  else")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    `$TempBottom = 0")
+  [Void]$StringBuilder.AppendLine("    `$TmpBottom = 0")
   [Void]$StringBuilder.AppendLine("  }")
-  [Void]$StringBuilder.AppendLine("")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  # $($MyControlName)DialogMain GroupBox")
+  [Void]$StringBuilder.AppendLine("  # ************************************************")
+  [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogMainGroupBox = [System.Windows.Forms.GroupBox]::New()")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox = [System.Windows.Forms.GroupBox]::New()")
+  [Void]$StringBuilder.AppendLine("  # Location of First Control = [System.Drawing.Point]::New([MyConfig]::FormSpacer, [MyConfig]::Font.Height)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainPanel.Controls.Add(`$$($MyControlName)DialogMainGroupBox)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.BackColor = [MyConfig]::Colors.Back")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.Font = [MyConfig]::Font.Regular")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.ForeColor = [MyConfig]::Colors.GroupFore")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, (`$TmpBottom + [MyConfig]::FormSpacer))")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.Name = `"$($MyControlName)DialogMainGroupBox`"")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.Size = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainPanel.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), (`$$($MyControlName)DialogMainPanel.ClientSize.Height - (`$$($MyControlName)DialogMainGroupBox.Top + [MyConfig]::FormSpacer)))")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.Text = `$Null")
+  [Void]$StringBuilder.AppendLine("  #endregion `$$($MyControlName)DialogMainGroupBox = [System.Windows.Forms.GroupBox]::New()")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #region ******** `$$($MyControlName)DialogMainGroupBox Controls ********")
+  [Void]$StringBuilder.AppendLine("  ")
   [Void]$StringBuilder.AppendLine("  #region `$$($MyControlName)DialogMainTextBox = [System.Windows.Forms.TextBox]::New()")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox = [System.Windows.Forms.TextBox]::New()")
-  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainPanel.Controls.Add(`$$($MyControlName)DialogMainTextBox)")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.Controls.Add(`$$($MyControlName)DialogMainTextBox)")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.Anchor = [System.Windows.Forms.AnchorStyles](`"Top, Left, Bottom`")")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.AutoSize = `$True")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.BackColor = [MyConfig]::Colors.TextBack")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.BorderStyle = [System.Windows.Forms.BorderStyle]::Fixed3D")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.Font = [MyConfig]::Font.Regular")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.ForeColor = [MyConfig]::Colors.TextFore")
-  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, (`$TempBottom + [MyConfig]::FormSpacer))")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.Location = [System.Drawing.Point]::New([MyConfig]::FormSpacer, [MyConfig]::Font.Height)")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.MaxLength = `$MaxLength")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.Multiline = `$Multi.IsPresent")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.Name = `"$($MyControlName)DialogMainTextBox`"")
@@ -16834,7 +16803,7 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("      `$$($MyControlName)DialogMainTextBox.Lines = `"`"")
   [Void]$StringBuilder.AppendLine("      `$$($MyControlName)DialogMainTextBox.Tag = @{ `"HintText`" = `$HintText; `"HintEnabled`" = `$True; `"Items`" = `$Items }")
   [Void]$StringBuilder.AppendLine("    }")
-  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainTextBox.Size = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainPanel.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), (`$$($MyControlName)DialogMainPanel.ClientSize.Height - (`$$($MyControlName)DialogMainTextBox.Top + [MyConfig]::FormSpacer)))")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainTextBox.Size = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainGroupBox.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), (`$$($MyControlName)DialogMainGroupBox.ClientSize.Height - (`$$($MyControlName)DialogMainTextBox.Top + [MyConfig]::FormSpacer)))")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  else")
   [Void]$StringBuilder.AppendLine("  {")
@@ -16849,7 +16818,7 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("      `$$($MyControlName)DialogMainTextBox.Text = `"`"")
   [Void]$StringBuilder.AppendLine("      `$$($MyControlName)DialogMainTextBox.Tag = @{ `"HintText`" = `$HintText; `"HintEnabled`" = `$True; `"Items`" = `"`" }")
   [Void]$StringBuilder.AppendLine("    }")
-  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainTextBox.Size = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainPanel.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), `$$($MyControlName)DialogMainTextBox.PreferredHeight)")
+  [Void]$StringBuilder.AppendLine("    `$$($MyControlName)DialogMainTextBox.Size = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainGroupBox.ClientSize.Width - ([MyConfig]::FormSpacer * 2)), `$$($MyControlName)DialogMainTextBox.PreferredHeight)")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.TabIndex = 0")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.TabStop = `$True")
@@ -17063,7 +17032,11 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogMainTextBoxLostFocus ********")
   [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainTextBox.add_LostFocus({ Start-$($MyControlName)DialogMainTextBoxLostFocus -Sender `$This -EventArg `$PSItem })")
   [Void]$StringBuilder.AppendLine("  ")
-  [Void]$StringBuilder.AppendLine("  `$TempClientSize = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainTextBox.Right + [MyConfig]::FormSpacer), (`$$($MyControlName)DialogMainTextBox.Bottom + [MyConfig]::FormSpacer))")
+  [Void]$StringBuilder.AppendLine("  `$$($MyControlName)DialogMainGroupBox.ClientSize = [System.Drawing.Size]::New(`$$($MyControlName)DialogMainGroupBox.ClientSize.Width, (`$$($MyControlName)DialogMainTextBox.Bottom + ([MyConfig]::FormSpacer * 2)))")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  #endregion ******** `$$($MyControlName)DialogMainGroupBox Controls ********")
+  [Void]$StringBuilder.AppendLine("  ")
+  [Void]$StringBuilder.AppendLine("  `$TempClientSize = [System.Drawing.Size]::New((`$$($MyControlName)DialogMainGroupBox.Right + [MyConfig]::FormSpacer), (`$$($MyControlName)DialogMainGroupBox.Bottom + [MyConfig]::FormSpacer))")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  #endregion ******** `$$($MyControlName)DialogMainPanel Controls ********")
   [Void]$StringBuilder.AppendLine("")
@@ -17131,7 +17104,7 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("")
-  [Void]$StringBuilder.AppendLine("    if ((-not `$GetUserTextDialogMainTextBox.Tag.HintEnabled) -and (`"`$(`$GetUserTextDialogMainTextBox.Text.Trim())`".Length -gt 0))")
+  [Void]$StringBuilder.AppendLine("    if ((-not `$$($MyControlName)DialogMainTextBox.Tag.HintEnabled) -and (`"`$(`$$($MyControlName)DialogMainTextBox.Text.Trim())`".Length -gt 0))")
   [Void]$StringBuilder.AppendLine("    {")
   [Void]$StringBuilder.AppendLine("      `$$($MyControlName)DialogForm.DialogResult = [System.Windows.Forms.DialogResult]::OK")
   [Void]$StringBuilder.AppendLine("    }")
@@ -17273,7 +17246,7 @@ function Build-MyScriptUserInputDialog ()
   [Void]$StringBuilder.AppendLine("  `$DialogResult = `$$($MyControlName)DialogForm.ShowDialog(`$$($MyScriptName)Form)")
   [Void]$StringBuilder.AppendLine("  If (`$Multi.IsPresent)")
   [Void]$StringBuilder.AppendLine("  {")
-  [Void]$StringBuilder.AppendLine("    [$($MyControlName)Dialog]::New((`$DialogResult -eq [System.Windows.Forms.DialogResult]::OK), `$DialogResult, ((`$$($MyControlName)DialogMainTextBox.Text -replace `"\s*[\n,;]\s*`", `",`").Split(`",`", [System.StringSplitOptions]::RemoveEmptyEntries)))")
+  [Void]$StringBuilder.AppendLine("    [$($MyControlName)Dialog]::New((`$DialogResult -eq [System.Windows.Forms.DialogResult]::OK), `$DialogResult, ((`$$($MyControlName)DialogMainTextBox.Text -replace `"\s*[\n,;]+\s*`", `",`").Split(`",`", [System.StringSplitOptions]::RemoveEmptyEntries)))")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  Else")
   [Void]$StringBuilder.AppendLine("  {")
@@ -18533,7 +18506,6 @@ Function Build-MyScriptOrderedListDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter GotFocus Event for ```$$($MyControlName)DialogTextBox`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("    ")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("    ")
@@ -18545,7 +18517,6 @@ Function Build-MyScriptOrderedListDialog ()
   [Void]$StringBuilder.AppendLine("      `$Sender.ForeColor = [MyConfig]::Colors.TextFore")
   [Void]$StringBuilder.AppendLine("    }")
   [Void]$StringBuilder.AppendLine("    ")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit GotFocus Event for ```$$($MyControlName)DialogTextBox`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogTextBoxGotFocus ********")
@@ -18614,14 +18585,12 @@ Function Build-MyScriptOrderedListDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter KeyPress Event for ```$$($MyControlName)DialogTextBox`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("    ")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("    ")
   [Void]$StringBuilder.AppendLine("    # 3 = Ctrl-C, 8 = Backspace, 22 = Ctrl-V, 24 = Ctrl-X")
   [Void]$StringBuilder.AppendLine("    `$EventArg.Handled = ((`$EventArg.KeyChar -notmatch `$ValidChars) -and ([Int](`$EventArg.KeyChar) -notin (3, 8, 22, 24)))")
   [Void]$StringBuilder.AppendLine("    ")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit KeyPress Event for ```$$($MyControlName)DialogTextBox`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogTextBoxKeyPress ********")
@@ -18652,14 +18621,12 @@ Function Build-MyScriptOrderedListDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter KeyUp Event for ```$$($MyControlName)DialogTextBox`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("    ")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("    ")
   [Void]$StringBuilder.AppendLine("    # `$TextBox.Tag = @{ `"HintText`" = `"`"; `"HintEnabled`" = `$True }")
   [Void]$StringBuilder.AppendLine("    `$Sender.Tag.HintEnabled = (`$Sender.Text.Trim().Length -eq 0)")
   [Void]$StringBuilder.AppendLine("    ")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit KeyUp Event for ```$$($MyControlName)DialogTextBox`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogTextBoxKeyUp ********")
@@ -18690,7 +18657,6 @@ Function Build-MyScriptOrderedListDialog ()
   [Void]$StringBuilder.AppendLine("      [Object]`$EventArg")
   [Void]$StringBuilder.AppendLine("    )")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Enter LostFocus Event for ```$$($MyControlName)DialogTextBox`"")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor")
   [Void]$StringBuilder.AppendLine("    ")
   [Void]$StringBuilder.AppendLine("    [MyConfig]::AutoExit = 0")
   [Void]$StringBuilder.AppendLine("    ")
@@ -18709,7 +18675,6 @@ Function Build-MyScriptOrderedListDialog ()
   [Void]$StringBuilder.AppendLine("      `$Sender.ForeColor = [MyConfig]::Colors.TextFore")
   [Void]$StringBuilder.AppendLine("    }")
   [Void]$StringBuilder.AppendLine("    ")
-  [Void]$StringBuilder.AppendLine("    #`$$($MyControlName)DialogForm.Cursor = [System.Windows.Forms.Cursors]::Arrow")
   [Void]$StringBuilder.AppendLine("    Write-Verbose -Message `"Exit LostFocus Event for ```$$($MyControlName)DialogTextBox`"")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  #endregion ******** Function Start-$($MyControlName)DialogTextBoxLostFocus ********")
@@ -22359,9 +22324,10 @@ function Build-MyScriptStatusSample ()
     [Void]$StringBuilder.AppendLine("      Write to $($MyControlType)")
     [Void]$StringBuilder.AppendLine("    .PARAMETER $($MyControlType)")
     [Void]$StringBuilder.AppendLine("    .PARAMETER TextFore")
-    [Void]$StringBuilder.AppendLine("    .PARAMETER Text")
     [Void]$StringBuilder.AppendLine("    .PARAMETER Font")
     [Void]$StringBuilder.AppendLine("    .PARAMETER Alignment")
+    [Void]$StringBuilder.AppendLine("    .PARAMETER Text")
+    [Void]$StringBuilder.AppendLine("    .PARAMETER BulletFore")
     [Void]$StringBuilder.AppendLine("    .PARAMETER NoNewLine")
     [Void]$StringBuilder.AppendLine("    .EXAMPLE")
     [Void]$StringBuilder.AppendLine("      Write-$($MyControlType) -$($MyControlType) `$$($MyControlType) -Text `$Text")
@@ -22369,13 +22335,16 @@ function Build-MyScriptStatusSample ()
     [Void]$StringBuilder.AppendLine("      Original Script By Ken Sweet")
     [Void]$StringBuilder.AppendLine("    .LINK")
     [Void]$StringBuilder.AppendLine("  #>")
-    [Void]$StringBuilder.AppendLine("  [CmdletBinding()]")
+    [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"NewLine`")]")
     [Void]$StringBuilder.AppendLine("  param (")
     [Void]$StringBuilder.AppendLine("    [System.Windows.Forms.$($MyControlType)]`$$($MyControlType) = `$MyStatusDialogMain$($MyControlType),")
     [Void]$StringBuilder.AppendLine("    [System.Drawing.Color]`$TextFore = [MyConfig]::Colors.TextFore,")
     [Void]$StringBuilder.AppendLine("    [System.Drawing.Font]`$Font = [MyConfig]::Font.Regular,")
     [Void]$StringBuilder.AppendLine("    [System.Windows.Forms.HorizontalAlignment]`$Alignment = [System.Windows.Forms.HorizontalAlignment]::Left,")
     [Void]$StringBuilder.AppendLine("    [String]`$Text,")
+    [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$False, ParameterSetName = `"NewLine`")]")
+    [Void]$StringBuilder.AppendLine("    [System.Drawing.Color]`$BulletFore = [MyConfig]::Colors.TextFore,")
+    [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"NoNewLine`")]")
     [Void]$StringBuilder.AppendLine("    [Switch]`$NoNewLine")
     [Void]$StringBuilder.AppendLine("  )")
     [Void]$StringBuilder.AppendLine("  `$$($MyControlType).SelectionLength = 0")
@@ -22386,6 +22355,7 @@ function Build-MyScriptStatusSample ()
     [Void]$StringBuilder.AppendLine("  `$$($MyControlType).AppendText(`$Text)")
     [Void]$StringBuilder.AppendLine("  if (-not `$NoNewLine.IsPresent)")
     [Void]$StringBuilder.AppendLine("  {")
+    [Void]$StringBuilder.AppendLine("    `$$($MyControlType).SelectionColor = `$BulletFore")
     [Void]$StringBuilder.AppendLine("    `$$($MyControlType).AppendText(`"``r``n`")")
     [Void]$StringBuilder.AppendLine("  }")
     [Void]$StringBuilder.AppendLine("  `$$($MyControlType).ScrollToCaret()")
@@ -22806,7 +22776,7 @@ function Build-MyScriptStatusSample ()
   
   #region function Display-InitiliazeUtility
   [Void]$StringBuilder.AppendLine("# ---------------------------------")
-  [Void]$StringBuilder.AppendLine("# Cusotmize Display Status Messages")
+  [Void]$StringBuilder.AppendLine("# Add Custom Display Status Message")
   [Void]$StringBuilder.AppendLine("# ---------------------------------")
   [Void]$StringBuilder.AppendLine("#region function Display-Initiliaze$($MyScriptName)Utility")
   [Void]$StringBuilder.AppendLine("Function Display-Initiliaze$($MyScriptName)Utility()")
@@ -27792,7 +27762,8 @@ function Build-MyScript ()
     [String]$MyScriptName,
     [String]$MyControlName,
     [Object]$Control,
-    [Object[]]$ControlEvent
+    [Object[]]$ControlEvent,
+    [String]$GUIContainer
   )
   Write-Verbose -Message "Enter Function Build-MyScript"
   
@@ -27902,8 +27873,19 @@ function Build-MyScript ()
       [Void]$StringBuilder.AppendLine("")
       [Void]$StringBuilder.AppendLine((Build-MyScript -MyScriptName $MyScriptName -Control ([System.Windows.Forms.Timer]) -ControlEvent (([System.Windows.Forms.Timer]).GetEvent("Tick"))))
       [Void]$StringBuilder.AppendLine((Build-MyScript -MyScriptName $MyScriptName -Control ([System.Windows.Forms.NotifyIcon]) -ControlEvent (([System.Windows.Forms.NotifyIcon]).GetEvent("MouseClick"))))
-      [Void]$StringBuilder.AppendLine((Build-MyScript -MyScriptName $MyScriptName -MyControlName "Main" -Control ([System.Windows.Forms.Panel])))
-      [Void]$StringBuilder.AppendLine((Build-MyScript -MyScriptName $MyScriptName -MyControlName "Main" -Control ([System.Windows.Forms.SplitContainer])))
+      Switch ($GUIContainer)
+      {
+        "Panel"
+        {
+          [Void]$StringBuilder.AppendLine((Build-MyScript -MyScriptName $MyScriptName -MyControlName "Main" -Control ([System.Windows.Forms.Panel])))
+          Break
+        }
+        "Split"
+        {
+          [Void]$StringBuilder.AppendLine((Build-MyScript -MyScriptName $MyScriptName -MyControlName "Main" -Control ([System.Windows.Forms.SplitContainer])))
+          Break
+        }
+      }
       [Void]$StringBuilder.AppendLine((Build-MyScript -MyScriptName $MyScriptName -MyControlName "Top" -Control ([System.Windows.Forms.MenuStrip])))
       [Void]$StringBuilder.AppendLine((Build-MyScript -MyScriptName $MyScriptName -MyControlName "Btm" -Control ([System.Windows.Forms.StatusStrip])))
       [Void]$StringBuilder.AppendLine("#$($TempControl).ClientSize = [System.Drawing.Size]::New(($($TempControl).Controls[$($TempControl).Controls.Count - 1]).Right + [MyConfig]::FormSpacer, ($($TempControl).Controls[$($TempControl).Controls.Count - 1]).Bottom + [MyConfig]::FormSpacer))")
@@ -28934,6 +28916,25 @@ function Start-MyFCGControlListListBoxSelectedIndexChanged
   }
   
   $MyFCGTopMenuStrip.Items["Generate"].Enabled = ($MyFCGControlListListBox.SelectedIndex -gt -1)
+  
+  If ($Sender.SelectedItem.Name -eq "Form")
+  {
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GenerateControl"].Enabled = $False
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GenerateControl"].Visible = $False
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GeneratePanel"].Enabled = $True
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GeneratePanel"].Visible = $True
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GenerateSplit"].Enabled = $True
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GenerateSplit"].Visible = $True
+  }
+  Else
+  {
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GenerateControl"].Enabled = $True
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GenerateControl"].Visible = $True
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GeneratePanel"].Enabled = $False
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GeneratePanel"].Visible = $False
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GenerateSplit"].Enabled = $False
+    $MyFCGTopMenuStrip.Items["Generate"].DropDownItems["GenerateSplit"].Visible = $False
+  }
   $MyFCGTopMenuStrip.Items["Control"].Enabled = ($MyFCGControlListListBox.SelectedIndex -gt -1)
   $MyFCGTopMenuStrip.Items["Event"].Enabled = ($MyFCGControlEventCheckedListBox.CheckedItems.Count -gt 0)
   
@@ -29593,31 +29594,109 @@ function Start-MyFCGTopToolStripItemClick
       #endregion Extract
       break
     }
-    "Generate"
+    "GenerateControl"
     {
       #region Generate
+      If (($MyFCGControlListListBox.SelectedIndex -gt -1) -and (-not [String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text)))
+      {
+        If ($MyFCGControlEventCheckedListBox.CheckedItems.Count -gt 0)
+        {
+          If ([String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
+          {
+            $MyFCGCodeTextBox.Text = Build-MyScript -MyScriptName ($MyFCGScriptNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem) -ControlEvent ($MyFCGControlEventCheckedListBox.CheckedItems)
+          }
+          Else
+          {
+            $MyFCGCodeTextBox.Text = Build-MyScript -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem) -ControlEvent ($MyFCGControlEventCheckedListBox.CheckedItems)
+          }
+        }
+        Else
+        {
+          If ([String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
+          {
+            $MyFCGCodeTextBox.Text = Build-MyScript -MyScriptName ($MyFCGScriptNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem)
+          }
+          Else
+          {
+            $MyFCGCodeTextBox.Text = Build-MyScript -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem)
+          }
+        }
+        $MyFCGCodeTextBox.SelectAll()
+        $MyFCGCodeTextBox.Copy()
+        $MyFCGCodeTextBox.DeselectAll()
+        $MyFCGBtmStatusStrip.Items["Status"].Text = "Script Code Generated: $($MyFCGCodeTextBox.Lines.Count) Line(s)"
+      }
+      Else
+      {
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyConfig]::ScriptName, "OK", "Warning")
+      }
+      #endregion Generate
+      Break
+    }
+    "GeneratePanel"
+    {
+      #region Generate-Panel
+      If (($MyFCGControlListListBox.SelectedIndex -gt -1) -and (-not [String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text)))
+      {
+        If ($MyFCGControlEventCheckedListBox.CheckedItems.Count -gt 0)
+        {
+          If ([String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
+          {
+            $MyFCGCodeTextBox.Text = Build-MyScript -GUIContainer "Panel" -MyScriptName ($MyFCGScriptNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem) -ControlEvent ($MyFCGControlEventCheckedListBox.CheckedItems)
+          }
+          Else
+          {
+            $MyFCGCodeTextBox.Text = Build-MyScript -GUIContainer "Panel" -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem) -ControlEvent ($MyFCGControlEventCheckedListBox.CheckedItems)
+          }
+        }
+        Else
+        {
+          If ([String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
+          {
+            $MyFCGCodeTextBox.Text = Build-MyScript -GUIContainer "Panel" -MyScriptName ($MyFCGScriptNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem)
+          }
+          Else
+          {
+            $MyFCGCodeTextBox.Text = Build-MyScript -GUIContainer "Panel" -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem)
+          }
+        }
+        $MyFCGCodeTextBox.SelectAll()
+        $MyFCGCodeTextBox.Copy()
+        $MyFCGCodeTextBox.DeselectAll()
+        $MyFCGBtmStatusStrip.Items["Status"].Text = "Script Code Generated: $($MyFCGCodeTextBox.Lines.Count) Line(s)"
+      }
+      Else
+      {
+        [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyConfig]::ScriptName, "OK", "Warning")
+      }
+      #endregion Generate-Panel
+      Break
+    }
+    "GenerateSplit"
+    {
+      #region Generate-Split
       if (($MyFCGControlListListBox.SelectedIndex -gt -1) -and (-not [String]::IsNullOrEmpty($MyFCGScriptNameTextBox.Text)))
       {
         if ($MyFCGControlEventCheckedListBox.CheckedItems.Count -gt 0)
         {
           if ([String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
           {
-            $MyFCGCodeTextBox.Text = Build-MyScript -MyScriptName ($MyFCGScriptNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem) -ControlEvent ($MyFCGControlEventCheckedListBox.CheckedItems)
+            $MyFCGCodeTextBox.Text = Build-MyScript -GUIContainer "Split" -MyScriptName ($MyFCGScriptNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem) -ControlEvent ($MyFCGControlEventCheckedListBox.CheckedItems)
           }
           else
           {
-            $MyFCGCodeTextBox.Text = Build-MyScript -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem) -ControlEvent ($MyFCGControlEventCheckedListBox.CheckedItems)
+            $MyFCGCodeTextBox.Text = Build-MyScript -GUIContainer "Split" -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem) -ControlEvent ($MyFCGControlEventCheckedListBox.CheckedItems)
           }
         }
         else
         {
           if ([String]::IsNullOrEmpty($MyFCGControlNameTextBox.Text))
           {
-            $MyFCGCodeTextBox.Text = Build-MyScript -MyScriptName ($MyFCGScriptNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem)
+            $MyFCGCodeTextBox.Text = Build-MyScript -GUIContainer "Split" -MyScriptName ($MyFCGScriptNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem)
           }
           else
           {
-            $MyFCGCodeTextBox.Text = Build-MyScript -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem)
+            $MyFCGCodeTextBox.Text = Build-MyScript -GUIContainer "Split" -MyScriptName ($MyFCGScriptNameTextBox.Text) -MyControlName ($MyFCGControlNameTextBox.Text) -Control ($MyFCGControlListListBox.SelectedItem)
           }
         }
         $MyFCGCodeTextBox.SelectAll()
@@ -29629,7 +29708,7 @@ function Start-MyFCGTopToolStripItemClick
       {
         [Void][System.Windows.Forms.MessageBox]::Show($MyFCGForm, "Missing Script Name or No Control Selected", [MyConfig]::ScriptName, "OK", "Warning")
       }
-      #endregion Generate
+      #endregion Generate-Split
       Break
     }
     "Control"
@@ -29782,7 +29861,11 @@ function Start-MyFCGTopToolStripItemClick
 #region ******** MyFCG Menu items ********
 
 # Main Menu
-(New-MenuItem -Menu $MyFCGTopMenuStrip -Text "&Generate" -Name "Generate" -Tag "Generate" -DisplayStyle "ImageAndText" -ImageKey "GenerateIcon" -Disable -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem })
+$NewMenuItem = New-MenuItem -Menu $MyFCGTopMenuStrip -Text "&Generate" -Name "Generate" -Tag "Generate" -DisplayStyle "ImageAndText" -ImageKey "GenerateIcon" -Disable -PassThru
+(New-MenuItem -Menu $NewMenuItem -Text "Generate - Control" -Name "GenerateControl" -Tag "GenerateControl" -DisplayStyle "ImageAndText" -ImageKey "GenerateIcon" -Disable -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem })
+(New-MenuItem -Menu $NewMenuItem -Text "Generate - Panel" -Name "GeneratePanel" -Tag "GeneratePanel" -DisplayStyle "ImageAndText" -ImageKey "GenerateIcon" -Disable -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem })
+(New-MenuItem -Menu $NewMenuItem -Text "Generate - SplitContainer" -Name "GenerateSplit" -Tag "GenerateSplit" -DisplayStyle "ImageAndText" -ImageKey "GenerateIcon" -Disable -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem })
+
 (New-MenuItem -Menu $MyFCGTopMenuStrip -Text "&Control" -Name "Control" -Tag "Control" -DisplayStyle "ImageAndText" -ImageKey "ControlIcon" -Disable -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem })
 (New-MenuItem -Menu $MyFCGTopMenuStrip -Text "E&vent" -Name "Event" -Tag "Event" -DisplayStyle "ImageAndText" -ImageKey "EventIcon" -Disable -PassThru).add_Click({ Start-MyFCGTopToolStripItemClick -Sender $This -EventArg $PSItem })
 New-MenuSeparator -Menu $MyFCGTopMenuStrip
