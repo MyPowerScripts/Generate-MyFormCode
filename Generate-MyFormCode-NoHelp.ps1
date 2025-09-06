@@ -4,6 +4,11 @@
 <#
 Change Log for FCG
 ------------------------------------------------------------------------------------------------
+7.0.0.3 - Update New-HTMLDateTime, New-HTMLDate, New-HTMLTime Functions to use DateTime
+          Update Get-SNAsset Function - Add OS and OSVersion
+          Update New-HTMLSelect Add Style Parameter
+          Fix Typo in Build Basic & Advanced Dualogs
+------------------------------------------------------------------------------------------------
 7.0.0.2 - Add Help
           General Code Cleanup
           Remove Unused Functions
@@ -12,6 +17,7 @@ Change Log for FCG
           Add Large ImageList
           Change ImageList Name to Small Image List
           Update Show-ScriptInfo Function
+          Add Copy / Clear Code Context Menu
 ------------------------------------------------------------------------------------------------
 7.0.0.1 - Code Formating Bug Fixes
 ------------------------------------------------------------------------------------------------
@@ -146,7 +152,7 @@ Class MyConfig
   static [bool]$Production = $True
 
   static [String]$ScriptName = "Form Code Generator"
-  static [Version]$ScriptVersion = [Version]::New("7.0.0.2")
+  static [Version]$ScriptVersion = [Version]::New("7.0.0.3")
   static [String]$ScriptAuthor = "Ken Sweet"
 
   # Script Configuration
@@ -23151,13 +23157,13 @@ Function Build-MyFCGScriptFunctions ()
     [String]$ScriptName
   )
   Write-Verbose -Message "Enter Function Build-MyFCGScriptFunctions"
-
+  
   $StringBuilder = [System.Text.StringBuilder]::New()
-
+  
   #region ******** My Code ********
   [Void]$StringBuilder.AppendLine("#region ******** Functions Library ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region **** Function Prompt ****
   [Void]$StringBuilder.AppendLine("#region Function Prompt")
   [Void]$StringBuilder.AppendLine("Function Prompt")
@@ -23168,12 +23174,12 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion Function Prompt")
   [Void]$StringBuilder.AppendLine("")
   #endregion **** Function Prompt ****
-
+  
   #region ******** Sample Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******** Sample Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function Verb-Noun
   [Void]$StringBuilder.AppendLine("#region function Verb-Noun")
   [Void]$StringBuilder.AppendLine("Function Verb-Noun ()")
@@ -23209,7 +23215,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Verb-Noun")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Verb-Noun
-
+  
   #region function Verb-NounPiped
   [Void]$StringBuilder.AppendLine("#region function Verb-NounPiped")
   [Void]$StringBuilder.AppendLine("Function Verb-NounPiped()")
@@ -23264,17 +23270,17 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Verb-NounPiped")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Verb-NounPiped
-
+  
   [Void]$StringBuilder.AppendLine("#endregion ******** Sample Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******** Sample Functions ********
-
+  
   #region ******* Microsoft Forms Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******* Microsoft Forms Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function New-MyListItem
   [Void]$StringBuilder.AppendLine("#region function New-MyListItem")
   [Void]$StringBuilder.AppendLine("function New-MyListItem")
@@ -23339,7 +23345,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-MyListItem")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-MyListItem
-
+  
   #region function New-TreeNode
   [Void]$StringBuilder.AppendLine("#region function New-TreeNode")
   [Void]$StringBuilder.AppendLine("function New-TreeNode")
@@ -23509,7 +23515,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-TreeNode")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-TreeNode
-
+  
   #region function New-MenuItem
   [Void]$StringBuilder.AppendLine("#region function New-MenuItem")
   [Void]$StringBuilder.AppendLine("function New-MenuItem()")
@@ -23945,7 +23951,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-MenuLabel")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-MenuLabel
-
+  
   #region function New-MenuSeparator
   [Void]$StringBuilder.AppendLine("#region function New-MenuSeparator")
   [Void]$StringBuilder.AppendLine("function New-MenuSeparator()")
@@ -24006,7 +24012,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-MenuSeparator")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-MenuSeparator
-
+  
   #region function New-ListViewItem
   [Void]$StringBuilder.AppendLine("#region function New-ListViewItem")
   [Void]$StringBuilder.AppendLine("function New-ListViewItem()")
@@ -24137,7 +24143,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-ListViewItem")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-ListViewItem
-
+  
   #region function New-ColumnHeader
   [Void]$StringBuilder.AppendLine("#region function New-ColumnHeader")
   [Void]$StringBuilder.AppendLine("function New-ColumnHeader()")
@@ -24210,7 +24216,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-ColumnHeader")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-ColumnHeader
-
+  
   #region function New-ListViewGroup
   [Void]$StringBuilder.AppendLine("#region function New-ListViewGroup")
   [Void]$StringBuilder.AppendLine("function New-ListViewGroup()")
@@ -24283,7 +24289,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-ListViewGroup")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-ListViewGroup
-
+  
   #region function New-TabPage
   [Void]$StringBuilder.AppendLine("#region function New-TabPage")
   [Void]$StringBuilder.AppendLine("function New-TabPage()")
@@ -24392,7 +24398,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-TabPage")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-TabPage
-
+  
   #region function Scale-MyForm
   [Void]$StringBuilder.AppendLine("#region function Scale-MyForm")
   [Void]$StringBuilder.AppendLine("function Scale-MyForm()")
@@ -24540,14 +24546,14 @@ Function Build-MyFCGScriptFunctions ()
   
   [Void]$StringBuilder.AppendLine("#endregion ******* Microsoft Forms Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******* Microsoft Forms Functions ********
-
+  
   #region ******* Active Directory Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******* Active Directory Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function Get-MyADForest
   [Void]$StringBuilder.AppendLine("#region function Get-MyADForest")
   [Void]$StringBuilder.AppendLine("function Get-MyADForest ()")
@@ -24602,7 +24608,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyADForest")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyADForest
-
+  
   #region function Get-MyADDomain
   [Void]$StringBuilder.AppendLine("#region function Get-MyADDomain")
   [Void]$StringBuilder.AppendLine("function Get-MyADDomain ()")
@@ -24669,7 +24675,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyADDomain")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyADDomain
-
+  
   #region function Get-MyADObject
   [Void]$StringBuilder.AppendLine("#region function Get-MyADObject")
   [Void]$StringBuilder.AppendLine("function Get-MyADObject()")
@@ -24787,7 +24793,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyADObject")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyADObject
-
+  
   #region function New-MyADUser
   [Void]$StringBuilder.AppendLine("#region function New-MyADUser")
   [Void]$StringBuilder.AppendLine("function New-MyADUser()")
@@ -24916,7 +24922,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-MyADUser")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-MyADUser
-
+  
   #region function Translate-DomainName
   [Void]$StringBuilder.AppendLine("#region function Translate-DomainName")
   [Void]$StringBuilder.AppendLine("function Translate-DomainName()")
@@ -24992,7 +24998,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Translate-DomainName")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Translate-DomainName
-
+  
   #region function Validate-MyADAccount
   [Void]$StringBuilder.AppendLine("#region function Validate-MyADAccount")
   [Void]$StringBuilder.AppendLine("function Validate-MyADAccount()")
@@ -25052,7 +25058,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Validate-MyADAccount")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Validate-MyADAccount
-
+  
   #region function Confirm-MyGlobalGroupMemberShip
   [Void]$StringBuilder.AppendLine("#region function Confirm-MyGlobalGroupMemberShip")
   [Void]$StringBuilder.AppendLine("function Confirm-MyGlobalGroupMemberShip ()")
@@ -25177,7 +25183,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Confirm-MyGlobalGroupMemberShip")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Confirm-MyGlobalGroupMemberShip
-
+  
   #region function Confirm-MyLocalGroupMemberShip
   [Void]$StringBuilder.AppendLine("#region function Confirm-MyLocalGroupMemberShip")
   [Void]$StringBuilder.AppendLine("function Confirm-MyLocalGroupMemberShip ()")
@@ -25318,7 +25324,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Confirm-MyLocalGroupMemberShip")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Confirm-MyLocalGroupMemberShip
-
+  
   #region function Get-MyBitlockerKey
   [Void]$StringBuilder.AppendLine("#region function Get-MyBitlockerKey")
   [Void]$StringBuilder.AppendLine("function Get-MyBitlockerKey()")
@@ -25432,17 +25438,17 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyBitlockerKey")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyBitlockerKey
-
+  
   [Void]$StringBuilder.AppendLine("#endregion ******* Active Directory Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******* Active Directory Functions ********
-
+  
   #region ******* Database Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******* Database Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function Open-MySQLConnection
   [Void]$StringBuilder.AppendLine("#region function Open-MySQLConnection")
   [Void]$StringBuilder.AppendLine("Function Open-MySQLConnection()")
@@ -25521,7 +25527,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Open-MySQLConnection")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Open-MySQLConnection
-
+  
   #region function Invoke-MySQLCommand
   [Void]$StringBuilder.AppendLine("#region function Invoke-MySQLCommand")
   [Void]$StringBuilder.AppendLine("Function Invoke-MySQLCommand ()")
@@ -25599,7 +25605,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Invoke-MySQLCommand")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Invoke-MySQLCommand
-
+  
   #region function Open-MyOracleConnection
   [Void]$StringBuilder.AppendLine("#region function Open-MyOracleConnection")
   [Void]$StringBuilder.AppendLine("function Open-MyOracleConnection()")
@@ -25645,7 +25651,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Open-MyOracleConnection")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Open-MyOracleConnection
-
+  
   #region function Invoke-MyOracleCommand
   [Void]$StringBuilder.AppendLine("#region function Invoke-MyOracleCommand")
   [Void]$StringBuilder.AppendLine("function Invoke-MyOracleCommand ()")
@@ -25720,17 +25726,17 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Invoke-MyOracleCommand")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Invoke-MyOracleCommand
-
+  
   [Void]$StringBuilder.AppendLine("#endregion ******* Database Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******* Database Functions ********
-
+  
   #region ******* Encrypt / Encode Data Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******* Encrypt / Encode Data Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function Encode-MyData
   [Void]$StringBuilder.AppendLine("#region function Encode-MyData")
   [Void]$StringBuilder.AppendLine("function Encode-MyData()")
@@ -25825,7 +25831,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Encode-MyData")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Encode-MyData
-
+  
   #region Function Protect-MySensitiveData
   [Void]$StringBuilder.AppendLine("#region Function Protect-MySensitiveData")
   [Void]$StringBuilder.AppendLine("Function Protect-MySensitiveData")
@@ -25908,7 +25914,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion Function Protect-MySensitiveData")
   [Void]$StringBuilder.AppendLine("")
   #endregion Function Protect-MySensitiveData
-
+  
   #region function Protect-WithCert
   [Void]$StringBuilder.AppendLine("#region function Protect-WithCert")
   [Void]$StringBuilder.AppendLine("Function Protect-WithCert ()")
@@ -25986,7 +25992,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Protect-WithCert")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Protect-WithCert
-
+  
   #region function Encrypt-MyTextString
   [Void]$StringBuilder.AppendLine("#region function Encrypt-MyTextString")
   [Void]$StringBuilder.AppendLine("function Encrypt-MyTextString()")
@@ -26063,7 +26069,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Encrypt-MyTextString")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Encrypt-MyTextString
-
+  
   #region function Decode-MySecureString
   [Void]$StringBuilder.AppendLine("#region function Decode-MySecureString")
   [Void]$StringBuilder.AppendLine("function Decode-MySecureString ()")
@@ -26097,7 +26103,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Decode-MySecureString")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Decode-MySecureString
-
+  
   #region function Convert-MyImageToBase64
   [Void]$StringBuilder.AppendLine("#region function Convert-MyImageToBase64")
   [Void]$StringBuilder.AppendLine("function Convert-MyImageToBase64()")
@@ -26209,7 +26215,7 @@ Function Build-MyFCGScriptFunctions ()
   
   [Void]$StringBuilder.AppendLine("#endregion ******* Encrypt / Encode Data Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******* Encrypt / Encode Data Functions ********
   
   #region ******* Logging / Events Functions ********
@@ -29966,12 +29972,12 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("")
   
   #endregion ******* Microsoft GraphAPI Functions ********
-
+  
   #region ******** SharePoint Rest API Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******* SharePoint Rest API Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function Get-MySPLists
   [Void]$StringBuilder.AppendLine("#region function Get-MySPLists")
   [Void]$StringBuilder.AppendLine("function Get-MySPLists ()")
@@ -30054,7 +30060,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MySPLists")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MySPLists
-
+  
   #region function Get-MySPListFields
   [Void]$StringBuilder.AppendLine("#region function Get-MySPListFields")
   [Void]$StringBuilder.AppendLine("function Get-MySPListFields ()")
@@ -30127,7 +30133,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MySPListFields")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MySPListFields
-
+  
   #region function Get-MySPListItems
   [Void]$StringBuilder.AppendLine("#region function Get-MySPListItems")
   [Void]$StringBuilder.AppendLine("function Get-MySPListItems ()")
@@ -30272,7 +30278,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MySPListItems")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MySPListItems
-
+  
   #region function New-MySPListItem
   [Void]$StringBuilder.AppendLine("#region function New-MySPListItem")
   [Void]$StringBuilder.AppendLine("function New-MySPListItem ()")
@@ -30374,7 +30380,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function New-MySPListItem")
   [Void]$StringBuilder.AppendLine("")
   #endregion function New-MySPListItem
-
+  
   #region function Update-MySPListItem
   [Void]$StringBuilder.AppendLine("#region function Update-MySPListItem")
   [Void]$StringBuilder.AppendLine("function Update-MySPListItem ()")
@@ -30488,7 +30494,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Update-MySPListItem")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Update-MySPListItem
-
+  
   #region function Delete-MySPListItem
   [Void]$StringBuilder.AppendLine("#region function Delete-MySPListItem")
   [Void]$StringBuilder.AppendLine("function Delete-MySPListItem ()")
@@ -30578,7 +30584,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Delete-MySPListItem")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Delete-MySPListItem
-
+  
   #region function Get-MySPListItemAttachment
   [Void]$StringBuilder.AppendLine("#region function Get-MySPListItemAttachment")
   [Void]$StringBuilder.AppendLine("function Get-MySPListItemAttachment ()")
@@ -30676,7 +30682,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MySPListItemAttachment")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MySPListItemAttachment
-
+  
   #region function Add-MySPListItemAttachment
   [Void]$StringBuilder.AppendLine("#region function Add-MySPListItemAttachment")
   [Void]$StringBuilder.AppendLine("function Add-MySPListItemAttachment ()")
@@ -30759,17 +30765,17 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Add-MySPListItemAttachment")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Add-MySPListItemAttachment
-
+  
   [Void]$StringBuilder.AppendLine("#endregion ******* SharePoint Rest API Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******** SharePoint Rest API Functions ********
-
+  
   #region ******** Azure AD Storage Table Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******* Azure AD Storage Table Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function Get-MyTableQuery
   [Void]$StringBuilder.AppendLine("#region function Get-MyTableQuery")
   [Void]$StringBuilder.AppendLine("function Get-MyTableQuery ()")
@@ -30952,7 +30958,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyTableQuery")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyTableQuery
-
+  
   #region function Add-MyTableQuery
   [Void]$StringBuilder.AppendLine("#region function Add-MyTableQuery")
   [Void]$StringBuilder.AppendLine("function Add-MyTableQuery ()")
@@ -31064,7 +31070,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Add-MyTableQuery")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Add-MyTableQuery
-
+  
   #region function Merge-MyTableQuery
   [Void]$StringBuilder.AppendLine("#region function Merge-MyTableQuery")
   [Void]$StringBuilder.AppendLine("function Merge-MyTableQuery ()")
@@ -31172,7 +31178,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Merge-MyTableQuery")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Merge-MyTableQuery
-
+  
   #region function Update-MyTableQuery
   [Void]$StringBuilder.AppendLine("#region function Update-MyTableQuery")
   [Void]$StringBuilder.AppendLine("function Update-MyTableQuery ()")
@@ -31280,7 +31286,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Update-MyTableQuery")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Update-MyTableQuery
-
+  
   #region function Remove-MyTableQuery
   [Void]$StringBuilder.AppendLine("#region function Remove-MyTableQuery")
   [Void]$StringBuilder.AppendLine("function Remove-MyTableQuery ()")
@@ -31372,17 +31378,17 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Remove-MyTableQuery")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Remove-MyTableQuery
-
+  
   [Void]$StringBuilder.AppendLine("#endregion ******* Azure AD Storage Table Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******** Azure AD Storage Table Functions ********
-
+  
   #region ******** Azure AD Message Queue Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******* Azure AD Message Queue Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function Add-MyQueueMessage
   [Void]$StringBuilder.AppendLine("#region function Add-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("function Add-MyQueueMessage ()")
@@ -31476,7 +31482,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Add-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Add-MyQueueMessage
-
+  
   #region function Clear-MyQueueMessage
   [Void]$StringBuilder.AppendLine("#region function Clear-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("function Clear-MyQueueMessage ()")
@@ -31551,7 +31557,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Clear-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Clear-MyQueueMessage
-
+  
   #region function Get-MyQueueMessage
   [Void]$StringBuilder.AppendLine("#region function Get-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("function Get-MyQueueMessage ()")
@@ -31646,7 +31652,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyQueueMessage
-
+  
   #region function Remove-MyQueueMessage
   [Void]$StringBuilder.AppendLine("#region function Remove-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("function Remove-MyQueueMessage ()")
@@ -31729,7 +31735,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Remove-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Remove-MyQueueMessage
-
+  
   #region function Update-MyQueueMessage
   [Void]$StringBuilder.AppendLine("#region function Update-MyQueueMessage")
   [Void]$StringBuilder.AppendLine("function Update-MyQueueMessage ()")
@@ -31830,10 +31836,10 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Update-MyQueueMessage
-
+  
   [Void]$StringBuilder.AppendLine("#endregion ******* Azure AD Message Queue Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******** Azure AD Message Queue Functions ********
   
   #region ******** Service Now Rest API Functions ********
@@ -34424,6 +34430,8 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  [String]`$Floor")
   [Void]$StringBuilder.AppendLine("  [String]`$SGroup")
   [Void]$StringBuilder.AppendLine("  [String]`$SGroupID")
+  [Void]$StringBuilder.AppendLine("  [String]`$OS")
+  [Void]$StringBuilder.AppendLine("  [String]`$OSVersion")
   [Void]$StringBuilder.AppendLine("  [Bool]`$CriticalEndpoint")
   [Void]$StringBuilder.AppendLine("  [SNUser]`$User")
   [Void]$StringBuilder.AppendLine("  ")
@@ -34462,6 +34470,8 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    }")
   [Void]$StringBuilder.AppendLine("    `$This.SGroup = `$Comp.`"support_group.name`"")
   [Void]$StringBuilder.AppendLine("    `$This.SGroupID = `$Comp.`"support_group.sys_id`"")
+  [Void]$StringBuilder.AppendLine("    `$This.OS = `$Comp.`"ci.os`"")
+  [Void]$StringBuilder.AppendLine("    `$This.OSVersion = `$Comp.`"ci.os_version`"")
   [Void]$StringBuilder.AppendLine("    `$This.CriticalEndpoint = (`$Comp.`"ci.u_critical_endpoint`" -eq `"true`")")
   [Void]$StringBuilder.AppendLine("  }")
   [Void]$StringBuilder.AppendLine("  ")
@@ -34628,7 +34638,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("      `$Body = @{")
   [Void]$StringBuilder.AppendLine("        `"sysparm_query`"  = `"`$(`$PropertyName)=`$(`$Item)`"")
   [Void]$StringBuilder.AppendLine("        `"sysparm_limit`"  = `"1`"")
-  [Void]$StringBuilder.AppendLine("        `"sysparm_fields`" = `"sys_id, asset_tag, serial_number, u_device_role, u_room, u_floor, StockRoom, substatus, reserved_for, assigned_to, ci.name, ci.dns_domain, ci.sys_id, department.name, department.id, location.name, location.sys_id, location.state, location.u_region.u_description, support_group.name, model.name, model.manufacturer.name, support_group.sys_id, support_group.name, stockroom, ci.u_critical_endpoint`"")
+  [Void]$StringBuilder.AppendLine("        `"sysparm_fields`" = `"sys_id, asset_tag, serial_number, u_device_role, u_room, u_floor, StockRoom, substatus, reserved_for, assigned_to, ci.name, ci.dns_domain, ci.sys_id, ci.os, ci.os_version, department.name, department.id, location.name, location.sys_id, location.state, location.u_region.u_description, support_group.name, model.name, model.manufacturer.name, support_group.sys_id, support_group.name, stockroom, ci.u_critical_endpoint`"")
   [Void]$StringBuilder.AppendLine("      }")
   [Void]$StringBuilder.AppendLine("      ")
   [Void]$StringBuilder.AppendLine("      # Get Computer CMDB / Asset Record Information")
@@ -36956,10 +36966,10 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    [string]`$ID,")
   [Void]$StringBuilder.AppendLine("    [Parameter(Mandatory = `$True)]")
   [Void]$StringBuilder.AppendLine("    [string]`$Name,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Value,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Value,")
   [Void]$StringBuilder.AppendLine("    [string]`$Class,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Min,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Max,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Min,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Max,")
   [Void]$StringBuilder.AppendLine("    [uint16]`$Step,")
   [Void]$StringBuilder.AppendLine("    [switch]`$Disabled,")
   [Void]$StringBuilder.AppendLine("    [switch]`$Required,")
@@ -37001,10 +37011,10 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  `$StringBuilder = [System.Text.StringBuilder]::new(`"<input type='date' name='`$(`$Name)' id='`$(`$ID)'`")")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  # Add common attributes")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Value`")) { [void]`$StringBuilder.Append(`" value='`$(`$Value)'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Value`")) { [void]`$StringBuilder.Append(`" value='`$(`$Value.ToString(`"yyyy-MM-dd`"))'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Class`")) { [void]`$StringBuilder.Append(`" class='`$(`$Class)'`") }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Min`")) { [void]`$StringBuilder.Append(`" min='`$(`$Min)'`") }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Max`")) { [void]`$StringBuilder.Append(`" max='`$(`$Max)'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Min`")) { [void]`$StringBuilder.Append(`" min='`$(`$Min.ToString(`"yyyy-MM-dd`"))'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Max`")) { [void]`$StringBuilder.Append(`" max='`$(`$Max.ToString(`"yyyy-MM-dd`"))'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Step`")) { [void]`$StringBuilder.Append(`" step='`$(`$Step)'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$Disabled.IsPresent) { [void]`$StringBuilder.Append(`" disabled`") }")
   [Void]$StringBuilder.AppendLine("  if (`$Required.IsPresent) { [void]`$StringBuilder.Append(`" required`") }")
@@ -37159,10 +37169,10 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    [string]`$ID,")
   [Void]$StringBuilder.AppendLine("    [Parameter(Mandatory = `$True)]")
   [Void]$StringBuilder.AppendLine("    [string]`$Name,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Value,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Value,")
   [Void]$StringBuilder.AppendLine("    [string]`$Class,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Min,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Max,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Min,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Max,")
   [Void]$StringBuilder.AppendLine("    [uint16]`$Step,")
   [Void]$StringBuilder.AppendLine("    [switch]`$Disabled,")
   [Void]$StringBuilder.AppendLine("    [switch]`$Required,")
@@ -37212,10 +37222,10 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  `$StringBuilder = [System.Text.StringBuilder]::new(`"<input type='datetime-local' name='`$(`$Name)' id='`$(`$ID)'`")")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  # Add attributes to the input element")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Value`")) { [void]`$StringBuilder.Append(`" value='`$(`$Value)'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Value`")) { [void]`$StringBuilder.Append(`" value='`$(`$Value.ToString(`"yyyy-MM-ddTHH:mm`"))'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Class`")) { [void]`$StringBuilder.Append(`" class='`$(`$Class)'`") }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Min`")) { [void]`$StringBuilder.Append(`" min='`$(`$Min)'`") }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Max`")) { [void]`$StringBuilder.Append(`" max='`$(`$Max)'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Min`")) { [void]`$StringBuilder.Append(`" min='`$(`$Min.ToString(`"yyyy-MM-ddTHH:mm`"))'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Max`")) { [void]`$StringBuilder.Append(`" max='`$(`$Max.ToString(`"yyyy-MM-ddTHH:mm`"))'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Step`")) { [void]`$StringBuilder.Append(`" step='`$(`$Step)'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$Disabled.IsPresent) { [void]`$StringBuilder.Append(`" disabled`") }")
   [Void]$StringBuilder.AppendLine("  if (`$Required.IsPresent) { [void]`$StringBuilder.Append(`" required`") }")
@@ -40362,10 +40372,10 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    [string]`$ID,")
   [Void]$StringBuilder.AppendLine("    [Parameter(Mandatory = `$True)]")
   [Void]$StringBuilder.AppendLine("    [string]`$Name,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Value,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Value,")
   [Void]$StringBuilder.AppendLine("    [string]`$Class,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Min,")
-  [Void]$StringBuilder.AppendLine("    [string]`$Max,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Min,")
+  [Void]$StringBuilder.AppendLine("    [DateTime]`$Max,")
   [Void]$StringBuilder.AppendLine("    [uint16]`$Step,")
   [Void]$StringBuilder.AppendLine("    [switch]`$Disabled,")
   [Void]$StringBuilder.AppendLine("    [switch]`$Required,")
@@ -40415,10 +40425,10 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  `$StringBuilder = [System.Text.StringBuilder]::new(`"<input type='time' name='`$(`$Name)' id='`$(`$ID)'`")")
   [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("  # Add common attributes")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Value`")) { [void]`$StringBuilder.Append(`" value='`$(`$Value)'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Value`")) { [void]`$StringBuilder.Append(`" value='`$(`$Value.ToString(`"HH:mm`"))'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Class`")) { [void]`$StringBuilder.Append(`" class='`$(`$Class)'`") }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Min`")) { [void]`$StringBuilder.Append(`" min='`$(`$Min)'`") }")
-  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Max`")) { [void]`$StringBuilder.Append(`" max='`$(`$Max)'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Min`")) { [void]`$StringBuilder.Append(`" min='`$(`$Min.ToString(`"HH:mm`"))'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Max`")) { [void]`$StringBuilder.Append(`" max='`$(`$Max.ToString(`"HH:mm`"))'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Step`")) { [void]`$StringBuilder.Append(`" step='`$(`$Step)'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$Disabled.IsPresent) { [void]`$StringBuilder.Append(`" disabled`") }")
   [Void]$StringBuilder.AppendLine("  if (`$Required.IsPresent) { [void]`$StringBuilder.Append(`" required`") }")
@@ -41795,6 +41805,9 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    .PARAMETER Size")
   [Void]$StringBuilder.AppendLine("      [int] Sets the 'size' attribute (number of visible options).")
   [Void]$StringBuilder.AppendLine("      Example: -Size 5")
+  [Void]$StringBuilder.AppendLine("    .PARAMETER Style")
+  [Void]$StringBuilder.AppendLine("      Specifies an inline CSS style for the input.")
+  [Void]$StringBuilder.AppendLine("      Example: `"width:100%`"")
   [Void]$StringBuilder.AppendLine("    .PARAMETER TabIndex")
   [Void]$StringBuilder.AppendLine("      [int] Sets the 'tabindex' attribute for the select element.")
   [Void]$StringBuilder.AppendLine("      Example: -TabIndex 2")
@@ -41897,9 +41910,9 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    [switch]`$Multiple,")
   [Void]$StringBuilder.AppendLine("    [switch]`$Required,")
   [Void]$StringBuilder.AppendLine("    [int]`$Size,")
+  [Void]$StringBuilder.AppendLine("    [string]`$Style,")
   [Void]$StringBuilder.AppendLine("    [int]`$TabIndex,")
   [Void]$StringBuilder.AppendLine("    [string]`$Title,")
-  [Void]$StringBuilder.AppendLine("")
   [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName=`"EventHandelers`")]")
   [Void]$StringBuilder.AppendLine("    [string]`$OnChange,")
   [Void]$StringBuilder.AppendLine("    [Parameter(ParameterSetName=`"EventHandelers`")]")
@@ -41946,6 +41959,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  if (`$Multiple.IsPresent) { [void]`$StringBuilder.Append(`" multiple`") }")
   [Void]$StringBuilder.AppendLine("  if (`$Required.IsPresent) { [void]`$StringBuilder.Append(`" required`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Size`")) { [void]`$StringBuilder.Append(`" size='`$(`$Size)'`") }")
+  [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Style`")) { [void]`$StringBuilder.Append(`" style='`$(`$Style)'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"TabIndex`")) { [void]`$StringBuilder.Append(`" tabindex='`$(`$TabIndex)'`") }")
   [Void]$StringBuilder.AppendLine("  if (`$PSBoundParameters.ContainsKey(`"Title`")) { [void]`$StringBuilder.Append(`" title='`$(`$Title)'`") }")
   [Void]$StringBuilder.AppendLine("")
@@ -44674,10 +44688,10 @@ Function Build-MyFCGScriptFunctions ()
   #endregion ******** VPSX Server Functions ********
   
   #region ******** Automation Account Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#region ******** Automation Account Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #region function Set-MyRunbookToken
   [Void]$StringBuilder.AppendLine("#region function Set-MyRunbookToken")
   [Void]$StringBuilder.AppendLine("Function Set-MyRunbookToken ()")
@@ -44728,7 +44742,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Set-MyRunbookToken")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Set-MyRunbookToken
-
+  
   #region function Get-MyRunbookToken
   [Void]$StringBuilder.AppendLine("#region function Get-MyRunbookToken")
   [Void]$StringBuilder.AppendLine("Function Get-MyRunbookToken ()")
@@ -44755,7 +44769,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyRunbookToken")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyRunbookToken
-
+  
   #region function Set-MyRunbookOptions
   [Void]$StringBuilder.AppendLine("#region function Set-MyRunbookOptions")
   [Void]$StringBuilder.AppendLine("Function Set-MyRunbookOptions ()")
@@ -44801,7 +44815,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Set-MyRunbookOptions")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Set-MyRunbookOptions
-
+  
   #region function Get-MyRunbookOptions
   [Void]$StringBuilder.AppendLine("#region function Get-MyRunbookOptions")
   [Void]$StringBuilder.AppendLine("function Get-MyRunbookOptions ()")
@@ -44833,7 +44847,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyRunbookOptions")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyRunbookOptions
-
+  
   #region function Get-MyRunbookJob
   [Void]$StringBuilder.AppendLine("#region function Get-MyRunbookJob")
   [Void]$StringBuilder.AppendLine("function Get-MyRunbookJob ()")
@@ -44921,7 +44935,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyRunbookJob")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyRunbookJob
-
+  
   #region function Get-MyRunbookJobOutput
   [Void]$StringBuilder.AppendLine("#region function Get-MyRunbookJobOutput")
   [Void]$StringBuilder.AppendLine("Function Get-MyRunbookJobOutput ()")
@@ -44969,7 +44983,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Get-MyRunbookJobOutput")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Get-MyRunbookJobOutput
-
+  
   #region function Send-MyRunbookJobCommand
   [Void]$StringBuilder.AppendLine("#region function Send-MyRunbookJobCommand")
   [Void]$StringBuilder.AppendLine("Function Send-MyRunbookJobCommand ()")
@@ -45030,7 +45044,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Send-MyRunbookJobCommand")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Send-MyRunbookJobCommand
-
+  
   #region function Start-MyRunbookJob
   [Void]$StringBuilder.AppendLine("#region function Start-MyRunbookJob")
   [Void]$StringBuilder.AppendLine("Function Start-MyRunbookJob ()")
@@ -45093,22 +45107,22 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("#endregion function Start-MyRunbookJob")
   [Void]$StringBuilder.AppendLine("")
   #endregion function Start-MyRunbookJob
-
+  
   [Void]$StringBuilder.AppendLine("#endregion ******** Automation Account Functions ********")
   [Void]$StringBuilder.AppendLine("")
-
+  
   #endregion ******** Automation Account Functions ********
-
+  
   [Void]$StringBuilder.AppendLine("#endregion ******** Functions Library ********")
   [Void]$StringBuilder.AppendLine("")
   #endregion ******** My Code ********
-
+  
   $StringBuilder.ToString()
   $StringBuilder = $Null
-
+  
   [System.GC]::Collect()
   [System.GC]::WaitForPendingFinalizers()
-
+  
   Write-Verbose -Message "Exit Function Build-MyFCGScriptFunctions"
 }
 #endregion function Build-MyFCGScriptFunctions
@@ -50200,6 +50214,38 @@ AAD///8AgAGsQYABrEGAAaxBgAGsQYABrEHAAaxBwAmsQf/xrEHgAaxB4AGsQeABrEHgAaxB4AGsQeAB
 #endregion ******** $SourceIcon ********
 $FCGSmallImageList.Images.Add("SourceIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($SourceIcon))))
 
+#region ******** $ClearIcon ********
+$ClearIcon = @"
+AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACkMDAyPFRQUmBUUFJgVFBSYFRQUmBUUFJgVFBSYFRQUmBUUFJgMDAyPAAAAKQAA
+AAAAAAAAAAAAAAAAAAxRUE/q6ujm//Hw7v/x8O7/8fDu//Hw7v/x8O7/8fDu//Hw7v/x8O7/6ujm/1FQT+oAAAAMAAAAAAAAAAAAAAA1paOh////////////////////////////////////////////////////
+//+lo6H/AAAANQAAAAAAAAAAAAAANqinpf/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7/qKel/wAAADYAAAAAAAAAAAAAADapqKf//f39//39/f/9/f3//f39//39/f/9/f3//f39//39
+/f/9/f3//f39/6mop/8AAAA2AAAAAAAAAAAAAAA2qqmo//z7+//8+/v//Pv7//z7+//8+/v//Pv7//z7+//8+/v//Pv7//z7+/+qqaj/AAAANgAAAAAAAAAAAAAANquqqf/6+vn/+vr5//r6+f/6+vn/+vr5//r6
++f/6+vn/+vr5//r6+f/6+vn/q6qp/wAAADYAAAAAAAAAAAAAADasq6n/+Pj3//j49//4+Pf/+Pj3//j49//4+Pf/+Pj3//j49//4+Pf/+Pf2/6upqP8AAAA2AAAAAAAAAAAAAAA2rKuq//b19P/29fT/9vX0//b1
+9P/29fT/9vX0//b19P/29fT/9vX0//Tz8f+npaP/AAAANgAAAAAAAAAAAAAANq2sq//08vH/9PLx//Ty8f/08vH/9PLx//Ty8f/08vH/8/Lw//Lw7v/r6OT/nJiU/wAAADYAAAAAAAAAAAAAADatrKv/8e/t//Hv
+7f/x7+3/8e/t//Hv7f/x7+3/8e/t/+/s6v/n4+D/1c7H/4F5cf8AAAA2AAAAAAAAAAAAAAA2ra2s/+3r6f/t6+n/7evp/+3r6f/t6+n/7evp/+jk4f/k39r/5eHd/+Tg3P9RTkvsAAAAGwAAAAAAAAAAAAAANq6t
+rP/q5+T/6ufk/+rn5P/q5+T/6ufk/+jl4v/f2dT/6OXi/+bj4P9lZWTsAAAAMQAAAAAAAAAAAAAAAAAAADWtrKv/5uPf/+bj3//m49//5uPf/+Th3f/e2dT/08zE/+vp5/9kZGTrAAAALgAAAAAAAAAAAAAAAAAA
+AAAAAAAMW1tb6u/u7P/w7uz/8O7r/+7r6f/n49//1M3G/72zqP9kZGTrAAAALwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACkODg6PFxcXmBcXF5gXFxeYFhUVmBMSEZgMCwqYAAAALgAAAAAAAAAAAAAAAAAA
+AAAAAAAAwAOsQYABrEGAAaxBgAGsQYABrEGAAaxBgAGsQYABrEGAAaxBgAGsQYABrEGAAaxBgAOsQYAHrEGAD6xBwB+sQQ==
+"@
+#endregion ******** $ClearIcon ********
+$FCGSmallImageList.Images.Add("ClearIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($ClearIcon))))
+
+#region ******** $CopyIcon ********
+$CopyIcon = @"
+AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHBwdrZGJh9HNxcP9zcXD/c3Fw/3NxcP9zcXD/c3Fw/3NxcP9NTErkAAAAOAAAAAAAAAAAAAAAAAAA
+AAAAAAAAZWRj9Pv7+v/+/v7//v7+//7+/v/+/v7//v7+//7+/v/+/v7/9fTy/ykoJ7IAAAAAAAAAAAAAAAAAAAAAAAAAAHd1dP/+/v7/ycnJ/8nJyf/Ly8r/2dnY/+fm5v/f39//9/f3//r5+P83Nja+AAAAAAAA
+AAAAAAAAAAAAAAAAAAB4d3X//f39/8nJyf/Nzc3/z8/P/+Tk4//h4eH/5eXl//39/f/5+fj/ODc2zAAAADYAAAA2AAAANgAAAC4AAAABeXh3//z7+//g39//3Nzc/9/f3//i4uL/4N/f/+Dg4P/k5OP/+fj3/5uU
+jv+qqaf/qqmn/6qpp/+cm5n/GxsapXp5eP/6+fj/wcHA/8rJyf/Kysn/w8LC/8fHxv/Pzs7/4uLh//j39v/AurP//v7+/////v////7//v7+/3Jxb/x7enn/9/b1/8XFxP/Lysn/wsHA/8LBwP/IyMf/x8bF/+fm
+5v/19PL/t7Ks/9DQ0P/Nzc3/4ODg//79/f94dnX/fHt6//Xz8v/X1tX/1NPS/9fV1P/Z19b/19bV/9LRz//d3Nv/7Onm/8zGwP/u7e3/7Ovr/+/v7v/6+vr/eXh3/3x8e//x7+7/w8HA/8PCwP++vbz/w8LA/8jH
+xf/GxMP/z8zJ/9PLxP+3sKn/0tLR/9PT0v/V1dT/8vHx/3p5eP99fHz/7ero/7u5uP+6uLf/vbu5/768uv/i39z/5uHd/+Le2f/W0Mr/tLCr/8nIyP/NzMz/4uHg//j39v96eXj/fn19/+fk4f+opqT/v7y6/7e0
+sv+1srD/ysXA/+nm4//i39z/wb66/8PCwf/HxsX/xcTD/8bFxP/w7uz/dnRy/3V1dfnn4+D/5eHe/+Xh3v/k4Nz/3djT/8zEu//s6uf/wL26/8C/vf/Av77/wsC//8bFw//Fw8H/39rW/2diXv8RERGFjYyM/pua
+mv+bmpn/l5aU/4uIhP+gl4//5OHd/87Myv/Lysj/zczJ/9nX1f/o5eH/5+Pf/97Z0/9BPTnsAAAAAAAAABQAAAAeAAAAHgAAAB4AAAAjfXx8/dnW0/+npaP/sa+t/6yqqP+wrqv/5ODc/+Th3f9qaWntAAAAMwAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAnR0c/fm4+D/5eHd/+Xh3f/i3tr/1c/J/9vV0P9paGjtAAAAMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAx4dHR0+H9/f/9+fn7/eXh3/2llYf9CPjvrAAAAMQAA
+AAAAAAAAAB+sQQAfrEEAH6xBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQYAArEH4AaxB/AOsQQ==
+"@
+#endregion ******** $CopyIcon ********
+$FCGSmallImageList.Images.Add("CopyIcon", [System.Drawing.Icon]::New([System.IO.MemoryStream]::New([System.Convert]::FromBase64String($CopyIcon))))
+
 #endregion ******** FCG Small ImageList Icons ********
 
 # ************************************************
@@ -50931,10 +50977,6 @@ function Start-FCGControlEventsContextMenuStripOpening
 
   [MyConfig]::AutoExit = 0
   
-  $FCGControlEventsContextMenuStrip.Items["CheckAll"].Enable
-  $FCGControlEventsContextMenuStrip.Items["UncheckAll"].Enable
-  $FCGControlEventsContextMenuStrip.Items["Favorites"].Enable
-  
   #$IDPBtmStatusStrip.Items["Status"].Text = "$($Sender.Name)"
 
   Write-Verbose -Message "Exit Opening Event for `$FCGControlEventsContextMenuStrip"
@@ -51488,6 +51530,7 @@ $FCGFormCodeTextBox.Multiline = $True
 $FCGFormCodeTextBox.Name = "FCGFormCodeTextBox"
 $FCGFormCodeTextBox.ReadOnly = $True
 $FCGFormCodeTextBox.ScrollBars = [System.Windows.Forms.ScrollBars]::Both
+$FCGFormCodeTextBox.ShortcutsEnabled = $False
 $FCGFormCodeTextBox.TabStop = $False
 $FCGFormCodeTextBox.TextAlign = [System.Windows.Forms.HorizontalAlignment]::Left
 $FCGFormCodeTextBox.WordWrap = $False
@@ -51531,6 +51574,147 @@ function Start-FCGFormCodeTextBoxKeyPress
 }
 #endregion ******** Function Start-FCGFormCodeTextBoxKeyPress ********
 $FCGFormCodeTextBox.add_KeyPress({Start-FCGFormCodeTextBoxKeyPress -Sender $This -EventArg $PSItem})
+
+#region ******** Function Start-FCGFormCodeTextBoxMouseDown ********
+function Start-FCGFormCodeTextBoxMouseDown
+{
+  <#
+    .SYNOPSIS
+      MouseDown Event for the FCGFormCode TextBox Control
+    .DESCRIPTION
+      MouseDown Event for the FCGFormCode TextBox Control
+    .PARAMETER Sender
+       The FormCode Control that fired the MouseDown Event
+    .PARAMETER EventArg
+       The Event Arguments for the FormCode MouseDown Event
+    .EXAMPLE
+       Start-FCGFormCodeTextBoxMouseDown -Sender $Sender -EventArg $EventArg
+    .NOTES
+      Original Function By kensw
+  #>
+  [CmdletBinding()]
+  param (
+    [parameter(Mandatory = $True)]
+    [System.Windows.Forms.TextBox]$Sender,
+    [parameter(Mandatory = $True)]
+    [Object]$EventArg
+  )
+  Write-Verbose -Message "Enter MouseDown Event for $($MyInvocation.MyCommand)"
+
+  [MyConfig]::AutoExit = 0
+  
+  If ((-not [String]::IsNullOrEmpty($FCGFormCodeTextBox.Text)) -and ($EventArg.Button -eq [System.Windows.Forms.MouseButtons]::Right))
+  {
+    $FCGFormCodeContextMenuStrip.Show($FCGFormCodeTextBox, $EventArg.Location)
+  }
+
+  Write-Verbose -Message "Exit MouseDown Event for $($MyInvocation.MyCommand)"
+}
+#endregion ******** Function Start-FCGFormCodeTextBoxMouseDown ********
+$FCGFormCodeTextBox.add_MouseDown({Start-FCGFormCodeTextBoxMouseDown -Sender $This -EventArg $PSItem})
+
+#region $FCGFormCodeContextMenuStrip = [System.Windows.Forms.ContextMenuStrip]::New()
+$FCGFormCodeContextMenuStrip = [System.Windows.Forms.ContextMenuStrip]::New()
+#$IDPForm.Controls.Add($FCGFormCodeContextMenuStrip)
+#$IDPForm.ContextMenuStrip = $FCGFormCodeContextMenuStrip
+$FCGFormCodeContextMenuStrip.BackColor = [MyConfig]::Colors.Back
+$FCGFormCodeContextMenuStrip.Enabled = $True
+$FCGFormCodeContextMenuStrip.Font = [MyConfig]::Font.Regular
+$FCGFormCodeContextMenuStrip.ForeColor = [MyConfig]::Colors.Fore
+$FCGFormCodeContextMenuStrip.ImageList = $FCGSmallImageList
+$FCGFormCodeContextMenuStrip.Name = "FCGFormCodeContextMenuStrip"
+$FCGFormCodeContextMenuStrip.ShowItemToolTips = $True
+#$FCGFormCodeContextMenuStrip.TabIndex = 0
+#$FCGFormCodeContextMenuStrip.TabStop = $False
+#$FCGFormCodeContextMenuStrip.Tag = [System.Object]::New()
+$FCGFormCodeContextMenuStrip.Text = "FCGFormCodeContextMenuStrip"
+#endregion $FCGFormCodeContextMenuStrip = [System.Windows.Forms.ContextMenuStrip]::New()
+
+#region ******** Function Start-FCGFormCodeContextMenuStripOpening ********
+function Start-FCGFormCodeContextMenuStripOpening
+{
+  <#
+    .SYNOPSIS
+      Opening Event for the FCGFormCode ContextMenuStrip Control
+    .DESCRIPTION
+      Opening Event for the FCGFormCode ContextMenuStrip Control
+    .PARAMETER Sender
+       The ContextMenuStrip Control that fired the Opening Event
+    .PARAMETER EventArg
+       The Event Arguments for the ContextMenuStrip Opening Event
+    .EXAMPLE
+       Start-FCGFormCodeContextMenuStripOpening -Sender $Sender -EventArg $EventArg
+    .NOTES
+      Original Function By ken.sweet
+  #>
+  [CmdletBinding()]
+  param (
+    [parameter(Mandatory = $True)]
+    [System.Windows.Forms.ContextMenuStrip]$Sender,
+    [parameter(Mandatory = $True)]
+    [Object]$EventArg
+  )
+  Write-Verbose -Message "Enter Opening Event for `$FCGFormCodeContextMenuStrip"
+
+  [MyConfig]::AutoExit = 0
+  
+  #$IDPBtmStatusStrip.Items["Status"].Text = "$($Sender.Name)"
+
+  Write-Verbose -Message "Exit Opening Event for `$FCGFormCodeContextMenuStrip"
+}
+#endregion ******** Function Start-FCGFormCodeContextMenuStripOpening ********
+$FCGFormCodeContextMenuStrip.add_Opening({Start-FCGFormCodeContextMenuStripOpening -Sender $This -EventArg $PSItem})
+
+#region ******** Function Start-FCGFormCodeContextMenuStripItemClick ********
+function Start-FCGFormCodeContextMenuStripItemClick
+{
+  <#
+    .SYNOPSIS
+      Click Event for the FCGFormCode ToolStripItem Control
+    .DESCRIPTION
+      Click Event for the FCGFormCode ToolStripItem Control
+    .PARAMETER Sender
+       The ToolStripItem Control that fired the Click Event
+    .PARAMETER EventArg
+       The Event Arguments for the ToolStripItem Click Event
+    .EXAMPLE
+       Start-FCGFormCodeContextMenuStripItemClick -Sender $Sender -EventArg $EventArg
+    .NOTES
+      Original Function By ken.sweet
+  #>
+  [CmdletBinding()]
+  param (
+    [parameter(Mandatory = $True)]
+    [System.Windows.Forms.ToolStripItem]$Sender,
+    [parameter(Mandatory = $True)]
+    [Object]$EventArg
+  )
+  Write-Verbose -Message "Enter Click Event for `$FCGFormCodeContextMenuStripItem"
+
+  [MyConfig]::AutoExit = 0
+  
+  switch ($Sender.Name)
+  {
+    "Copy"
+    {
+      $FCGFormCodeTextBox.SelectAll()
+      $FCGFormCodeTextBox.Copy()
+      $FCGFormCodeTextBox.DeselectAll()
+      Break
+    }
+    "Clear"
+    {
+      $FCGFormCodeTextBox.Text = $Null
+      Break
+    }
+  }
+
+  Write-Verbose -Message "Exit Click Event for `$FCGFormCodeContextMenuStripItem"
+}
+#endregion ******** Function Start-FCGFormCodeContextMenuStripItemClick ********
+
+(New-MenuItem -Menu $FCGFormCodeContextMenuStrip -Text "Copy Code" -Name "Copy" -Tag "Copy" -DisplayStyle "ImageAndText" -ImageKey "CopyIcon" -PassThru).add_Click({ Start-FCGFormCodeContextMenuStripItemClick -Sender $This -EventArg $PSItem })
+(New-MenuItem -Menu $FCGFormCodeContextMenuStrip -Text "Clear Code" -Name "Clear" -Tag "Clear" -DisplayStyle "ImageAndText" -ImageKey "ClearIcon" -PassThru).add_Click({ Start-FCGFormCodeContextMenuStripItemClick -Sender $This -EventArg $PSItem })
 
 #endregion ******** $FCGMainSplitContainer Panel2 Controls ********
 
@@ -51586,28 +51770,28 @@ function Start-FCGTopMenuStripItemClick
     "BuildAdv*"
     {
       #region Advanced Dialog Templates
-      if ($FCGScriptNameTextBox.Tag.HintEnabled -or $FCGControlNameTextBox.Tag.HintEnabled)
+      If ($FCGScriptNameTextBox.Tag.HintEnabled -or $FCGControlNameTextBox.Tag.HintEnabled)
       {
         $Response = Get-UserResponse -ButtonMid "OK" -ButtonDefault "OK" -Message "Missing or Inavlid Script or Control Name" -Icon ([System.Drawing.SystemIcons]::Error)
       }
-      else
+      Else
       {
         $FCGForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
         $FCGBtmStatusStrip.Items["Status"].Text = "Generating Advanced Dialog Template Function"
         $FCGBtmStatusStrip.Refresh()
-        switch ($Sender.Name)
+        Switch ($Sender.Name)
         {
           "BuildAdvGroupBox"
           {
             $FCGFormCodeTextBox.Text = Build-MyFCGAdvDialog -ScriptName $FCGScriptNameTextBox.Text -DialogName $FCGControlNameTextBox.Text -ControlType GroupBox
             Break
           }
-          "BuildAdvGroupBox"
+          "BuildAdvPanel"
           {
             $FCGFormCodeTextBox.Text = Build-MyFCGAdvDialog -ScriptName $FCGScriptNameTextBox.Text -DialogName $FCGControlNameTextBox.Text -ControlType Panel
             Break
           }
-          "BuildAdvGroupBox"
+          "BuildAdvSplitContainer"
           {
             $FCGFormCodeTextBox.Text = Build-MyFCGAdvDialog -ScriptName $FCGScriptNameTextBox.Text -DialogName $FCGControlNameTextBox.Text -ControlType SplitContainer
             Break
@@ -51622,28 +51806,28 @@ function Start-FCGTopMenuStripItemClick
     "BuildBasic*"
     {
       #region Basic Dialog Templates
-      if ($FCGScriptNameTextBox.Tag.HintEnabled -or $FCGControlNameTextBox.Tag.HintEnabled)
+      If ($FCGScriptNameTextBox.Tag.HintEnabled -or $FCGControlNameTextBox.Tag.HintEnabled)
       {
         $Response = Get-UserResponse -ButtonMid "OK" -ButtonDefault "OK" -Message "Missing or Inavlid Script or Control Name" -Icon ([System.Drawing.SystemIcons]::Error)
       }
-      else
+      Else
       {
         $FCGForm.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
         $FCGBtmStatusStrip.Items["Status"].Text = "Generating Basic Dialog Template Function"
         $FCGBtmStatusStrip.Refresh()
-        switch ($Sender.Name)
+        Switch ($Sender.Name)
         {
           "BuildBasicGroupBox"
           {
             $FCGFormCodeTextBox.Text = Build-MyFCGBasicDialog -ScriptName $FCGScriptNameTextBox.Text -DialogName $FCGControlNameTextBox.Text -ControlType GroupBox
             Break
           }
-          "BuildBasicGroupBox"
+          "BuildBasicPanel"
           {
             $FCGFormCodeTextBox.Text = Build-MyFCGBasicDialog -ScriptName $FCGScriptNameTextBox.Text -DialogName $FCGControlNameTextBox.Text -ControlType Panel
             Break
           }
-          "BuildBasicGroupBox"
+          "BuildBasicSplitContainer"
           {
             $FCGFormCodeTextBox.Text = Build-MyFCGBasicDialog -ScriptName $FCGScriptNameTextBox.Text -DialogName $FCGControlNameTextBox.Text -ControlType SplitContainer
             Break
