@@ -4050,6 +4050,7 @@ Function Get-MultiTextBoxInput ()
     [parameter(Mandatory = $True)]
     [System.Collections.Specialized.OrderedDictionary]$OrderedItems,
     [String]$ValidChars = "[\s\w\d\.\-_]",
+    [Int]$MaxLength = [Int]::MaxValue,
     [Int]$Width = 35,
     [String]$ButtonLeft = "&OK",
     [String]$ButtonMid = "&Reset",
@@ -4444,7 +4445,7 @@ Function Get-MultiTextBoxInput ()
     $MultiTextBoxInputTextBox.Font = [MyConfig]::Font.Regular
     $MultiTextBoxInputTextBox.ForeColor = [MyConfig]::Colors.TextFore
     $MultiTextBoxInputTextBox.Location = [System.Drawing.Size]::New(($TmpLabel.Right + [MyConfig]::FormSpacer), $TmpLabel.Top)
-    $MultiTextBoxInputTextBox.MaxLength = 25
+    $MultiTextBoxInputTextBox.MaxLength = $MaxLength
     $MultiTextBoxInputTextBox.Name = "$($Key)"
     $MultiTextBoxInputTextBox.TabStop = $True
     $MultiTextBoxInputTextBox.Text = $OrderedItems[$Key]
@@ -10203,7 +10204,7 @@ function Get-MyFormControls ()
   foreach ($ExportedType in $ExportedTypes)
   {
     # Get Form Control Contructors
-    $TmpConstructors = @($ExportedType.GetConstructors(("Instance", "Public")))
+    $TmpConstructors = @($ExportedType.GetConstructors(("Instance, Public")))
     if ((($ExportedType.GetInterface("IComponent")).IsPublic -or ($ExportedType.GetInterface("ISerializable")).IsPublic) -and ($TmpConstructors.Count -gt 0) -and (@($TmpConstructors | Where-Object -FilterScript { @($PSItem.GetParameters()).Count -eq 0 }).Count -eq 1))
     {
       # Create Form Control Return Value
@@ -10214,7 +10215,7 @@ function Get-MyFormControls ()
         $RetValue.Constructors.Add([MyFormControlConstructor]::New(@($TmpConstructor.GetParameters() | ForEach-Object -Process { [MyFormControlParameter]::New($PSItem.Name, $PSItem.ParameterType.FullName) }))) | Out-Null
       }
       # Get Form Control Property List
-      $TmpProperties = $ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.CanWrite } | Sort-Object -Property Name -Unique
+      $TmpProperties = $ExportedType.GetProperties(("Instance, Public")) | Where-Object -FilterScript { $PSItem.CanWrite } | Sort-Object -Property Name -Unique
       $TmpControl = $ExportedType::New()
       foreach ($TmpProperty in $TmpProperties)
       {
@@ -10222,7 +10223,7 @@ function Get-MyFormControls ()
       }
       try { $TmpControl.Dispose() } catch {}
       # Get Form Control Items - Add / AddRange Methods
-      $TmpItems = $ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.Name -notin @("Controls", "DataBindings") -and (-not $PSItem.CanWrite) -and $PSItem.PropertyType.GetInterface("ICollection").IsPublic } | Sort-Object -Property Name -Unique
+      $TmpItems = $ExportedType.GetProperties(("Instance, Public")) | Where-Object -FilterScript { $PSItem.Name -notin @("Controls", "DataBindings") -and (-not $PSItem.CanWrite) -and $PSItem.PropertyType.GetInterface("ICollection").IsPublic } | Sort-Object -Property Name -Unique
       foreach ($TmpItem in $TmpItems)
       {
         foreach ($TmpAddItem in @($TmpItem.PropertyType.GetDeclaredMethods("Add")))
@@ -24571,10 +24572,8 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("      Retrieves the Active Directory Forest object either for the current forest or for a specified forest name.")
   [Void]$StringBuilder.AppendLine("    .PARAMETER Name")
   [Void]$StringBuilder.AppendLine("      The name of the Active Directory forest to retrieve. This parameter is mandatory when using the `"Name`" parameter set.")
-  [Void]$StringBuilder.AppendLine("    .PARAMETER Current")
-  [Void]$StringBuilder.AppendLine("      Switch parameter. If specified, retrieves the current Active Directory forest. This parameter is mandatory when using the `"Current`" parameter set.")
   [Void]$StringBuilder.AppendLine("    .EXAMPLE")
-  [Void]$StringBuilder.AppendLine("      PS C:\> Get-MyADForest -Current")
+  [Void]$StringBuilder.AppendLine("      PS C:\> Get-MyADForest")
   [Void]$StringBuilder.AppendLine("      Retrieves the current Active Directory forest.")
   [Void]$StringBuilder.AppendLine("    .EXAMPLE")
   [Void]$StringBuilder.AppendLine("      PS C:\> Get-MyADForest -Name `"contoso.com`"")
@@ -24585,9 +24584,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("  [CmdletBinding(DefaultParameterSetName = `"Current`")]")
   [Void]$StringBuilder.AppendLine("  param (")
   [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Name`")]")
-  [Void]$StringBuilder.AppendLine("    [String]`$Name,")
-  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Current`")]")
-  [Void]$StringBuilder.AppendLine("    [Switch]`$Current")
+  [Void]$StringBuilder.AppendLine("    [String]`$Name")
   [Void]$StringBuilder.AppendLine("  )")
   [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function `$(`$MyInvocation.MyCommand)`"")
   [Void]$StringBuilder.AppendLine("")
@@ -24628,10 +24625,8 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("      The name of the Active Directory domain to retrieve. This parameter is mandatory when using the `"Name`" parameter set.")
   [Void]$StringBuilder.AppendLine("    .PARAMETER Computer")
   [Void]$StringBuilder.AppendLine("      Switch parameter. If specified, retrieves the Active Directory domain associated with the local computer. This parameter is mandatory when using the `"Computer`" parameter set.")
-  [Void]$StringBuilder.AppendLine("    .PARAMETER Current")
-  [Void]$StringBuilder.AppendLine("      Switch parameter. If specified, retrieves the current Active Directory domain. This parameter is mandatory when using the `"Current`" parameter set.")
   [Void]$StringBuilder.AppendLine("    .EXAMPLE")
-  [Void]$StringBuilder.AppendLine("      PS C:\> Get-MyADDomain -Current")
+  [Void]$StringBuilder.AppendLine("      PS C:\> Get-MyADDomain")
   [Void]$StringBuilder.AppendLine("      Retrieves the current Active Directory domain.")
   [Void]$StringBuilder.AppendLine("    .EXAMPLE")
   [Void]$StringBuilder.AppendLine("      PS C:\> Get-MyADDomain -Computer")
@@ -24647,9 +24642,7 @@ Function Build-MyFCGScriptFunctions ()
   [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Name`")]")
   [Void]$StringBuilder.AppendLine("    [String]`$Name,")
   [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Computer`")]")
-  [Void]$StringBuilder.AppendLine("    [Switch]`$Computer,")
-  [Void]$StringBuilder.AppendLine("    [parameter(Mandatory = `$True, ParameterSetName = `"Current`")]")
-  [Void]$StringBuilder.AppendLine("    [Switch]`$Current")
+  [Void]$StringBuilder.AppendLine("    [Switch]`$Computer")
   [Void]$StringBuilder.AppendLine("  )")
   [Void]$StringBuilder.AppendLine("  Write-Verbose -Message `"Enter Function `$(`$MyInvocation.MyCommand)`"")
   [Void]$StringBuilder.AppendLine("")
@@ -49848,7 +49841,7 @@ function Get-MyFormControlsShowStatus ()
   foreach ($ExportedType in $ExportedTypes)
   {
     # Get Form Control Contructors
-    $TmpConstructors = @($ExportedType.GetConstructors(("Instance", "Public")))
+    $TmpConstructors = @($ExportedType.GetConstructors(("Instance, Public")))
     if ((($ExportedType.GetInterface("IComponent")).IsPublic -or ($ExportedType.GetInterface("ISerializable")).IsPublic) -and ($TmpConstructors.Count -gt 0) -and (@($TmpConstructors | Where-Object -FilterScript { @($PSItem.GetParameters()).Count -eq 0 }).Count -eq 1))
     {
       # ---------------------
@@ -49856,11 +49849,6 @@ function Get-MyFormControlsShowStatus ()
       # ---------------------
       $RichTextBox.SelectionIndent = 30
       Write-RichTextBoxValue -RichTextBox $RichTextBox -Text "Adding Form Control" -Value ($ExportedType.Name) -ValueFore ([MyConfig]::Colors.TextGood)
-      if (-not [MyConfig]::Production)
-      {
-        $RichTextBox.SelectionIndent = 40
-        Write-RichTextBoxValue -RichTextBox $RichTextBox -Text "Constructors" -Value ($TmpConstructors.Count)
-      }
       
       # Create Form Control Return Value
       $RetValue = [MyFormControl]::New($ExportedType.Name, $ExportedType.FullName)
@@ -49869,24 +49857,17 @@ function Get-MyFormControlsShowStatus ()
       {
         $RetValue.Constructors.Add([MyFormControlConstructor]::New(@($TmpConstructor.GetParameters() | ForEach-Object -Process { [MyFormControlParameter]::New($PSItem.Name, $PSItem.ParameterType.FullName) }))) | Out-Null
       }
+      
       # Get Form Control Property List
-      $TmpProperties = $ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.CanWrite } | Sort-Object -Property Name -Unique
-      if (-not [MyConfig]::Production)
-      {
-        Write-RichTextBoxValue -RichTextBox $RichTextBox -Text "Propertiess" -Value ($TmpProperties.Count)
-      }
+      $TmpProperties = $ExportedType.GetProperties(("Instance, Public")) | Where-Object -FilterScript { $PSItem.CanWrite } | Sort-Object -Property Name -Unique
       $TmpControl = $ExportedType::New()
       foreach ($TmpProperty in $TmpProperties)
       {
         $RetValue.Properties.Add([MyFormControlProperty]::New($TmpProperty.Name, $TmpProperty.PropertyType.FullName, $TmpProperty.PropertyType.BaseType.FullName, $TmpControl.PSObject.Properties[$TmpProperty.Name].Value)) | Out-Null
       }
-      try { $TmpControl.Dispose() } catch {}
+      
       # Get Form Control Items - Add / AddRange Methods
-      $TmpItems = $ExportedType.GetProperties(("Instance", "Public")) | Where-Object -FilterScript { $PSItem.Name -notin @("Controls", "DataBindings") -and (-not $PSItem.CanWrite) -and $PSItem.PropertyType.GetInterface("ICollection").IsPublic } | Sort-Object -Property Name -Unique
-      if ((-not [MyConfig]::Production) -and ($TmpItems.Count -gt 0))
-      {
-        Write-RichTextBoxValue -RichTextBox $RichTextBox -Text "Add Items" -Value ($TmpItems.Count)
-      }
+      $TmpItems = $ExportedType.GetProperties(("Instance, Public")) | Where-Object -FilterScript { $PSItem.Name -notin @("Controls", "DataBindings") -and (-not $PSItem.CanWrite) -and $PSItem.PropertyType.GetInterface("ICollection").IsPublic } | Sort-Object -Property Name -Unique
       foreach ($TmpItem in $TmpItems)
       {
         foreach ($TmpAddItem in @($TmpItem.PropertyType.GetDeclaredMethods("Add")))
@@ -49898,12 +49879,9 @@ function Get-MyFormControlsShowStatus ()
           $RetValue.Items.Add([MyFormControlItems]::New("AddRange", $TmpItem.Name, @($TmpAddItem.GetParameters() | ForEach-Object -Process { [MyFormControlParameter]::New($PSItem.Name, $PSItem.ParameterType.FullName) }))) | Out-Null
         }
       }
+      
       # Get Form Control Events
       $TmpEvents = @($ExportedType.GetEvents() | Sort-Object -Property Name -Unique)
-      if ((-not [MyConfig]::Production) -and ($TmpEvents.Count -gt 0))
-      {
-        Write-RichTextBoxValue -RichTextBox $RichTextBox -Text "Events" -Value ($TmpEvents.Count)
-      }
       if ($FavEvents.ContainsKey($ExportedType.Name))
       {
         foreach ($Event in $TmpEvents)

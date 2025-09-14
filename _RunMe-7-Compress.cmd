@@ -1,6 +1,6 @@
 @Echo off
 
-Set MyApp=Generate-MyFormCode-Compress
+Set MyApp=Generate-MyFormCode-NoHelp
 
 "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy ByPass -File "%~dp0%MyApp%.ps1"
 
