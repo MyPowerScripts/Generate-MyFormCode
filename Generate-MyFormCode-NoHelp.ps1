@@ -4,6 +4,8 @@
 <#
 Change Log for FCG
 ------------------------------------------------------------------------------------------------
+7.0.0.5 - Add Right Click Generate Function Menu Option
+------------------------------------------------------------------------------------------------
 7.0.0.4 - Add Nomport Switch to Install-MyModule Function
           Add Send-HTMLList Function
           Update Start-MyRSJob Function
@@ -157,7 +159,7 @@ Class MyConfig
   static [bool]$Production = $True
 
   static [String]$ScriptName = "Form Code Generator"
-  static [Version]$ScriptVersion = [Version]::New("7.0.0.4")
+  static [Version]$ScriptVersion = [Version]::New("7.0.0.5")
   static [String]$ScriptAuthor = "Ken Sweet"
 
   # Script Configuration
@@ -50947,7 +50949,12 @@ function Start-FCGControlEventsCheckedListBoxMouseDown
   {
     if ($FCGControlEventsCheckedListBox.Items.Count -gt 0)
     {
-    $FCGControlEventsContextMenuStrip.Show($FCGControlEventsCheckedListBox, $EventArg.Location)
+      $TempIndex = $Sender.IndexFromPoint($EventArg.location)
+      If ($TempIndex -gt -1)
+      {
+        $Sender.SelectedIndex = $TempIndex
+      }
+      $FCGControlEventsContextMenuStrip.Show($FCGControlEventsCheckedListBox, $EventArg.Location)
     }
   }
 
@@ -51039,6 +51046,8 @@ function Start-FCGControlEventsContextMenuStripOpening
   [MyConfig]::AutoExit = 0
   
   #$IDPBtmStatusStrip.Items["Status"].Text = "$($Sender.Name)"
+  
+  $FCGControlEventsContextMenuStrip.Items["Function"].Enabled = (-not ($FCGScriptNameTextBox.Tag.HintEnabled -or ($FCGControlNameTextBox.Tag.HintEnabled -and ($FCGFormControlsListBox.SelectedItem.Name -ne "Form"))))
 
   Write-Verbose -Message "Exit Opening Event for `$FCGControlEventsContextMenuStrip"
 }
@@ -51097,8 +51106,20 @@ function Start-FCGControlEventsContextMenuStripItemClick
       $FCGBtmStatusStrip.Items["Status"].Text = "Check All $($FCGFormControlsListBox.SelectedItem.Name) Favorite Events"
       Break
     }
+    "Function"
+    {
+      If ($FCGFormControlsListBox.SelectedItem.Name -eq "Form")
+      {
+        $FCGFormCodeTextBox.Text = Build-MyScriptEvent -ScriptName $FCGScriptNameTextBox.Text -Control $FCGFormControlsListBox.SelectedItem -Events $FCGControlEventsCheckedListBox.SelectedItem
+      }
+      Else
+      {
+        $FCGFormCodeTextBox.Text = Build-MyScriptEvent -ScriptName $FCGScriptNameTextBox.Text -ControlName $FCGControlNameTextBox.Text -Control $FCGFormControlsListBox.SelectedItem -Events $FCGControlEventsCheckedListBox.SelectedItem
+      }
+      Break
+    }
   }
-
+  
   Write-Verbose -Message "Exit Click Event for `$FCGControlEventsContextMenuStripItem"
 }
 #endregion ******** Function Start-FCGControlEventsContextMenuStripItemClick ********
@@ -51106,6 +51127,8 @@ function Start-FCGControlEventsContextMenuStripItemClick
 (New-MenuItem -Menu $FCGControlEventsContextMenuStrip -Text "Check All" -Name "CheckAll" -Tag "CheckAll" -DisplayStyle "ImageAndText" -ImageKey "CheckIcon" -PassThru).add_Click({ Start-FCGControlEventsContextMenuStripItemClick -Sender $This -EventArg $PSItem })
 (New-MenuItem -Menu $FCGControlEventsContextMenuStrip -Text "Uncheck All" -Name "UncheckAll" -Tag "UncheckAll" -DisplayStyle "ImageAndText" -ImageKey "UncheckIcon" -PassThru).add_Click({ Start-FCGControlEventsContextMenuStripItemClick -Sender $This -EventArg $PSItem })
 (New-MenuItem -Menu $FCGControlEventsContextMenuStrip -Text "Check Favorites" -Name "Favorites" -Tag "Favorites" -DisplayStyle "ImageAndText" -ImageKey "FavoriteIcon" -PassThru).add_Click({ Start-FCGControlEventsContextMenuStripItemClick -Sender $This -EventArg $PSItem })
+New-MenuSeparator -Menu $FCGControlEventsContextMenuStrip
+(New-MenuItem -Menu $FCGControlEventsContextMenuStrip -Text "Generate Function" -Name "Function" -Tag "Function" -DisplayStyle "ImageAndText" -ImageKey "EventsIcon" -PassThru).add_Click({ Start-FCGControlEventsContextMenuStripItemClick -Sender $This -EventArg $PSItem })
 
 #endregion ******** $FCGControlsSplitContainer Panel2 Controls ********
 
